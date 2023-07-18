@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { echartsDataFormate } from "@/util/ve-charts";
+import { echartsDataFormate } from "@/util/v-charts";
 export default {
   data() {
     return {
