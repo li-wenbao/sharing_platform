@@ -2,37 +2,19 @@
  * 全局配置文件
  */
 export default {
-  // title: "", //标题
-  // logo: "S",
-  // key: "saber", //配置主键,目前用于存储
-  // indexTitle: "Saber Admin",
-  // clientId: "saber", // 客户端id
-  // clientSecret: "saber_secret", // 客户端密钥
-  // tenantMode: true, // 是否开启租户模式
-  // tenantId: "000000", // 管理组租户编号
-  // captchaMode: true, // 是否开启验证码模式
-  // switchMode: false, // 是否开启部门切换模式
-  // lockPage: "/lock",
-  // tokenTime: 30000,
-  // tokenHeader: 'Zling-Auth', //修改这里
-  // //http的status默认放行列表
-  // statusWhiteList: [],
-  // //配置首页不可关闭
-  // isFirstPage: false,
-
-  title: "居宜城社区服务",
+  title: "", //标题
   logo: "S",
-  key: 'community',//配置主键,目前用于存储
-  indexTitle: '居宜城社区服务',
-  clientId: 'saber', // 客户端id
-  clientSecret: 'saber_secret', // 客户端密钥
+  key: "saber", //配置主键,目前用于存储
+  indexTitle: "Saber Admin",
+  clientId: "saber", // 客户端id
+  clientSecret: "saber_secret", // 客户端密钥
   tenantMode: true, // 是否开启租户模式
   tenantId: "000000", // 管理组租户编号
   captchaMode: true, // 是否开启验证码模式
-  lockPage: '/lock',
+  switchMode: false, // 是否开启部门切换模式
+  lockPage: "/lock",
   tokenTime: 30000,
-  tokenHeader: 'Zling-Auth',
-  env:'innerNet',//innerNet,extraNet
+  tokenHeader: 'Zling-Auth', //修改这里
   //http的status默认放行列表
   statusWhiteList: [],
   //配置首页不可关闭
