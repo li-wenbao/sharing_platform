@@ -218,7 +218,7 @@ border
 }
 
 .border-right {
-  border-right: 1px #e6e6e6 solid;
+  border-right: 1px #e6e6e6 solid; 
 }
 
 /*  -- flex弹性布局 -- */
