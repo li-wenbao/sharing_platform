@@ -60,7 +60,7 @@ export default {
     },
     bgImage: {
       type: String,
-      default: require('../../../public/img/common/jtl-box-bg-1.png'),
+      // default: require('../../../public/img/common/jtl-box-bg-1.png'),
     },
     boxbg:{
       type: String,

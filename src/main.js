@@ -18,6 +18,7 @@ import {
 } from '@/config/env';
 import i18n from './lang'; // Internationalization
 import './styles/common.scss';
+import '../public/css/x_style.css';
 import basicBlock from './components/basic-block/main';
 import basicContainer from './components/basic-container/main';
 import thirdRegister from './components/third-register/main';

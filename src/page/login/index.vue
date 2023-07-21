@@ -1,50 +1,24 @@
 <template>
   <div class="login-container" ref="login" @keyup.enter.native="handleLogin">
     <top-color v-show="false"></top-color>
-    <div class="login-weaper animated bounceInDown">
-      <div class="login-left">
-        <div class="login-time">
-          {{ time }}
-        </div>
-        <p class="title">{{ $t('login.info') }}</p>
-        <!-- <div style="font-size: 15px">
-          <span>----------------------------------------------</span>
-          <br>
-          <span>管理租户编号：000000</span>
-          <br>
-          <span>超级管理员账号: admin / admin</span>
-          <br>
-          <span>人事账号: hr / hr</span>
-          <br>
-          <span>经理账号: manager / manager</span>
-          <br>
-          <span>老板账号: boss / boss</span>
-          <br>
-          <span>----------------------------------------------</span>
-          <br>
-          <span>普通租户编号：详见租户管理模块</span>
-          <br>
-          <span>租户管理员账号: admin / admin</span>
-          <br>
-          <span>----------------------------------------------</span>
-        </div> -->
-        <img class="img" src="/img/logo.png" alt="">
+    <div class="flex align-center comWidth100">
+      <div class="comWidth100 flex justify-end">
+        <img class="comWidth60" src="/img/bg/logoboxs-bg.png" alt="" style="margin-right: 10%;">
       </div>
-      <div class="login-border">
-        <div class="login-main">
-          <h4 class="login-title">
-            {{ $t('login.title') }}{{ website.title }}
-            <top-lang></top-lang>
-          </h4>
-          <userLogin v-if="activeName === 'user'"></userLogin>
-          <!-- <div class="login-menu">
-            <a href="#" @click.stop="activeName='user'">{{ $t('login.userLogin') }}</a>
-            <a href="#" @click.stop="activeName='third'">{{ $t('login.thirdLogin') }}</a>
-            <a :href="website.ssoUrl + website.redirectUri">{{ $t('login.ssoLogin') }}</a>
-          </div> -->
+      <div class="comWidth100 flex justify-center">
+        <div class="flex-all-center bg-white p-4 logon-box-bg">
+          <div class="login-main">
+            <h2 class="login-title fz-36">
+              {{ $t('login.title') }}{{ website.title }}
+              <top-lang></top-lang>
+            </h2>
+            <userLogin v-if="activeName === 'user'"></userLogin>
+          </div>
         </div>
       </div>
     </div>
+    <!-- <div class="login-weaper animated bounceInDown">
+    </div> -->
   </div>
 </template>
 <script>
