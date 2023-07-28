@@ -12,7 +12,6 @@ if (env.NODE_ENV === 'development') {
 } else if (env.NODE_ENV === 'test') {
     baseUrl = ``; //测试环境地址
 }
-console.log("env_baseUrl",baseUrl)
 export {
     baseUrl,
     iconfontUrl,
