@@ -3,9 +3,10 @@ module.exports = {
   publicPath: "/",
   lintOnSave: true,
   productionSourceMap: false,
-  chainWebpack: (config) => {
+  // ignoreProjectWarning: true,
+  chainWebpack: (config) => { 
     //忽略的打包文件
-    config.externals({
+    config.externals({ 
       'vue': 'Vue',
       'vue-router': 'VueRouter',
       'vuex': 'Vuex',
@@ -24,15 +25,19 @@ module.exports = {
   devServer: {
     port: 1888,
     proxy: {
-      '/api': {
+      '/share': {
         //本地服务接口地址
         // target: 'http://localhost',
+        // 8.137.102.41:8080/share/user/login
+        // target: 'http://8.137.102.41:8080', //测试api
+        target: 'https://abc.ijiandai.com',
         //远程演示服务地址,可用于直接启动项目
-        target: 'https://saber.bladex.cn/api',
+        // target: 'https://saber.bladex.cn/api',
         // target: 'https://saber.bladex.vip/api',
         ws: true,
+        changeOrigin: true,
         pathRewrite: {
-          '^/api': '/'
+          '^/share': '/share'
         }
       }
     }

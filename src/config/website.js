@@ -14,7 +14,8 @@ export default {
   switchMode: false, // 是否开启部门切换模式
   lockPage: '/lock',
   tokenTime: 3000,
-  tokenHeader: 'Blade-Auth',
+  uid:'U1683250241398',
+  tokenHeader: 'Authorization',
   //http的status默认放行列表
   statusWhiteList: [],
   //配置首页不可关闭
@@ -35,8 +36,8 @@ export default {
     iconDefault: 'iconfont icon-caidan',
     props: {
       label: 'name',
-      path: 'path',
-      icon: 'source',
+      path: 'url',
+      icon: 'icon',
       children: 'children'
     }
   },

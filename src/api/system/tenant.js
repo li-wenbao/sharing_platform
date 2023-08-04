@@ -72,7 +72,6 @@ export const datasource = (tenantId, datasourceId) => {
 
 export const info = (domain) => {
   return request({
-    // url: '/api/blade-system/tenant/info',
     url: '/api/blade-system/tenant/info',
     method: 'get',
     params: {

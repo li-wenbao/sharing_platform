@@ -32,6 +32,7 @@ NProgress.configure({
 });
 //http request拦截
 axios.interceptors.request.use(config => {
+  console.log("Mr. L 🚀 ~ config:", config)
   //开启 progress bar
   NProgress.start();
   //地址为已经配置状态则不添加前缀
@@ -41,17 +42,21 @@ axios.interceptors.request.use(config => {
   //headers判断是否需要
   const authorization = config.authorization === false;
   if (!authorization) {
-    config.headers['Authorization'] = `Basic ${Base64.encode(`${website.clientId}:${website.clientSecret}`)}`;
+    // config.headers['Authorization'] = `Basic ${Base64.encode(`${website.clientId}:${website.clientSecret}`)}`;
+    config.headers["Authorization"] = "U1683250241398";
+    // config.headers["Content-Type"] = "multipart/form-data";
   }
   //让每个请求携带token
   const meta = (config.meta || {});
+  // console.log("Mr. L 🚀 ~ meta:", meta)
   const isToken = meta.isToken === false;
   if (getToken() && !isToken) {
-    config.headers[website.tokenHeader] = 'bearer ' + getToken()
+    config.headers[website.tokenHeader] = getToken()
   }
   //headers中配置text请求
   if (config.text === true) {
-    config.headers["Content-Type"] = "text/plain";
+    // config.headers["Content-Type"] = "text/plain";
+    config.headers["Content-Type"] = "multipart/form-data";
   }
   //headers中配置serialize为true开启序列化
   if (config.method === 'post' && meta.isSerialize === true) {
@@ -69,18 +74,20 @@ axios.interceptors.response.use(res => {
   const status = res.data.code || res.status;
   const statusWhiteList = website.statusWhiteList || [];
   const message = res.data.msg || res.data.error_description || '未知错误';
+
   //如果在白名单里则自行catch逻辑处理
   if (statusWhiteList.includes(status)) return Promise.reject(res);
   //如果是401则跳转到登录页面
   if (status === 401) store.dispatch('FedLogOut').then(() => router.push({path: '/login'}));
   // 如果请求为非200否者默认统一处理
-  if (status !== 200) {
+  if (status !== 'CD000001') {
     Message({
       message: message,
       type: 'error'
     });
     return Promise.reject(new Error(message))
   }
+
   return res;
 }, error => {
   NProgress.done();

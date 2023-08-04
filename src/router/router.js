@@ -19,23 +19,25 @@ export const createRouter = () => new VueRouter({
   routes: [...PageRouter, ...ViewsRouter]
 })
 const Router = createRouter() // 获得 route 实例
+AvueRouter.install(Vue, Router, Store, i18n); // 初始化和注册 AvueRouter
 // 初始化和注册 AvueRouter
-AvueRouter.install(Vue, {
-  router: Router,
-  store: Store,
-  i18n: i18n,
-  keepAlive: false,
-});
+// AvueRouter.install(Vue, {
+//   router: Router,
+//   store: Store,
+//   i18n: i18n,
+//   keepAlive: false,
+// });
 Router.$avueRouter.formatRoutes(Store.state.user.menuAll, true); // 动态路由核心方法
 Router.addRoutes([...PageRouter, ...ViewsRouter]);
 export function resetRouter () {  // 重置路由 比如用于身份验证失败，需要重新登录时 先清空当前的路有权限
   const newRouter = createRouter()
   Router.matcher = newRouter.matcher // reset router
-  AvueRouter.install(Vue, {
-    router: Router,
-    store: Store,
-    i18n: i18n,
-    keepAlive: false,
-  });
+  AvueRouter.install(Vue, Router, Store, i18n);
+  // AvueRouter.install(Vue, {
+  //   router: Router,
+  //   store: Store,
+  //   i18n: i18n,
+  //   keepAlive: false,
+  // });
 }
 export default Router

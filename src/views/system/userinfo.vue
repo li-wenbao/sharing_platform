@@ -15,7 +15,6 @@
   import md5 from 'js-md5';
   import func from "@/util/func";
 
-
   export default {
     data() {
       return {

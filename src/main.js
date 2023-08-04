@@ -19,19 +19,20 @@ import {
 import i18n from './lang'; // Internationalization
 import './styles/common.scss';
 import '../public/css/x_style.css';
+import '../public/css/common.scss';
 import basicBlock from './components/basic-block/main';
 import basicContainer from './components/basic-container/main';
 import thirdRegister from './components/third-register/main';
-import flowDesign from './components/flow-design/main';
 import avueUeditor from 'avue-plugin-ueditor';
 import website from '@/config/website';
 import crudCommon from '@/mixins/crud';
-import popups from './components/popups/main';
+import WbPopups from './components/popups/main';
 import comEcharts from './components/echarts/comEcharts';
 import isnodata from './components/isnodata/isnodata';
 import imageView from './components/picture/imageView';
+import imageUpload from "./components/picture/imageUpload";
 // 业务组件
-import tenantPackage from './views/system/tenantpackage';
+// import tenantPackage from './views/system/tenantpackage';
 
 // 注册全局crud驱动
 window.$crudCommon = crudCommon;
@@ -52,12 +53,14 @@ Vue.component('basicContainer', basicContainer);
 Vue.component('basicBlock', basicBlock);
 Vue.component('thirdRegister', thirdRegister);
 Vue.component('avueUeditor', avueUeditor);
-Vue.component('flowDesign', flowDesign);
-Vue.component('tenantPackage', tenantPackage);
-Vue.component('popups', popups);
+// Vue.component('flowDesign', flowDesign);
+// Vue.component('tenantPackage', tenantPackage);
+Vue.component('WbPopups', WbPopups);
 Vue.component('comEcharts', comEcharts);
 Vue.component('isnodata', isnodata);
 Vue.component('imageView', imageView);
+Vue.component('imageUpload', imageUpload);
+
 // 加载相关url地址
 Object.keys(urls).forEach(key => {
   Vue.prototype[key] = urls[key];

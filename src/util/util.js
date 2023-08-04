@@ -178,6 +178,26 @@ export const findParent = (menu, id) => {
     }
   }
 };
+
+/**
+ * 递归寻找子类的父类
+ */
+
+export const findListParent = (menu, id) => {
+  for (let i = 0; i < menu.length; i++) {
+    if (menu[i].list.length != 0) {
+      for (let j = 0; j < menu[i].list.length; j++) {
+        if (menu[i].list[j].id == id) {
+          return menu[i];
+        } else {
+          if (menu[i].list[j].list.length != 0) {
+            return findParent(menu[i].list[j].list, id);
+          }
+        }
+      }
+    }
+  }
+};
 /**
  * 判断2个对象属性和值是否相等
  */

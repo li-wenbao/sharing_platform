@@ -57,7 +57,7 @@
       ...mapGetters(["userInfo"]),
     },
     created() {
-      this.getTenant();
+      // this.getTenant();
     },
     mounted() {
       // 若未登录则弹出框进行绑定

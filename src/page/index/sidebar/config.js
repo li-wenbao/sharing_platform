@@ -1,7 +1,7 @@
 export default {
   propsDefault: {
-    label: 'label',
-    path: 'path',
+    label: 'name',
+    path: 'url',
     icon: 'icon',
     children: 'children',
     isOpen: 'isOpen'

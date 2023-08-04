@@ -1,13 +1,13 @@
 import request from '@/router/axios';
 
-export const getList = (current, size, params) => {
+export const getList = (pageNum, pageSize, params) => {
   return request({
-    url: '/api/blade-system/role/list',
-    method: 'get',
+    url: '/share/role/getRoleList',
+    method: 'post',
     params: {
       ...params,
-      current,
-      size,
+      pageNum,
+      pageSize,
     }
   })
 }
@@ -43,17 +43,21 @@ export const remove = (ids) => {
 
 export const add = (row) => {
   return request({
-    url: '/api/blade-system/role/submit',
+    url: '/share/role/saveRole',
     method: 'post',
-    data: row
+    params: {
+      ...row,
+    },
   })
 }
 
 export const update = (row) => {
   return request({
-    url: '/api/blade-system/role/submit',
+    url: '/share/role/updateRole',
     method: 'post',
-    data: row
+    params: {
+      ...row,
+    },
   })
 }
 
@@ -68,16 +72,28 @@ export const getRole = (roleIds) => {
   })
 }
 
-export const getRoleTree = (tenantId) => {
+// 获取权限
+export const getRoleTree = (uid,roleid) => {
   return request({
-    url: '/api/blade-system/role/tree',
-    method: 'get',
+    url: '/share/menu/assignPermissionsGetMenu',
+    method: 'post',
     params: {
-      tenantId,
+      uid,
+      roleid
     }
   })
 }
-
+// 分配权限
+export const pushRole = (roleid,menuIdList) => {
+  return request({
+    url: '/share/role/assignPermissions',
+    method: 'post',
+    params: {
+      roleid,
+      menuIdList
+    }
+  })
+}
 export const getRoleTreeById = (roleId) => {
   return request({
     url: '/api/blade-system/role/tree-by-id',

@@ -1,0 +1,139 @@
+// avueForm样式表重新定义样式
+.avueForm-content {
+    overflow-y: auto;
+    height: 100%;
+
+    .el-form-item--mini.el-form-item,
+    .el-form-item--small.el-form-item {
+        border-left: 1px solid #ebeef5;
+        border-right: 1px solid #ebeef5;
+        border-top: 1px solid #ebeef5;
+        margin-bottom: 0 !important;
+        background: none !important;
+    }
+
+    input {
+        border: none;
+    }
+
+    /* //还原对话框下搜索框样式 */
+    .avue-crud__search {
+        .ceshi {
+            background-color: #909399;
+        }
+
+        .el-input__inner {
+            border: 1px solid #ebeef5 !important;
+        }
+
+        .el-form-item--mini.el-form-item,
+        .el-form-item--small.el-form-item {
+            border: none;
+        }
+
+        .el-form-item__content {
+            border-left: none;
+        }
+
+        .avue-form__row+.avue-form__menu {
+            border-bottom: none;
+            margin-bottom: 0 !important;
+        }
+
+        .avue-form__group {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .avue-form__group .avue-form__row:last-child {
+        margin-bottom: 10px !important;
+        border-bottom: 1px solid #ebeef5;
+    }
+
+    .avue-crud__dialog .avue-form__menu {
+        padding-top: 0;
+        border-left: 0 solid #909399;
+        border-right: none;
+        /* //margin-bottom: 40px !important; */
+    }
+
+    .el-col-md-12 {
+        border-left: 0 solid #ebeef5 !important;
+    }
+
+    .avue-form__menu {
+        padding: 0;
+    }
+
+    .avue-form,
+    .avue-form__group .el-col {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-bottom: 0;
+    }
+
+    .avue-form__menu .el-form-item__content {
+        border-left: none;
+        margin: 10px;
+    }
+
+    .el-form-item__content {
+        border-left: 1px solid #ebeef5;
+    }
+
+    .el-input.is-disabled .el-input__inner {
+        border-radius: 0;
+        background-color: #ffffff00;
+        border-color: #e4e7ed00;
+        color: #212121;
+    }
+
+    .el-textarea.is-disabled .el-textarea__inner {
+        background-color: #ffffff00;
+        border-color: #e4e7ed00;
+        color: #212121;
+    }
+
+    .avue-form__menu--center .el-form-item--small.el-form-item {
+        border-top: 1px solid #ebeef5 !important;
+        border-left: none;
+        border-right: none;
+    }
+    
+    .el-radio__input.is-checked+.el-radio__label {
+        color: #212121;
+    }
+
+    .avue-group .el-collapse-item__header {
+        border-bottom: 1px solid #eee0 !important;
+    }
+
+    .el-collapse-item__header {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    .el-form-item__label,
+    .el-collapse-item__header,
+    .avue-group__icon,
+    .el-collapse-item__content,
+    .avue-group__title {
+        color: #909399 !important;
+    }
+
+    .avue-group .el-collapse-item__header {
+        margin-bottom: 0px !important;
+    }
+
+    .avue-group .el-collapse,
+    .avue-group .el-collapse-item__wrap {
+        border-color: #00000000 !important;
+        background-color: rgba(0, 0, 0, 0) !important;
+    }
+
+    .el-input.is-disabled .el-input__inner {
+        background-color: rgba(0, 0, 0, 0) !important;
+        color: #212121 !important;
+        border-color: #ebeef5 !important;
+    }
+}

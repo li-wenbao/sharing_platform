@@ -8,8 +8,8 @@
       <div class="comWidth100 flex justify-center">
         <div class="flex-all-center bg-white p-4 logon-box-bg">
           <div class="login-main">
-            <h2 class="login-title fz-36">
-              {{ $t('login.title') }}{{ website.title }}
+            <h2 class="login-title fz-32">
+              欢迎{{ $t('login.title') }}{{ website.title }}
               <top-lang></top-lang>
             </h2>
             <userLogin v-if="activeName === 'user'"></userLogin>

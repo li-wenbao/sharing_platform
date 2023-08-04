@@ -1,35 +1,14 @@
 <template>
   <transition name="fade">
-    <div
-      class="mask-smbox comHeiWid100"
-      :style="{ background: maskBg }"
-      v-if="visible"
-    >
-      <div style="position: absolute; top: 20px; right: 26px; z-index: 303">
-        <div>
-          <el-button
-            type="danger"
-            icon="el-icon-close"
-            circle
-            @click.stop="close()"
-          >
-          </el-button>
-        </div>
-      </div>
-      <div
-        class="flex-all-center comHeiWid100"
-        style="position: absolute; z-index: 302"
-      >
-        <div class="flex-all-center" :style="{ width: width, height: height }">
-          <div
-            class="popUp-content"
-            :style="{ background: bgImage ? `url(${bgImage})` : '#fff' }"
-          >
-            <div
-              class="popUp-content-box"
-              :class="popUpClass"
-              :style="{ background: boxbg }"
-            >
+    <div class="el-dialog__wrapper avue-dialog avue-crud__dialog" :style="{ background: maskBg }" v-if="visible">
+      <div class="flex-all-center comHeiWid100" style="position: absolute; z-index: 302">
+        <div class="flex align-center flex-direction" :style="{ width: width, height: height }">
+          <div class="comWidth100 flex align-center justify-between p-1 bg-white" style="height: 40px;box-sizing:border-box">
+            <div>{{ title }}</div>
+            <i class="el-dialog__close el-icon el-icon-close pointer" @click.stop="close()"></i>
+          </div>
+          <div class="popUp-content" :style="{ background: bgImage ? `url(${bgImage})` : '#fff' }">
+            <div class="popUp-content-box" :class="popUpClass" :style="{ background: boxbg }">
               <slot></slot>
             </div>
           </div>
@@ -58,24 +37,28 @@ export default {
       type: String,
       default: "50%",
     },
+    title: {
+      type: String,
+      default: "标题",
+    },
     bgImage: {
       type: String,
       // default: require('../../../public/img/common/jtl-box-bg-1.png'),
     },
-    boxbg:{
+    boxbg: {
       type: String,
       default: "#fff",
     },
-    maskBg:{
+    maskBg: {
       type: String,
-      default: "rgba(0, 0, 0, 0.8)",
+      default: "rgba(0, 0, 0, 0.55)",
     },
-    popUpClass:{
+    popUpClass: {
       type: String,
       default: "#fff",
     }
   },
-  mounted() {},
+  mounted() { },
   watch: {},
   computed: {},
   methods: {
@@ -89,7 +72,7 @@ export default {
 <style lang="scss">
 .mask-smbox {
   position: absolute;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.5);
   left: 0;
   right: 0;
   top: 0;
@@ -98,7 +81,7 @@ export default {
 }
 
 .popUp-content {
-  height: 100%;
+  height: calc(100% - 40px);
   width: 100%;
   background-position: 0 0 !important;
   background-repeat: no-repeat !important;
@@ -111,11 +94,13 @@ export default {
     overflow-y: auto;
   }
 }
+
 // 渐变过渡
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
 }
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.35s;

@@ -1,44 +1,16 @@
 import request from '@/router/axios';
 import website from "@/config/website";
-
-export const loginByUsername = (tenantId, deptId, roleId, username, password, type, key, code) => request({
-  url: '/api/blade-auth/oauth/token',
+export const loginByUsername = (account,password) => request({
+  url: '/share/user/login',
   method: 'post',
   headers: {
-    'Tenant-Id': tenantId,
-    'Dept-Id': (website.switchMode ? deptId : ''),
-    'Role-Id': (website.switchMode ? roleId : ''),
-    'Captcha-Key': key,
-    'Captcha-Code': code,
+    'Content-Type': 'multipart/form-data'
   },
   params: {
-    tenantId,
-    username,
-    password,
-    grant_type: (website.captchaMode ? "captcha" : "password"),
-    scope: "all",
-    type
+    account,
+    password
   }
 });
-
-// export const loginByUsername = (tenantId, username, password, type, key, code) => request({
-//   url: '/api/blade-auth/oauth/login',
-//   method: 'post',
-//   headers: {
-//     'Tenant-Id': tenantId,
-//     'Captcha-Key': key,
-//     'Captcha-Code': code,
-//   },
-//   // captcha
-//   data: {
-//     tenantId,
-//     username,
-//     password,
-//     grant_type: (website.captchaMode ? "password" : "password"),
-//     scope: "all",
-//     type
-//   }
-// });
 
 export const loginBySocial = (tenantId, source, code, state) => request({
   url: '/api/blade-auth/oauth/token',

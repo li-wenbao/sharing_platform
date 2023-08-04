@@ -29,115 +29,69 @@
 </template>
 
 <script>
-  import {mapGetters} from "vuex";
-  import tags from "./tags";
-  import search from "./search";
-  import top from "./top/";
-  import sidebar from "./sidebar/";
-  import admin from "@/util/admin";
-  import {validatenull} from "@/util/validate";
-  import {calcDate} from "@/util/date.js";
-  import {getStore} from "@/util/store.js";
+import {mapGetters} from "vuex";
+import tags from "./tags";
+import search from "./search";
+import top from "./top/";
+import sidebar from "./sidebar/";
+import admin from "@/util/admin";
+import {validatenull} from "@/util/validate";
+import {calcDate} from "@/util/date.js";
+import {getStore} from "@/util/store.js";
 
-  export default {
-    components: {
-      top,
-      tags,
-      search,
-      sidebar
+export default {
+  components: {
+    top,
+    tags,
+    search,
+    sidebar,
+  },
+  name: "index",
+  provide() {
+    return {
+      index: this,
+    };
+  },
+  data() {
+    return {
+      //搜索控制
+      isSearch: false,
+      userId: '',
+      websocket: undefined,
+    };
+  },
+  created() {
+    //实时检测刷新token
+  },
+  mounted() {
+    this.init();
+    this.userId = this.userInfo.id;
+    console.log("Mr. L 🚀 ~ this.userInfo.id:", this.userInfo.id)
+  },
+  computed: mapGetters(["isMenu", "isCollapse", "website", "menu", "userInfo"]),
+  props: [],
+  methods: {
+    showCollapse() {
+      this.$store.commit("SET_COLLAPSE");
     },
-    name: "index",
-    provide() {
-      return {
-        index: this
+    // 初始化
+    init() {
+      // this.$store.dispatch("GetMenu","U1683250241398").then();
+      this.$store.commit("SET_SCREEN", admin.getScreen());
+      window.onresize = () => {
+        setTimeout(() => {
+          this.$store.commit("SET_SCREEN", admin.getScreen());
+        }, 0);
       };
     },
-    data() {
-      return {
-        //搜索控制
-        isSearch: false,
-        //刷新token锁
-        refreshLock: false,
-        //刷新token的时间
-        refreshTime: ""
-      };
+    //打开菜单
+    openMenu(item = {}) {
+      this.$store.dispatch("GetMenu", "U1683250241398").then((data) => {
+        if (data.length !== 0) {
+          this.$router.$avueRouter.formatRoutes(data, true);
+        }
+      });
     },
-    created() {
-      //实时检测刷新token
-      this.refreshToken();
-    },
-    mounted() {
-      this.init();
-    },
-    computed: mapGetters(["isMenu", "isLock", "isCollapse", "website", "menu"]),
-    props: [],
-    methods: {
-      showCollapse() {
-        this.$store.commit("SET_COLLAPSE");
-      },
-      // 初始化
-      init() {
-        this.$store.commit("SET_SCREEN", admin.getScreen());
-        window.onresize = () => {
-          setTimeout(() => {
-            this.$store.commit("SET_SCREEN", admin.getScreen());
-          }, 0);
-        };
-        this.$store.dispatch("FlowRoutes").then(() => {
-        });
-      },
-      //打开菜单
-      openMenu(item = {}) {
-        this.$store.dispatch("GetMenu", item.id).then(data => {
-          if (data.length !== 0) {
-            this.$router.$avueRouter.formatRoutes(data, true);
-          }
-          //当点击顶部菜单后默认打开第一个菜单
-          /*if (!this.validatenull(item)) {
-            let itemActive = {},
-              childItemActive = 0;
-            if (item.path) {
-              itemActive = item;
-            } else {
-              if (this.menu[childItemActive].length === 0) {
-                itemActive = this.menu[childItemActive];
-              } else {
-                itemActive = this.menu[childItemActive].children[childItemActive];
-              }
-            }
-            this.$store.commit('SET_MENU_ID', item);
-            this.$router.push({
-              path: this.$router.$avueRouter.getPath({
-                name: (itemActive.label || itemActive.name),
-                src: itemActive.path
-              }, itemActive.meta)
-            });
-          }*/
-
-        });
-      },
-      // 定时检测token
-      refreshToken() {
-        this.refreshTime = setInterval(() => {
-          const token = getStore({
-            name: "token",
-            debug: true
-          }) || {};
-          const date = calcDate(token.datetime, new Date().getTime());
-          if (validatenull(date)) return;
-          if (date.seconds >= this.website.tokenTime && !this.refreshLock) {
-            this.refreshLock = true;
-            this.$store
-              .dispatch("refreshToken")
-              .then(() => {
-                this.refreshLock = false;
-              })
-              .catch(() => {
-                this.refreshLock = false;
-              });
-          }
-        }, 10000);
-      }
-    }
-  };
+  },
+};
 </script>

@@ -1,41 +1,34 @@
 import request from '@/router/axios';
 
-export const getList = (current, size, params, deptId) => {
+export const getList = (pageNum, pageSize, params) => {
   return request({
-    url: '/api/blade-system/user/page',
-    method: 'get',
-    params: {
-      ...params,
-      current,
-      size,
-      deptId,
-    }
-  })
-}
-
-export const remove = (ids) => {
-  return request({
-    url: '/api/blade-system/user/remove',
+    url: '/share/user/getUserInfoList',
     method: 'post',
     params: {
-      ids,
+      ...params,
+      pageNum,
+      pageSize,
     }
   })
 }
 
 export const add = (row) => {
   return request({
-    url: '/api/blade-system/user/submit',
+    url: '/share/user/saveUserInfo',
     method: 'post',
-    data: row
+    params: {
+      ...row,
+    },
   })
 }
 
 export const update = (row) => {
   return request({
-    url: '/api/blade-system/user/update',
+    url: '/share/user/updateUserInfo',
     method: 'post',
-    data: row
+    params: {
+      ...row,
+    },
   })
 }
 

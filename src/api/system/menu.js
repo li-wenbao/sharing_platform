@@ -1,106 +1,119 @@
-import request from '@/router/axios';
+import request from "@/router/axios";
 
 export const getList = (current, size, params) => {
   return request({
-    url: '/api/blade-system/menu/list',
-    method: 'get',
+    url: "/share/menu/getMenuList",
+    method: "post",
     params: {
       ...params,
       current,
       size,
-    }
-  })
-}
+    },
+  });
+};
 
-export const getLazyList = (parentId, params) => {
+export const getLazyList = (params) => {
   return request({
-    url: '/api/blade-system/menu/lazy-list',
-    method: 'get',
+    url: "/share/menu/getMenuList",
+    method: "get",
     params: {
       ...params,
-      parentId
-    }
-  })
-}
+    },
+  });
+};
 
 export const getLazyMenuList = (parentId, params) => {
   return request({
-    url: '/api/blade-system/menu/lazy-menu-list',
-    method: 'get',
+    url: "/api/blade-system/menu/lazy-menu-list",
+    method: "get",
     params: {
       ...params,
-      parentId
-    }
-  })
-}
+      parentId,
+    },
+  });
+};
 
 export const getMenuList = (current, size, params) => {
   return request({
-    url: '/api/blade-system/menu/menu-list',
-    method: 'get',
+    url: "/api/blade-system/menu/menu-list",
+    method: "get",
     params: {
       ...params,
       current,
       size,
-    }
-  })
-}
+    },
+  });
+};
 
 export const getMenuTree = (tenantId) => {
   return request({
-    url: '/api/blade-system/menu/tree',
-    method: 'get',
+    url: "/api/blade-system/menu/tree",
+    method: "get",
     params: {
       tenantId,
-    }
-  })
-}
+    },
+  });
+};
 
-export const remove = (ids) => {
+export const remove = (menuIdList) => {
   return request({
-    url: '/api/blade-system/menu/remove',
-    method: 'post',
+    url: "/share/menu/deleteMenu",
+    method: "post",
     params: {
-      ids,
-    }
-  })
-}
+      menuIdList,
+    },
+  });
+};
 
 export const add = (row) => {
   return request({
-    url: '/api/blade-system/menu/submit',
-    method: 'post',
-    data: row
-  })
-}
+    url: "/share/menu/saveMenu",
+    method: "post",
+    params: {
+      ...row,
+    },
+  });
+};
 
 export const update = (row) => {
   return request({
-    url: '/api/blade-system/menu/submit',
-    method: 'post',
-    data: row
-  })
-}
-
-export const getMenu = (id) => {
-  return request({
-    url: '/api/blade-system/menu/detail',
-    method: 'get',
+    url: "/share/menu/updateMenu",
+    method: "post",
     params: {
-      id,
-    }
-  })
-}
+      ...row,
+    },
+  });
+};
 
-export const getTopMenu = () => request({
-  url: '/api/blade-system/menu/top-menu',
-  method: 'get'
-});
+export const Info = (menuid) => {
+  return request({
+    url: "/share/menu/getMenuInfo",
+    method: "post",
+    params: { menuid },
+  });
+};
 
-export const getRoutes = (topMenuId) => request({
-  url: '/api/blade-system/menu/routes',
-  method: 'get',
-  params: {
-    topMenuId,
-  }
-});
+export const getMenu = (uid) => {
+  return request({
+    url: "/share/menu/userMenu",
+    method: "post",
+    params: {
+      uid,
+    },
+  });
+};
+
+export const getTopMenu = () =>
+  request({
+    url: "/api/blade-system/menu/top-menu",
+    method: "get",
+  });
+
+export const getRoutes = () =>
+  request({
+    url: "/share/menu/getMenuList",
+    method: "get",
+    params: {
+      // uid,
+    },
+  });

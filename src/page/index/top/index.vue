@@ -8,16 +8,6 @@
            @click="setCollapse"></i>
       </div>
     </div>
-    <div class="top-bar__title">
-      <div class="top-bar__item top-bar__item--show"
-           v-if="showMenu">
-        <top-menu ref="topMenu"></top-menu>
-      </div>
-      <span class="top-bar__item"
-            v-if="showSearch">
-        <top-search></top-search>
-      </span>
-    </div>
     <div class="top-bar__right">
       <el-tooltip v-if="showColor"
                   effect="dark"
@@ -33,14 +23,6 @@
                   placement="bottom">
         <div class="top-bar__item">
           <top-logs></top-logs>
-        </div>
-      </el-tooltip>
-      <el-tooltip v-if="showLock"
-                  effect="dark"
-                  :content="$t('navbar.lock')"
-                  placement="bottom">
-        <div class="top-bar__item">
-          <top-lock></top-lock>
         </div>
       </el-tooltip>
       <el-tooltip v-if="showTheme"
@@ -78,30 +60,21 @@
            :src="userInfo.avatar">
       <el-dropdown>
         <span class="el-dropdown-link">
-          {{userInfo.userName}}
+          {{userInfo.name}}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>
             <router-link to="/">{{$t('navbar.dashboard')}}</router-link>
           </el-dropdown-item>
-          <el-dropdown-item>
+          <!-- <el-dropdown-item>
             <router-link to="/info/index">{{$t('navbar.userinfo')}}</router-link>
-          </el-dropdown-item>
-          <el-dropdown-item v-if="this.website.switchMode" @click.native="switchDept"
-                            >{{$t('navbar.switchDept')}}
-          </el-dropdown-item>
+          </el-dropdown-item> -->
           <el-dropdown-item @click.native="logout"
                             divided>{{$t('navbar.logOut')}}
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-dialog title="用户信息选择"
-                 append-to-body
-                 :visible.sync="userBox"
-                 width="350px">
-        <avue-form ref="form" :option="userOption" v-model="userForm" @submit="submitSwitch"/>
-      </el-dialog>
     </div>
   </div>
 </template>
@@ -109,9 +82,6 @@
   import {resetRouter} from '@/router/router'
   import {mapGetters, mapState} from "vuex";
   import {fullscreenToggel, listenfullscreen} from "@/util/util";
-  import topLock from "./top-lock";
-  import topMenu from "./top-menu";
-  import topSearch from "./top-search";
   import topTheme from "./top-theme";
   import topLogs from "./top-logs";
   import topColor from "./top-color";
@@ -120,65 +90,20 @@
 
   export default {
     components: {
-      topLock,
-      topMenu,
-      topSearch,
       topTheme,
       topLogs,
       topColor,
-      topNotice,
+      // topNotice,
       topLang
     },
     name: "top",
     data() {
       return {
-        userBox: false,
+        // userBox: false,
         userForm: {
           deptId: '',
           roleId: ''
         },
-        userOption: {
-          labelWidth: 70,
-          submitBtn: true,
-          emptyBtn: false,
-          submitText: '切换',
-          column: [
-            {
-              label: '部门',
-              prop: 'deptId',
-              type: 'select',
-              props: {
-                label: 'deptName',
-                value: 'id'
-              },
-              dicUrl: '/api/blade-system/dept/select',
-              span: 24,
-              display: false,
-              rules: [{
-                required: true,
-                message: "请选择部门",
-                trigger: "blur"
-              }],
-            },
-            {
-              label: '角色',
-              prop: 'roleId',
-              type: 'select',
-              props: {
-                label: 'roleName',
-                value: 'id'
-              },
-              dicUrl: '/api/blade-system/role/select',
-              span: 24,
-              display: false,
-              rules: [{
-                required: true,
-                message: "请选择角色",
-                trigger: "blur"
-              }],
-            },
-          ]
-        }
       };
     },
     filters: {},
@@ -186,25 +111,22 @@
     },
     mounted() {
       listenfullscreen(this.setScreen);
+      this.userInfo
+      console.log("Mr. L 🚀 ~ this.userInfo:", this.userInfo)
     },
     computed: {
       ...mapState({
         showDebug: state => state.common.showDebug,
         showTheme: state => state.common.showTheme,
-        showLock: state => state.common.showLock,
         showFullScren: state => state.common.showFullScren,
         showCollapse: state => state.common.showCollapse,
-        showSearch: state => state.common.showSearch,
-        showMenu: state => state.common.showMenu,
         showColor: state => state.common.showColor
       }),
       ...mapGetters([
         "userInfo",
         "isFullScren",
-        "tagWel",
         "tagList",
         "isCollapse",
-        "tag",
         "logsLen",
         "logsFlag"
       ])
@@ -218,23 +140,6 @@
       },
       setScreen() {
         this.$store.commit("SET_FULLSCREN");
-      },
-      switchDept() {
-        const userId = this.userInfo.user_id;
-        const deptColumn = this.findObject(this.userOption.column, "deptId");
-        deptColumn.dicUrl = `/api/blade-system/dept/select?userId=${userId}`;
-        deptColumn.display = true;
-        const roleColumn = this.findObject(this.userOption.column, "roleId");
-        roleColumn.dicUrl = `/api/blade-system/role/select?userId=${userId}`;
-        roleColumn.display = true;
-        this.userBox = true;
-      },
-      submitSwitch (form, done) {
-        this.$store.dispatch("refreshToken", form).then(() => {
-          this.userBox = false;
-          this.$router.push({path: "/"});
-        })
-        done();
       },
       logout() {
         this.$confirm(this.$t("logoutTip"), this.$t("tip"), {
