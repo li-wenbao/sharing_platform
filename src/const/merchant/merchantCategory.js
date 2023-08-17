@@ -23,13 +23,6 @@ export const mainOption = {
       label: "名称",
       prop: "name",
       span: 24,
-      rules: [
-        {
-          required: true,
-          message: "请输入名称",
-          trigger: "blur",
-        },
-      ],
     },
     {
       label: "图标",
@@ -39,13 +32,7 @@ export const mainOption = {
       span: 24,
       formslot: true,
       slot: true,
-      rules: [
-        {
-          required: true,
-          message: "请选择商品封面",
-          trigger: "blur",
-        },
-      ],
+      $cellEdit: true,
     },
     {
       label: "类型id",
@@ -53,6 +40,7 @@ export const mainOption = {
       hide: true,
       addDisplay: false,
       editDisplay: false,
+      viewDisplay: false,
       rules: [
         {
           required: true,
@@ -80,26 +68,12 @@ export const mainOption = {
           value: '2',
         },
       ],
-      rules: [
-        {
-          required: true,
-          message: "请选择状态",
-          trigger: "blur",
-        },
-      ],
     },
     {
       label: "排序",
       prop: "sort",
       width: 150,
       align: "center",
-      rules: [
-        {
-          required: true,
-          message: "请输入排序",
-          trigger: "blur",
-        },
-      ],
     },
     {
       label: "创建时间",

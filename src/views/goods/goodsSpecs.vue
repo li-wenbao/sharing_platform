@@ -1,15 +1,16 @@
 <template>
     <basic-container>
         <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
-            :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel"
-            @row-update="rowUpdate" @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
+            :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel" @row-update="rowUpdate"
+            @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
-            @refresh-change="refreshChange" @on-load="onLoad">
+            @refresh-change="refreshChange">
             <template slot-scope="scope" slot="surl">
                 <el-image :src="scope.row.surl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
             </template>
             <template slot-scope="scope" slot="surlForm">
-                <imageUpload :disabled="scope.disabled" :list="form.surl" v-model="form.surl"></imageUpload>
+                <imageUpload :disabled="scope.disabled" :list="form.surl" v-model="form.surl" @on-change="onImgChange">
+                </imageUpload>
             </template>
         </avue-crud>
     </basic-container>
@@ -18,16 +19,15 @@
 <script>
 import { getList, update, add } from "@/api/goods/goodsSpecs";
 import { mainOption } from "@/const/goods/goodsSpecs"
-import { mapGetters } from "vuex";
-import website from '@/config/website';
 
 export default {
     data() {
         return {
             form: {},
-            cid:"C1690722866964",
+            imgUrl: "",
+            cid: "",
             selectionList: [],
-            srcList:[],
+            srcList: [],
             query: {},
             loading: true,
             parentId: 0,
@@ -41,6 +41,22 @@ export default {
             data: []
         };
     },
+    props: {
+        tranceferData: {
+            type: Object,
+        },
+    },
+    watch: {
+        tranceferData: {
+            handler(nowValue) {
+                if (nowValue) {
+                    this.cid = nowValue.id
+                    this.onLoad(this.cid);
+                }
+            },
+            deep: true,
+        },
+    },
     computed: {
         ids() {
             let ids = [];
@@ -50,7 +66,8 @@ export default {
             return ids.join(",");
         }
     },
-    mounted(){
+    mounted() {
+        this.cid = this.tranceferData.id
         this.onLoad(this.cid);
     },
     methods: {
@@ -58,7 +75,12 @@ export default {
             this.parentId = row.id;
             this.$refs.crud.rowAdd();
         },
+        onImgChange(data) {
+            this.imgUrl = data
+        },
         rowSave(row, done, loading) {
+            row.cid = this.tranceferData.id
+            row.surl = this.imgUrl
             add(row).then((res) => {
                 // 获取新增数据的相关字段
                 // const data = res.data.data;
@@ -75,6 +97,7 @@ export default {
             });
         },
         rowUpdate(row, index, done, loading) {
+            row.surl = this.imgUrl
             update(row).then(() => {
                 this.$message({
                     type: "success",
@@ -108,7 +131,7 @@ export default {
         },
         beforeOpen(done, type) {
             if (["add", "edit"].includes(type)) {
-  
+
             }
             if (["edit", "view"].includes(type)) {
 
@@ -125,7 +148,6 @@ export default {
             this.page.pageSize = pageSize;
         },
         refreshChange() {
-            this.parentId = 0
             this.onLoad(this.cid);
         },
         onLoad(cid) {
@@ -133,10 +155,10 @@ export default {
             getList(cid).then(res => {
                 if (res && res.data) {
                     let data = res.data.data
-                    data.specList.forEach((item,index)=>{
-                        this.srcList.push(item.surl)
-                    })
                     if (data.specList) {
+                        data.specList.forEach((item, index) => {
+                            this.srcList.push(item.surl)
+                        })
                         this.data = data.specList
                     }
                     this.page.total = data.count;

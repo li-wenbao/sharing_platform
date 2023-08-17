@@ -86,53 +86,53 @@ export default [
     ],
   },
   {
-    path: "/system/user",
-    name: "账户",
+    path: "/base/couponList",
+    name: "优惠券",
     component: Layout,
-    redirect: "/system/user/index",
+    redirect: "/base/couponList/index",
     children: [
       {
         path: "index",
-        name: "账户",
+        name: "优惠券",
         meta: {
-          i18n: "user",
+          i18n: "couponList",
         },
         component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/system/user"),
+          import(/* webpackChunkName: "views" */ "@/views/base/couponList"),
       },
     ],
   },
   {
-    path: "/base/merchant",
-    name: "商户",
+    path: "/base/couponCategory",
+    name: "优惠券类型",
     component: Layout,
-    redirect: "/base/merchant/index",
+    redirect: "/base/couponCategory/index",
     children: [
       {
         path: "index",
-        name: "商户",
+        name: "优惠券类型",
         meta: {
-          i18n: "merchant",
+          i18n: "couponCategory",
         },
         component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/base/merchant"),
+          import(/* webpackChunkName: "views" */ "@/views/base/couponCategory"),
       },
     ],
   },
   {
-    path: "/base/carousel",
-    name: "轮播图",
+    path: "/order/orderList",
+    name: "订单管理",
     component: Layout,
-    redirect: "/base/carousel/index",
+    redirect: "/order/orderList/index",
     children: [
       {
         path: "index",
-        name: "轮播图",
+        name: "订单管理",
         meta: {
-          i18n: "carousel",
+          i18n: "orderList",
         },
         component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/base/carousel"),
+          import(/* webpackChunkName: "views" */ "@/views/order/orderList"),
       },
     ],
   },
@@ -188,10 +188,10 @@ export default [
     ],
   },
   {
-    path: "/authority/role",
+    path: "/user/role",
     name: "角色管理",
     component: Layout,
-    redirect: "/authority/role/index",
+    redirect: "/user/role/index",
     children: [
       {
         path: "index",
@@ -200,7 +200,7 @@ export default [
           i18n: "role",
         },
         component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/authority/role"),
+          import(/* webpackChunkName: "views" */ "@/views/user/role"),
       },
     ],
   },

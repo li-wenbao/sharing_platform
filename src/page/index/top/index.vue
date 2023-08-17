@@ -111,8 +111,6 @@
     },
     mounted() {
       listenfullscreen(this.setScreen);
-      this.userInfo
-      console.log("Mr. L 🚀 ~ this.userInfo:", this.userInfo)
     },
     computed: {
       ...mapState({

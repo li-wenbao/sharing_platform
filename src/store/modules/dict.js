@@ -1,6 +1,5 @@
 import {getStore, setStore} from '@/util/store'
 
-import {getDictionary} from '@/api/system/dict'
 
 const dict = {
   state: {

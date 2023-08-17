@@ -17,7 +17,7 @@ export const mainOption = {
   viewBtn: true,
   // editBtn: false,
   delBtn: false,
-  menuWidth: 200,
+  menuWidth: 268,
   highlightCurrentRow: true,
   dialogClickModal: false,
   column: [
@@ -38,16 +38,11 @@ export const mainOption = {
       prop: "mtName",
       type: "select",
       search: true,
-      // slot: true,
-      // formslot: true,
-      // dicUrl: "/share/merchant/getMerchantTypeList?pageNum=1&pageSize=10",
       dicData: [],
       props: {
         label: "name",
         value: "mtid",
       },
-      // dicMethod: "post",
-      // dicFormatter:(res)=>{return res.data.merchantTypeList},
       rules: [
         {
           required: true,
@@ -136,27 +131,28 @@ export const mainOption = {
           label: "正常",
           value: "2",
         },
-        {
-          label: "审核失败",
-          value: "3",
-        },
-        {
-          label: "注销",
-          value: "4",
-        },
-        {
-          label: "已取消",
-          value: "5",
-        },
+        // {
+        //   label: "审核失败",
+        //   value: "3",
+        // },
+        // {
+        //   label: "注销",
+        //   value: "4",
+        // },
+        // {
+        //   label: "已取消",
+        //   value: "5",
+        // },
       ],
       control: (val, form) => {
         //按条件设置显示隐藏
         if (val == "2") {
-          console.log("Mr. L 🚀 ~ form:", form)
           return {
+            uid: {
+              editDisplay: false,
+            },
             account: {
               editDisplay: true,
-              
             },
             password: {
               editDisplay: true,
@@ -169,6 +165,15 @@ export const mainOption = {
           return {
             uid: {
               editDisplay: true,
+            },
+            account: {
+              editDisplay: false,
+            },
+            password: {
+              editDisplay: false,
+            },
+            roleid: {
+              editDisplay: false,
             },
           };
         } else {
@@ -202,6 +207,19 @@ export const mainOption = {
       hide: true,
       addDisplay: false,
       editDisplay: false,
+      type: "select",
+      dicData: [],
+      props: {
+        label: "account",
+        value: "uid",
+      },
+      // rules: [
+      //   {
+      //     required: true,
+      //     message: "请输入账号id",
+      //     trigger: "blur",
+      //   },
+      // ],
     },
     {
       label: "账号",
@@ -209,20 +227,48 @@ export const mainOption = {
       hide: true,
       addDisplay: false,
       editDisplay: false,
+      // rules: [
+      //   {
+      //     required: true,
+      //     message: "请输入账号",
+      //     trigger: "blur",
+      //   },
+      // ],
     },
     {
       label: "密码",
       prop: "password",
       hide: true,
+      value:"123456",
       addDisplay: false,
       editDisplay: false,
+      // rules: [
+      //   {
+      //     required: true,
+      //     message: "请输入密码",
+      //     trigger: "blur",
+      //   },
+      // ],
     },
     {
       label: "角色",
       prop: "roleid",
       hide: true,
+      type: "select",
+      dicData: [],
+      props: {
+        label: "name",
+        value: "roleid",
+      },
       addDisplay: false,
       editDisplay: false,
+      // rules: [
+      //   {
+      //     required: true,
+      //     message: "请输入角色",
+      //     trigger: "blur",
+      //   },
+      // ],
     },
     {
       label: "推介码",
@@ -232,7 +278,7 @@ export const mainOption = {
       rules: [
         {
           required: true,
-          message: "请输入菜单图标",
+          message: "请输入推介码",
           trigger: "click",
         },
       ],

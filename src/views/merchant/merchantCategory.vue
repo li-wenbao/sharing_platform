@@ -1,10 +1,9 @@
 <template>
   <basic-container>
     <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
-      :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel"
-      @row-update="rowUpdate" @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
-      @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
-      @refresh-change="refreshChange" @on-load="onLoad">
+      :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel" @row-update="rowUpdate" @row-save="rowSave"
+      @search-change="searchChange" @search-reset="searchReset" @selection-change="selectionChange"
+      @current-change="currentChange" @size-change="sizeChange" @refresh-change="refreshChange" @on-load="onLoad">
       <!-- <template slot="menuLeft">
               <el-button type="danger" size="small" icon="el-icon-delete" v-if="permission.dept_delete" plain
                   @click="handleDelete">删 除
@@ -14,7 +13,8 @@
         <el-image :src="scope.row.iconurl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
       </template>
       <template slot-scope="scope" slot="iconurlForm">
-        <imageUpload :disabled="scope.disabled" :list="form.iconurl" v-model="form.iconurl"></imageUpload>
+        <imageUpload :disabled="scope.disabled" :list="form.iconurl" v-model="form.iconurl" @on-change="onImgChange">
+        </imageUpload>
       </template>
     </avue-crud>
   </basic-container>
@@ -23,11 +23,12 @@
 <script>
 import { getList, update, add } from "@/api/merchant/merchantCategory";
 import { mainOption } from "@/const/merchant/merchantCategory"
-import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
+      imgUrl: "",
+      formName: "",
       form: {},
       selectionList: [],
       srcList: [],
@@ -57,10 +58,13 @@ export default {
   },
   methods: {
     handleAdd(row) {
-      this.parentId = row.id;
       this.$refs.crud.rowAdd();
     },
+    onImgChange(data) {
+      this.imgUrl = data
+    },
     rowSave(row, done, loading) {
+      row.iconurl = this.imgUrl
       add(row).then((res) => {
         // 获取新增数据的相关字段
         // const data = res.data.data;
@@ -77,18 +81,34 @@ export default {
       });
     },
     rowUpdate(row, index, done, loading) {
-      update(row).then(() => {
-        this.$message({
-          type: "success",
-          message: "操作成功!"
+      row.iconurl = this.imgUrl
+      if (this.formName == row.name) {
+        update(row.mtid, '', row.iconurl, row.sort, row.status).then(() => {
+          this.$message({
+            type: "success",
+            message: "操作成功!"
+          });
+          // 数据回调进行刷新
+          this.refreshChange()
+          done(row);
+        }, error => {
+          window.console.log(error);
+          loading();
         });
-        // 数据回调进行刷新
-        this.refreshChange()
-        done(row);
-      }, error => {
-        window.console.log(error);
-        loading();
-      });
+      } else {
+        update(row.mtid, row.name, row.iconurl, row.sort, row.status).then(() => {
+          this.$message({
+            type: "success",
+            message: "操作成功!"
+          });
+          // 数据回调进行刷新
+          this.refreshChange()
+          done(row);
+        }, error => {
+          window.console.log(error);
+          loading();
+        });
+      }
     },
     searchReset() {
       this.query = {};
@@ -110,7 +130,7 @@ export default {
     },
     beforeOpen(done, type) {
       if (["add", "edit"].includes(type)) {
-
+        this.formName = this.form.name
       }
       if (["edit", "view"].includes(type)) {
 

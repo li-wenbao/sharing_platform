@@ -1,0 +1,112 @@
+export const mainOption = {
+  height: "auto",
+  calcHeight: 10,
+  dialogDrag: true,
+  tip: false,
+  simplePage: true,
+  searchShow: false,
+  searchMenuSpan: 4,
+  dialogWidth: "50%",
+  border: true,
+  index: true,
+  selection: true,
+  viewBtn: true,
+  delBtn: false,
+  menuWidth: 200,
+  dialogClickModal: false,
+  column: [
+    {
+      label: "类型id",
+      prop: "ctid",
+      hide: true,
+      display: false,
+      rules: [
+        {
+          required: true,
+          message: "请输入类型id",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "名称",
+      prop: "name",
+      span: 24,
+      minWidth: 200,
+      rules: [
+        {
+          required: true,
+          message: "请输入内容",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "正常封面",
+      prop: "zcurl",
+      maxlength: 64,
+      showWordLimit: true,
+      span: 24,
+      type: "upload",
+      formslot: true,
+      slot: true,
+    },
+    {
+      label: "失效封面",
+      prop: "jyurl",
+      maxlength: 64,
+      addDisplay: false,
+      editDisplay: false,
+      showWordLimit: true,
+      span: 24,
+      formslot: true,
+      slot: true,
+    },
+    {
+      label: "状态",
+      prop: "status",
+      type: "select",
+      width: 90,
+      span: 24,
+      align: "center",
+      search: true,
+      addDisplay: false,
+      props: {
+        label: "label",
+        value: "value",
+      },
+      //状态:1.正常 2.禁用
+      dicData: [
+        {
+          label: "正常",
+          value: "1",
+        },
+        {
+          label: "禁用",
+          value: "2",
+        },
+      ],
+      rules: [
+        {
+          required: true,
+          message: "请选择状态",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "创建时间",
+      prop: "credate",
+      width: 160,
+      // hide: true,
+      display: false,
+    },
+    {
+      label: "修改时间",
+      prop: "upddate",
+      width: 160,
+      // hide: true,
+      display: false,
+    },
+  ],
+};

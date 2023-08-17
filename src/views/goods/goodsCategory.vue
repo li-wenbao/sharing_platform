@@ -5,17 +5,6 @@
             @row-update="rowUpdate" @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange" @on-load="onLoad">
-            <!-- <template slot="menuLeft">
-                <el-button type="danger" size="small" icon="el-icon-delete" v-if="permission.dept_delete" plain
-                    @click="handleDelete">删 除
-                </el-button>
-            </template> -->
-            <template slot-scope="scope" slot="curl">
-                <el-image :src="scope.row.curl"></el-image>
-            </template>
-            <template slot-scope="scope" slot="curlForm">
-                <imageUpload :disabled="scope.disabled" :list="form.curl" v-model="form.curl"></imageUpload>
-            </template>
         </avue-crud>
     </basic-container>
 </template>
@@ -23,9 +12,6 @@
 <script>
 import { getList, update, add } from "@/api/goods/goodsCategory";
 import { mainOption } from "@/const/goods/goodsCategory"
-import { mapGetters } from "vuex";
-import website from '@/config/website';
-
 export default {
     data() {
         return {

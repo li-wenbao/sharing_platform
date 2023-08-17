@@ -33,7 +33,7 @@
       return {};
     },
     created() {
-      this.index.openMenu();
+      // this.index.openMenu();
     },
     computed: {
       ...mapGetters(["website", "menu", "tag", "keyCollapse", "screen", "menuId"]),

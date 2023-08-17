@@ -16,7 +16,7 @@ export const mainOption = {
   viewBtn: true,
   // editBtn: false,
   delBtn: false,
-  menuWidth: 300,
+  menuWidth: 220,
   dialogClickModal: false,
   column: [
     {
@@ -36,6 +36,9 @@ export const mainOption = {
       label: "类型id",
       prop: "ctid",
       hide: true,
+      display: false,
+      addDisplay: false,
+      editDisplay: false,
       rules: [
         {
           required: true,
@@ -48,7 +51,9 @@ export const mainOption = {
       label: "商品id",
       prop: "cid",
       hide: true,
+      display: false,
       addDisplay: false,
+      editDisplay: false,
       rules: [
         {
           required: true,
@@ -65,58 +70,22 @@ export const mainOption = {
       span: 24,
       formslot: true,
       slot: true,
-      rules: [
-        {
-          required: true,
-          message: "请选择商品封面",
-          trigger: "blur",
-        },
-      ],
     },
     {
-      label: "状态",
-      prop: "status",
+      label: "商品类型",
+      prop: "ctidName",
       type: "select",
-      width: 180,
-      align: "center",
-      addDisplay: false,
-      search: true,
-      //状态:1.正常 2.禁用 3.待发布
-      dicData: [
-        {
-          label: "正常",
-          value: '1',
-        },
-        {
-          label: "禁用",
-          value: '2',
-        },
-        {
-          label: "待发布",
-          value: '3',
-        },
-      ],
-      rules: [
-        {
-          required: true,
-          message: "请选择状态",
-          trigger: "blur",
-        },
-      ],
-    },
-    {
-      label: "类型名称",
-      prop: "typeName",
-      search: true,
-      hide:true,
-      span: 24,
-      addDisplay: false,
-      editDisplay: false,
+      hide: true,
       viewDisplay: false,
+      dicData: [],
+      props: {
+        label: "name",
+        value: "ctid",
+      },
       rules: [
         {
           required: true,
-          message: "请输入名称",
+          message: "请输入类型名称",
           trigger: "blur",
         },
       ],
@@ -131,21 +100,35 @@ export const mainOption = {
         label: "label",
         value: "value",
       },
-      //1.到店消费 2.电话预约 3.在线预约
+      // "type": "1", //类型: 1单品2.套卡
       dicData: [
         {
-          label: "到店消费",
-          value: '1',
+          label: "单品",
+          value: "1",
         },
         {
-          label: "电话预约",
-          value: '2',
-        },
-        {
-          label: "在线预约",
-          value: '3',
+          label: "套卡",
+          value: "2",
         },
       ],
+      control: (val, form) => {
+        //按条件设置显示隐藏
+        if (val == "2") {
+          return {
+            number: {
+              addDisplay: true,
+              editDisplay: true,
+            },
+          };
+        } else {
+          return {
+            number: {
+              addDisplay: false,
+              editDisplay: false,
+            },
+          };
+        }
+      },
       rules: [
         {
           required: true,
@@ -155,17 +138,81 @@ export const mainOption = {
       ],
     },
     {
+      label: "套卡次数",
+      prop: "number",
+      addDisplay: false,
+      editDisplay: false,
+      rules: [
+        {
+          required: true,
+          message: "请添加套卡次数",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "状态",
+      prop: "status",
+      width: 200,
+      slot: true,
+      align: "center",
+      addDisplay: false,
+      editDisplay: false,
+      search: true,
+      type: "switch",
+      align: "center",
+      //状态:1.正常 2.禁用 3.待发布
+      dicData: [
+        {
+          label: "正常",
+          value: "1",
+        },
+        {
+          label: "禁用",
+          value: "2",
+        },
+        {
+          label: "待发布",
+          value: "3",
+        },
+      ],
+      rules: [
+        {
+          required: true,
+          message: "请选择状态",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "类型名称",
+      prop: "typeName",
+      search: true,
+      hide: true,
+      span: 24,
+      addDisplay: false,
+      editDisplay: false,
+      viewDisplay: false,
+      rules: [
+        {
+          required: true,
+          message: "请输入名称",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
       label: "创建时间",
       prop: "credate",
       width: 160,
-      // hide: true,
+      hide: true,
       display: false,
     },
     {
       label: "修改时间",
       prop: "upddate",
       width: 160,
-      // hide: true,
+      hide: true,
       display: false,
     },
   ],

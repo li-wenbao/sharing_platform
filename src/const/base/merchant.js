@@ -214,6 +214,7 @@ export const merchantOption = {
       label: "详情id",
       prop: "mdid",
       hide: true,
+      display: false,
       addDisplay: true, //新增时不显示
       viewDisplay: true, //查看时不显示
     },
@@ -221,6 +222,7 @@ export const merchantOption = {
       label: "商户id",
       prop: "miid",
       hide: true,
+      display: false,
       viewDisplay: true, //查看时不显示
     },
     {
@@ -322,12 +324,14 @@ export const merchantBaseOption = {
       label: "商户id",
       prop: "miid",
       hide: true,
+      display: false,
       viewDisplay: true, //查看时不显示
     },
     {
       label: "类型id",
       prop: "mtid",
       hide: true,
+      display: false,
       addDisplay: true, //新增时不显示
       viewDisplay: true, //查看时不显示
     },
@@ -555,6 +559,7 @@ export const merchantAddOption = {
   calcHeight: 10,
   lazy: true,
   tip: false,
+  dialogDrag: true,
   simplePage: true,
   searchShow: false,
   searchMenuSpan: 4,
@@ -572,7 +577,8 @@ export const merchantAddOption = {
   column: [
     {
       label: "详情id",
-      prop: "mdid",
+      prop: "miid",
+      display:false,
       rules: [
         {
           required: true,
@@ -603,6 +609,9 @@ export const merchantAddOption = {
     {
       label: "省市区",
       prop: "address",
+      // slot: true,
+      type: 'cascader',
+      dicData:[],
       rules: [
         {
           required: true,
@@ -625,10 +634,12 @@ export const merchantAddOption = {
     {
       label: "经纬度",
       prop: "coordinate",
+      slot: true,
+      disabled:true,
       rules: [
         {
           required: true,
-          message: "请输入经纬度",
+          message: "请选择经纬度",
           trigger: "blur",
         },
       ],

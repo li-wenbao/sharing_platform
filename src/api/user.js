@@ -12,86 +12,86 @@ export const loginByUsername = (account,password) => request({
   }
 });
 
-export const loginBySocial = (tenantId, source, code, state) => request({
-  url: '/api/blade-auth/oauth/token',
-  method: 'post',
-  headers: {
-    'Tenant-Id': tenantId
-  },
-  params: {
-    tenantId,
-    source,
-    code,
-    state,
-    grant_type: "social",
-    scope: "all",
-  }
-})
+// export const loginBySocial = (tenantId, source, code, state) => request({
+//   url: '/api/blade-auth/oauth/token',
+//   method: 'post',
+//   headers: {
+//     'Tenant-Id': tenantId
+//   },
+//   params: {
+//     tenantId,
+//     source,
+//     code,
+//     state,
+//     grant_type: "social",
+//     scope: "all",
+//   }
+// })
 
-export const loginBySso = (state, code) => request({
-  url: '/api/blade-auth/oauth/token',
-  method: 'post',
-  headers: {
-    'Tenant-Id': state
-  },
-  params: {
-    tenantId: state,
-    code,
-    grant_type: "authorization_code",
-    scope: "all",
-    redirect_uri: website.redirectUri,
-  }
-})
+// export const loginBySso = (state, code) => request({
+//   url: '/api/blade-auth/oauth/token',
+//   method: 'post',
+//   headers: {
+//     'Tenant-Id': state
+//   },
+//   params: {
+//     tenantId: state,
+//     code,
+//     grant_type: "authorization_code",
+//     scope: "all",
+//     redirect_uri: website.redirectUri,
+//   }
+// })
 
-export const refreshToken = (refresh_token, tenantId, deptId, roleId) => request({
-  url: '/api/blade-auth/oauth/token',
-  method: 'post',
-  headers: {
-    'Tenant-Id': tenantId,
-    'Dept-Id': (website.switchMode ? deptId : ''),
-    'Role-Id': (website.switchMode ? roleId : '')
-  },
-  params: {
-    tenantId,
-    refresh_token,
-    grant_type: "refresh_token",
-    scope: "all",
-  }
-});
+// export const refreshToken = (refresh_token, tenantId, deptId, roleId) => request({
+//   url: '/api/blade-auth/oauth/token',
+//   method: 'post',
+//   headers: {
+//     'Tenant-Id': tenantId,
+//     'Dept-Id': (website.switchMode ? deptId : ''),
+//     'Role-Id': (website.switchMode ? roleId : '')
+//   },
+//   params: {
+//     tenantId,
+//     refresh_token,
+//     grant_type: "refresh_token",
+//     scope: "all",
+//   }
+// });
 
-export const registerGuest = (form, oauthId) => request({
-  url: '/api/blade-system/user/register-guest',
-  method: 'post',
-  params: {
-    tenantId: form.tenantId,
-    name: form.name,
-    account: form.account,
-    password: form.password,
-    oauthId
-  }
-});
+// export const registerGuest = (form, oauthId) => request({
+//   url: '/api/blade-system/user/register-guest',
+//   method: 'post',
+//   params: {
+//     tenantId: form.tenantId,
+//     name: form.name,
+//     account: form.account,
+//     password: form.password,
+//     oauthId
+//   }
+// });
 
-export const getButtons = () => request({
-  url: '/api/blade-system/menu/buttons',
-  method: 'get'
-});
+// export const getButtons = () => request({
+//   url: '/api/blade-system/menu/buttons',
+//   method: 'get'
+// });
 
-export const getCaptcha = () => request({
-  url: '/api/blade-auth/oauth/captcha',
-  method: 'get',
-  authorization: false
-});
+// export const getCaptcha = () => request({
+//   url: '/api/blade-auth/oauth/captcha',
+//   method: 'get',
+//   authorization: false
+// });
 
-export const logout = () => request({
-  url: '/api/blade-auth/oauth/logout',
-  method: 'get',
-  authorization: false
-});
+// export const logout = () => request({
+//   url: '/api/blade-auth/oauth/logout',
+//   method: 'get',
+//   authorization: false
+// });
 
-export const getUserInfo = () => request({
-  url: '/api/blade-auth/oauth/user-info',
-  method: 'get'
-});
+// export const getUserInfo = () => request({
+//   url: '/api/blade-auth/oauth/user-info',
+//   method: 'get'
+// });
 
 export const sendLogs = (list) => request({
   url: '/api/blade-auth/oauth/logout',
@@ -99,8 +99,8 @@ export const sendLogs = (list) => request({
   data: list
 });
 
-export const clearCache = () => request({
-  url: '/api/blade-auth/oauth/clear-cache',
-  method: 'get',
-  authorization: false
-});
+// export const clearCache = () => request({
+//   url: '/api/blade-auth/oauth/clear-cache',
+//   method: 'get',
+//   authorization: false
+// });

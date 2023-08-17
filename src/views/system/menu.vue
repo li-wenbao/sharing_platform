@@ -6,7 +6,7 @@
       @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
       @refresh-change="refreshChange" @on-load="onLoad" @tree-load="treeLoad">
       <template slot="menuLeft">
-        <el-button type="danger" size="small" icon="el-icon-delete" v-if="permission.menu_delete" plain
+        <el-button type="danger" size="small" icon="el-icon-delete" plain
           @click="handleDelete">删 除
         </el-button>
       </template>
@@ -25,11 +25,9 @@
 </template>
 
 <script>
-import { getLazyList, remove, update, add, getMenu, getRoutes } from "@/api/system/menu";
+import { getLazyList, remove, update, add, getMenu } from "@/api/system/menu";
 import { mapGetters } from "vuex";
 import iconList from "@/config/iconList";
-import func from "@/util/func";
-import { getMenuTree } from "@/api/system/menu";
 
 export default {
   data() {
@@ -176,7 +174,7 @@ export default {
   watch: {
   },
   computed: {
-    ...mapGetters(["userInfo", "permission"]),
+    ...mapGetters(["userInfo"]),
     ids() {
       let ids = [];
       this.selectionList.forEach(ele => {
@@ -187,18 +185,9 @@ export default {
   },
   methods: {
     initData() { 
-      getMenu("U1683250241398").then(res => {
+      getMenu(this.userInfo.token).then(res => {
         const column = this.findObject(this.option.column, "parentid");
         column.dicData = res.data.data;
-        column.dicData.forEach((item, index) => {
-          this.$set(item, "value", item.menuid)
-          if (item.children == null) {
-            return
-          }
-          item.children.forEach((smItem, smIndex) => {
-            this.$set(smItem, "value", smItem.menuid)
-          })
-        })
       });
     },
     handleAdd(row) {

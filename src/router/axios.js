@@ -32,7 +32,6 @@ NProgress.configure({
 });
 //http request拦截
 axios.interceptors.request.use(config => {
-  console.log("Mr. L 🚀 ~ config:", config)
   //开启 progress bar
   NProgress.start();
   //地址为已经配置状态则不添加前缀
@@ -48,7 +47,6 @@ axios.interceptors.request.use(config => {
   }
   //让每个请求携带token
   const meta = (config.meta || {});
-  // console.log("Mr. L 🚀 ~ meta:", meta)
   const isToken = meta.isToken === false;
   if (getToken() && !isToken) {
     config.headers[website.tokenHeader] = getToken()

@@ -1,6 +1,7 @@
 export const mainOption = {
   height: "auto",
   calcHeight: 10,
+  dialogDrag: true,
   tip: false,
   simplePage: true,
   searchShow: false,

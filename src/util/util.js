@@ -1,53 +1,55 @@
-import {validatenull} from './validate'
+import { validatenull } from "./validate";
 //表单序列化
-export const serialize = data => {
+export const serialize = (data) => {
   let list = [];
-  Object.keys(data).forEach(ele => {
-    list.push(`${ele}=${data[ele]}`)
-  })
-  return list.join('&');
+  Object.keys(data).forEach((ele) => {
+    list.push(`${ele}=${data[ele]}`);
+  });
+  return list.join("&");
 };
-export const getObjType = obj => {
+export const getObjType = (obj) => {
   var toString = Object.prototype.toString;
   var map = {
-    '[object Boolean]': 'boolean',
-    '[object Number]': 'number',
-    '[object String]': 'string',
-    '[object Function]': 'function',
-    '[object Array]': 'array',
-    '[object Date]': 'date',
-    '[object RegExp]': 'regExp',
-    '[object Undefined]': 'undefined',
-    '[object Null]': 'null',
-    '[object Object]': 'object'
+    "[object Boolean]": "boolean",
+    "[object Number]": "number",
+    "[object String]": "string",
+    "[object Function]": "function",
+    "[object Array]": "array",
+    "[object Date]": "date",
+    "[object RegExp]": "regExp",
+    "[object Undefined]": "undefined",
+    "[object Null]": "null",
+    "[object Object]": "object",
   };
   if (obj instanceof Element) {
-    return 'element';
+    return "element";
   }
   return map[toString.call(obj)];
 };
 export const getViewDom = () => {
-  return window.document.getElementById('avue-view').getElementsByClassName('el-scrollbar__wrap')[0]
-}
+  return window.document
+    .getElementById("avue-view")
+    .getElementsByClassName("el-scrollbar__wrap")[0];
+};
 /**
  * 对象深拷贝
  */
-export const deepClone = data => {
+export const deepClone = (data) => {
   var type = getObjType(data);
   var obj;
-  if (type === 'array') {
+  if (type === "array") {
     obj = [];
-  } else if (type === 'object') {
+  } else if (type === "object") {
     obj = {};
   } else {
     //不再具有下一层次
     return data;
   }
-  if (type === 'array') {
+  if (type === "array") {
     for (var i = 0, len = data.length; i < len; i++) {
       obj.push(deepClone(data[i]));
     }
-  } else if (type === 'object') {
+  } else if (type === "object") {
     for (var key in data) {
       obj[key] = deepClone(data[key]);
     }
@@ -59,9 +61,9 @@ export const deepClone = data => {
  */
 export const toggleGrayMode = (status) => {
   if (status) {
-    document.body.className = document.body.className + ' grayMode';
+    document.body.className = document.body.className + " grayMode";
   } else {
-    document.body.className = document.body.className.replace(' grayMode', '');
+    document.body.className = document.body.className.replace(" grayMode", "");
   }
 };
 /**
@@ -69,32 +71,25 @@ export const toggleGrayMode = (status) => {
  */
 export const setTheme = (name) => {
   document.body.className = name;
-}
+};
 
 /**
  * 加密处理
  */
 export const encryption = (params) => {
-  let {
-    data,
-    type,
-    param,
-    key
-  } = params;
+  let { data, type, param, key } = params;
   let result = JSON.parse(JSON.stringify(data));
-  if (type == 'Base64') {
-    param.forEach(ele => {
+  if (type == "Base64") {
+    param.forEach((ele) => {
       result[ele] = btoa(result[ele]);
-    })
-  } else if (type == 'Aes') {
-    param.forEach(ele => {
+    });
+  } else if (type == "Aes") {
+    param.forEach((ele) => {
       result[ele] = window.CryptoJS.AES.encrypt(result[ele], key).toString();
-    })
-
+    });
   }
   return result;
 };
-
 
 /**
  * 浏览器判断是否全屏
@@ -111,7 +106,7 @@ export const fullscreenToggel = () => {
  */
 export const listenfullscreen = (callback) => {
   function listen() {
-    callback()
+    callback();
   }
 
   document.addEventListener("fullscreenchange", function () {
@@ -131,9 +126,12 @@ export const listenfullscreen = (callback) => {
  * 浏览器判断是否全屏
  */
 export const fullscreenEnable = () => {
-  var isFullscreen = document.isFullScreen || document.mozIsFullScreen || document.webkitIsFullScreen
+  var isFullscreen =
+    document.isFullScreen ||
+    document.mozIsFullScreen ||
+    document.webkitIsFullScreen;
   return isFullscreen;
-}
+};
 
 /**
  * 浏览器全屏
@@ -206,12 +204,12 @@ export const findListParent = (menu, id) => {
  * 动态插入css
  */
 
-export const loadStyle = url => {
-  const link = document.createElement('link');
-  link.type = 'text/css';
-  link.rel = 'stylesheet';
+export const loadStyle = (url) => {
+  const link = document.createElement("link");
+  link.type = "text/css";
+  link.rel = "stylesheet";
   link.href = url;
-  const head = document.getElementsByTagName('head')[0];
+  const head = document.getElementsByTagName("head")[0];
   head.appendChild(link);
 };
 /**
@@ -221,7 +219,8 @@ export const diff = (obj1, obj2) => {
   delete obj1.close;
   var o1 = obj1 instanceof Object;
   var o2 = obj2 instanceof Object;
-  if (!o1 || !o2) { /*  判断不是对象  */
+  if (!o1 || !o2) {
+    /*  判断不是对象  */
     return obj1 === obj2;
   }
 
@@ -240,14 +239,18 @@ export const diff = (obj1, obj2) => {
     }
   }
   return true;
-}
+};
 /**
  * 根据字典的value显示label
  */
 export const findByvalue = (dic, value) => {
-  let result = '';
+  let result = "";
   if (validatenull(dic)) return value;
-  if (typeof (value) == 'string' || typeof (value) == 'number' || typeof (value) == 'boolean') {
+  if (
+    typeof value == "string" ||
+    typeof value == "number" ||
+    typeof value == "boolean"
+  ) {
     let index = 0;
     index = findArray(dic, value);
     if (index != -1) {
@@ -258,7 +261,7 @@ export const findByvalue = (dic, value) => {
   } else if (value instanceof Array) {
     result = [];
     let index = 0;
-    value.forEach(ele => {
+    value.forEach((ele) => {
       index = findArray(dic, ele);
       if (index != -1) {
         result.push(dic[index].label);
@@ -285,8 +288,10 @@ export const findArray = (dic, value) => {
  * 生成随机len位数字
  */
 export const randomLenNum = (len, date) => {
-  let random = '';
-  random = Math.ceil(Math.random() * 100000000000000).toString().substr(0, len ? len : 4);
+  let random = "";
+  random = Math.ceil(Math.random() * 100000000000000)
+    .toString()
+    .substr(0, len ? len : 4);
   if (date) random = random + Date.now();
   return random;
 };
@@ -295,28 +300,49 @@ export const randomLenNum = (len, date) => {
  */
 export const openWindow = (url, title, w, h) => {
   // Fixes dual-screen position                            Most browsers       Firefox
-  const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left
-  const dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top
+  const dualScreenLeft =
+    window.screenLeft !== undefined ? window.screenLeft : screen.left;
+  const dualScreenTop =
+    window.screenTop !== undefined ? window.screenTop : screen.top;
 
-  const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width
-  const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height
+  const width = window.innerWidth
+    ? window.innerWidth
+    : document.documentElement.clientWidth
+    ? document.documentElement.clientWidth
+    : screen.width;
+  const height = window.innerHeight
+    ? window.innerHeight
+    : document.documentElement.clientHeight
+    ? document.documentElement.clientHeight
+    : screen.height;
 
-  const left = ((width / 2) - (w / 2)) + dualScreenLeft
-  const top = ((height / 2) - (h / 2)) + dualScreenTop
-  const newWindow = window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left)
+  const left = width / 2 - w / 2 + dualScreenLeft;
+  const top = height / 2 - h / 2 + dualScreenTop;
+  const newWindow = window.open(
+    url,
+    title,
+    "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, copyhistory=no, width=" +
+      w +
+      ", height=" +
+      h +
+      ", top=" +
+      top +
+      ", left=" +
+      left
+  );
 
   // Puts focus on the newWindow
   if (window.focus) {
-    newWindow.focus()
+    newWindow.focus();
   }
-}
+};
 
 /**
  * 获取顶部地址栏地址
  */
 export const getTopUrl = () => {
   return window.location.href.split("/#/")[0];
-}
+};
 
 /**
  * 获取url参数
@@ -327,7 +353,7 @@ export const getQueryString = (name) => {
   let r = window.location.search.substr(1).match(reg);
   if (r != null) return unescape(decodeURI(r[2]));
   return null;
-}
+};
 
 /**
  * 下载文件
@@ -336,19 +362,19 @@ export const getQueryString = (name) => {
  */
 export const downloadFileBlob = (path, name) => {
   const xhr = new XMLHttpRequest();
-  xhr.open('get', path);
-  xhr.responseType = 'blob';
+  xhr.open("get", path);
+  xhr.responseType = "blob";
   xhr.send();
   xhr.onload = function () {
     if (this.status === 200 || this.status === 304) {
       // 如果是IE10及以上，不支持download属性，采用msSaveOrOpenBlob方法，但是IE10以下也不支持msSaveOrOpenBlob
-      if ('msSaveOrOpenBlob' in navigator) {
+      if ("msSaveOrOpenBlob" in navigator) {
         navigator.msSaveOrOpenBlob(this.response, name);
         return;
       }
       const url = URL.createObjectURL(this.response);
-      const a = document.createElement('a');
-      a.style.display = 'none';
+      const a = document.createElement("a");
+      a.style.display = "none";
       a.href = url;
       a.download = name;
       document.body.appendChild(a);
@@ -357,7 +383,7 @@ export const downloadFileBlob = (path, name) => {
       URL.revokeObjectURL(url);
     }
   };
-}
+};
 
 /**
  * 下载文件
@@ -366,16 +392,16 @@ export const downloadFileBlob = (path, name) => {
  */
 export const downloadFileBase64 = (path, name) => {
   const xhr = new XMLHttpRequest();
-  xhr.open('get', path);
-  xhr.responseType = 'blob';
+  xhr.open("get", path);
+  xhr.responseType = "blob";
   xhr.send();
   xhr.onload = function () {
     if (this.status === 200 || this.status === 304) {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(this.response);
       fileReader.onload = function () {
-        const a = document.createElement('a');
-        a.style.display = 'none';
+        const a = document.createElement("a");
+        a.style.display = "none";
         a.href = this.result;
         a.download = name;
         document.body.appendChild(a);
@@ -384,7 +410,7 @@ export const downloadFileBase64 = (path, name) => {
       };
     }
   };
-}
+};
 
 /**
  * 下载excel
@@ -392,20 +418,59 @@ export const downloadFileBase64 = (path, name) => {
  * @param {String} filename 文件名称
  */
 export const downloadXls = (fileArrayBuffer, filename) => {
-  let data = new Blob([fileArrayBuffer], {type: 'application/vnd.ms-excel,charset=utf-8'});
-  if (typeof window.chrome !== 'undefined') {
+  let data = new Blob([fileArrayBuffer], {
+    type: "application/vnd.ms-excel,charset=utf-8",
+  });
+  if (typeof window.chrome !== "undefined") {
     // Chrome
-    var link = document.createElement('a');
+    var link = document.createElement("a");
     link.href = window.URL.createObjectURL(data);
     link.download = filename;
     link.click();
-  } else if (typeof window.navigator.msSaveBlob !== 'undefined') {
+  } else if (typeof window.navigator.msSaveBlob !== "undefined") {
     // IE
-    var blob = new Blob([data], {type: 'application/force-download'});
+    var blob = new Blob([data], { type: "application/force-download" });
     window.navigator.msSaveBlob(blob, filename);
   } else {
     // Firefox
-    var file = new File([data], filename, {type: 'application/force-download'});
+    var file = new File([data], filename, {
+      type: "application/force-download",
+    });
     window.open(URL.createObjectURL(file));
   }
-}
+};
+
+// 修改树形结构的键值 把list替换为children
+export const changeId = (objAry, key, newkey) => {
+  if (objAry != null) {
+    objAry.forEach((item) => {
+      Object.assign(item, {
+        [newkey]: item[key],
+      });
+      delete item[key];
+      changeId(item.list, key, newkey);
+    });
+  }
+};
+
+
+export const getChidlren = (data, key, value) => {
+  let result = [];
+  let fn = function (data) {
+    if (Array.isArray(data)) {
+      // 判断是否是数组
+      for (let i = 0; i < data.length; i++) {
+        const e = data[i];
+        if (e[key] === value) {
+          // 数据循环每个子项，并且判断子项下边是否有id值
+          result.push(e.menuid); // 返回的结果等于每一项
+          // break;
+        } else if (e.children) {
+          fn(e.children); // 递归调用下边的子项
+        }
+      }
+    }
+  };
+  fn(data); // 调用一下
+  return result;
+};

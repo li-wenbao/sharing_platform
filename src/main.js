@@ -28,9 +28,9 @@ import website from '@/config/website';
 import crudCommon from '@/mixins/crud';
 import WbPopups from './components/popups/main';
 import comEcharts from './components/echarts/comEcharts';
-import isnodata from './components/isnodata/isnodata';
-import imageView from './components/picture/imageView';
+import isNoData from './components/isnodata/isnodata';
 import imageUpload from "./components/picture/imageUpload";
+import VueTinymce from '@packy-tang/vue-tinymce';
 // 业务组件
 // import tenantPackage from './views/system/tenantpackage';
 
@@ -53,14 +53,12 @@ Vue.component('basicContainer', basicContainer);
 Vue.component('basicBlock', basicBlock);
 Vue.component('thirdRegister', thirdRegister);
 Vue.component('avueUeditor', avueUeditor);
-// Vue.component('flowDesign', flowDesign);
-// Vue.component('tenantPackage', tenantPackage);
 Vue.component('WbPopups', WbPopups);
 Vue.component('comEcharts', comEcharts);
-Vue.component('isnodata', isnodata);
-Vue.component('imageView', imageView);
+Vue.component('isNoData', isNoData);
 Vue.component('imageUpload', imageUpload);
-
+// Vue.component('VueTinymce', VueTinymce);
+Vue.use(VueTinymce); // 安装vue的tinymce组件
 // 加载相关url地址
 Object.keys(urls).forEach(key => {
   Vue.prototype[key] = urls[key];

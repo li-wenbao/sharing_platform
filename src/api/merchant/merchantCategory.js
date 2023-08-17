@@ -22,12 +22,22 @@ export const add = (params) => {
   });
 };
 
-export const update = (params) => {
+export const update = (mtid,name,iconurl,sort,status) => {
   return request({
     url: "/share/merchant/updateMerchantType",
     method: "post",
     params: {
-      ...params
+      mtid,name,iconurl,sort,status
     },
   });
 };
+
+// export const update = (params) => {
+//   return request({
+//     url: "/share/merchant/updateMerchantType",
+//     method: "post",
+//     params: {
+//       ...params
+//     },
+//   });
+// };

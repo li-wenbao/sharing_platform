@@ -26,7 +26,7 @@ function addPath(ele, first) {
   const propsConfig = menu.props;
   const propsDefault = {
     label: propsConfig.label || "name",
-    path: propsConfig.path || "path",
+    path: propsConfig.path || "url",
     icon: propsConfig.icon || "icon",
     children: propsConfig.children || "children",
   };
@@ -162,27 +162,18 @@ const user = {
         resolve();
       });
     },
-    //获取顶部菜单
-    GetTopMenu() {
-      return new Promise((resolve) => {
-        getTopMenu().then((res) => {
-          const data = res.data.data || [];
-          resolve(data);
-        });
-      });
-    },
     //获取系统菜单
     GetMenu({ commit, dispatch }, topMenuId) {
       return new Promise((resolve) => {
         getMenu(topMenuId, true).then((res) => {
           const data = res.data.data;
+          console.log("Mr. L 🚀 ~ data:", data)
           let menu = deepClone(data);
           menu.forEach((ele) => {
             addPath(ele, true);
           });
-          commit("SET_MENU_ALL", menu);
+          // commit("SET_MENU_ALL", menu);
           commit("SET_MENU", menu);
-          // dispatch("GetButtons");
           resolve(menu);
         });
       });
@@ -198,20 +189,8 @@ const user = {
             addPath(ele, true);
           });
           commit("SET_MENU_ALL", menu);
-          commit("SET_MENU", menu);
-          // dispatch("GetButtons");
+          // commit("SET_MENU", menu);
           resolve(menu);
-        });
-      });
-    },
-    //获取系统按钮
-    GetButtons({ commit }) {
-      return new Promise((resolve) => {
-        getButtons().then((res) => {
-          const data = res.data.data;
-          localStorage.setItem("userButtons", JSON.stringify(data));
-          commit("SET_PERMISSION", data);
-          resolve();
         });
       });
     },
@@ -258,7 +237,7 @@ const user = {
     },
     SET_USER_INFO: (state, userInfo) => {
       if (validatenull(userInfo.avatar)) {
-        userInfo.avatar = "/img/bg/img-logo.png";
+        userInfo.avatar = "/svg/favicon.svg";
       }
       state.userInfo = userInfo;
       setStore({ name: "userInfo", content: state.userInfo });

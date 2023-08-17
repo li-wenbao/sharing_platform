@@ -2,6 +2,7 @@ export const mainOption = {
   height: "auto",
   calcHeight: 10,
   tip: false,
+  dialogDrag: true,
   simplePage: true,
   searchShow: false,
   searchMenuSpan: 4,
@@ -18,6 +19,7 @@ export const mainOption = {
       label: "图片id",
       prop: "mpid",
       hide: true,
+      viewDisplay:false,
       addDisplay: false,
       editDisplay: false,
       rules: [
@@ -32,6 +34,7 @@ export const mainOption = {
       label: "商户id",
       prop: "miid",
       hide: true,
+      viewDisplay:false,
       addDisplay: false,
       editDisplay: false,
       rules: [
@@ -42,10 +45,24 @@ export const mainOption = {
         },
       ],
     },
+    // purlList
+    {
+      label: "图片",
+      prop: "purlList",
+      maxlength: 64,
+      showWordLimit: true,
+      editDisplay:false,
+      viewDisplay:false,
+      hide:true,
+      span: 24,
+      formslot: true,
+      slot: true,
+    },
     {
       label: "图片",
       prop: "purl",
       maxlength: 64,
+      addDisplay:false,
       showWordLimit: true,
       span: 24,
       formslot: true,

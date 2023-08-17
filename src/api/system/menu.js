@@ -22,39 +22,6 @@ export const getLazyList = (params) => {
   });
 };
 
-export const getLazyMenuList = (parentId, params) => {
-  return request({
-    url: "/api/blade-system/menu/lazy-menu-list",
-    method: "get",
-    params: {
-      ...params,
-      parentId,
-    },
-  });
-};
-
-export const getMenuList = (current, size, params) => {
-  return request({
-    url: "/api/blade-system/menu/menu-list",
-    method: "get",
-    params: {
-      ...params,
-      current,
-      size,
-    },
-  });
-};
-
-export const getMenuTree = (tenantId) => {
-  return request({
-    url: "/api/blade-system/menu/tree",
-    method: "get",
-    params: {
-      tenantId,
-    },
-  });
-};
-
 export const remove = (menuIdList) => {
   return request({
     url: "/share/menu/deleteMenu",
@@ -102,12 +69,6 @@ export const getMenu = (uid) => {
     },
   });
 };
-
-export const getTopMenu = () =>
-  request({
-    url: "/api/blade-system/menu/top-menu",
-    method: "get",
-  });
 
 export const getRoutes = () =>
   request({

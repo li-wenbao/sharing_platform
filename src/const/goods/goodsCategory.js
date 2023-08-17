@@ -37,6 +37,7 @@ export const mainOption = {
       prop: "ctid",
       hide: true,
       addDisplay: false,
+      editDisplay: false,
       rules: [
         {
           required: true,
@@ -50,6 +51,7 @@ export const mainOption = {
       prop: "miid",
       hide: true,
       editDisplay: false,
+      addDisplay: false,
       rules: [
         {
           required: true,

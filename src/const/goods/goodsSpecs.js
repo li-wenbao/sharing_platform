@@ -76,6 +76,7 @@ export const mainOption = {
       prop: "cid",
       hide: true,
       editDisplay: false,
+      addDisplay: false,
       rules: [
         {
           required: true,
@@ -92,19 +93,13 @@ export const mainOption = {
       span: 24,
       formslot: true,
       slot: true,
-      rules: [
-        {
-          required: true,
-          message: "请选择商品封面",
-          trigger: "blur",
-        },
-      ],
     },
     {
       label: "规格id",
       prop: "sid",
       hide: true,
       addDisplay: false,
+      editDisplay: false,
       rules: [
         {
           required: true,

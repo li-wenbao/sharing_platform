@@ -1,6 +1,7 @@
 export const mainOption = {
   height: "auto",
   calcHeight: 10,
+  dialogDrag: true,
   tip: false,
   simplePage: true,
   searchShow: false,
@@ -40,10 +41,170 @@ export const mainOption = {
       ],
     },
     {
+      label: "状态",
+      prop: "type",
+      type: "select",
+      width: 100,
+      align: "center",
+      hide: true,
+      addDisplay: false,
+      //账号-修改 1.修改密码2.重置密码3.修改角色 4.启用、禁用
+      dicData: [
+        {
+          label: "修改密码",
+          value: "1",
+        },
+        {
+          label: "重置密码",
+          value: "2",
+        },
+        {
+          label: "修改角色",
+          value: "3",
+        },
+        {
+          label: "启用或禁用",
+          value: "4",
+        },
+      ],
+      control: (val, form) => {
+        //按条件设置显示隐藏
+        if (val == "1") {
+          return {
+            account:{
+              editDisplay: false,
+            },
+            newpwd: {
+              editDisplay: true,
+            },
+            oldpwd: {
+              editDisplay: true,
+            },
+            roleName: {
+              editDisplay: false,
+            },
+            status: {
+              editDisplay: false,
+            },
+          };
+        }else if (val == "2") {
+          return {
+            account:{
+              editDisplay: true,
+            },
+            newpwd: {
+              editDisplay: true,
+            },
+            newpwd: {
+              editDisplay: false,
+            },
+            oldpwd: {
+              editDisplay: false,
+            },
+            status: {
+              editDisplay: false,
+            },
+          };
+        }else if (val == "3") {
+          return {
+            account:{
+              editDisplay: false,
+            },
+            roleName: {
+              editDisplay: true,
+            },
+            newpwd: {
+              editDisplay: false,
+            },
+            oldpwd: {
+              editDisplay: false,
+            },
+            status: {
+              editDisplay: false,
+            },
+          };
+        } else if (val == "4") {
+          return {
+            account:{
+              editDisplay: false,
+            },
+            status: {
+              editDisplay: true,
+            },
+            newpwd: {
+              editDisplay: false,
+            },
+            oldpwd: {
+              editDisplay: false,
+            },
+            roleName: {
+              editDisplay: false,
+            },
+          };
+        }else{
+          return {
+            account:{
+              editDisplay: false,
+            },
+            newpwd: {
+              editDisplay: false,
+            },
+            oldpwd: {
+              editDisplay: false,
+            },
+            roleName: {
+              editDisplay: false,
+            },
+            status: {
+              editDisplay: false,
+            },
+          };
+        }
+      },
+      rules: [
+        {
+          required: true,
+          message: "请选择状态",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
       label: "密码",
       prop: "password",
-      value:"123456",
+      editDisplay: false,
+      hide:true,
       minWidth: 140,
+      rules: [
+        {
+          required: true,
+          message: "请输入账号",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "新密码",
+      prop: "newpwd",
+      minWidth: 140,
+      hide:true,
+      addDisplay: false,
+      editDisplay: false,
+      rules: [
+        {
+          required: true,
+          message: "请输入账号",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "旧密码",
+      prop: "oldpwd",
+      minWidth: 140,
+      hide:true,
+      addDisplay: false,
+      editDisplay: false,
       rules: [
         {
           required: true,
@@ -71,6 +232,7 @@ export const mainOption = {
       prop: "roleName",
       minWidth:140,
       type: "select",
+      editDisplay: false,
       dicData: [],
       props: {
         label: "name",
@@ -98,11 +260,39 @@ export const mainOption = {
       ],
     },
     {
+      label: "是否启用",
+      prop: "status",
+      type: "select",
+      width: 100,
+      align: "center",
+      addDisplay: false,
+      editDisplay: false,
+      //状态:1.正常 2.禁用
+      dicData: [
+        {
+          label: "启用",
+          value: "1",
+        },
+        {
+          label: "禁用",
+          value: "2",
+        },
+      ],
+      rules: [
+        {
+          required: true,
+          message: "请选择是否启用",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
       label: "级别",
       prop: "level",
       type: "select",
       width: 100,
       align: "center",
+      editDisplay: false,
       search: true,
       //级别：1.主管 2.员工 3.非员工
       dicData: [
@@ -175,32 +365,6 @@ export const mainOption = {
       //     trigger: "blur",
       //   },
       // ],
-    },
-    {
-      label: "状态",
-      prop: "status",
-      type: "select",
-      width: 100,
-      align: "center",
-      addDisplay: false,
-      //状态:1.正常 2.禁用
-      dicData: [
-        {
-          label: "正常",
-          value: "1",
-        },
-        {
-          label: "禁用",
-          value: "2",
-        },
-      ],
-      rules: [
-        {
-          required: true,
-          message: "请选择状态",
-          trigger: "blur",
-        },
-      ],
     },
     {
       label: "创建时间",

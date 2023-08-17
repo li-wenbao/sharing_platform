@@ -1,12 +1,17 @@
 <template>
    <div class="flex-1 p-1">
       <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
-         :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel"
-         @row-update="rowUpdate" @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
-         @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
-         @refresh-change="refreshChange" @on-load="onLoad" @tree-load="treeLoad">
+         :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel" @row-update="rowUpdate"
+         @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset" @selection-change="selectionChange"
+         @current-change="currentChange" @size-change="sizeChange" @refresh-change="refreshChange" >
          <template slot-scope="scope" slot="purl">
             <el-image :src="scope.row.purl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
+         </template>
+         <template slot-scope="scope" slot="purlList">
+            <el-image :src="scope.row.purlList" class="list-images-box-1" :preview-src-list="srcList"></el-image>
+         </template>
+         <template slot-scope="scope" slot="purlListForm">
+            <imageUpload :disabled="scope.disabled" :list="form.purlList" v-model="form.purlList"></imageUpload>
          </template>
          <template slot-scope="scope" slot="purlForm">
             <imageUpload :disabled="scope.disabled" :list="form.purl" v-model="form.purl"></imageUpload>
@@ -44,22 +49,26 @@ export default {
    },
    watch: {
       tranceferData: {
-         handler() {
-            this.query = {
-               miid: this.tranceferData.id,
-               status: this.tranceferData.status
+         handler(nowValue) {
+            if (nowValue) {
+               this.query = {
+                  miid: nowValue.id,
+                  status: nowValue.status
+               }
+               this.onLoad(this.page, this.query);
             }
-            this.onLoad(this.page, this.query);
          },
          deep: true,
       },
    },
    mounted() {
-      this.query = {
-         miid: this.tranceferData.id,
-         status: this.tranceferData.status
+      if (this.tranceferData.id) {
+         this.query = {
+            miid: this.tranceferData.id,
+            status: this.tranceferData.status
+         }
+         this.onLoad(this.page, this.query);
       }
-      this.onLoad(this.page, this.query);
    },
    computed: {
       ids() {
@@ -75,7 +84,8 @@ export default {
          this.$refs.crud.rowAdd();
       },
       rowSave(row, done, loading) {
-         add(row.miid, row.name, row.sort).then((res) => {
+         row.miid = this.query.miid
+         add(row).then((res) => {
             // 获取新增数据的相关字段
             // const data = res.data.data;
             this.$message({
@@ -90,7 +100,7 @@ export default {
             loading();
          });
       },
-      rowUpdate(row,index, done, loading) {
+      rowUpdate(row, index, done, loading) {
          update(row).then(() => {
             this.$message({
                type: "success",
@@ -149,7 +159,6 @@ export default {
          getList(page.currentPage, page.pageSize, Object.assign(params, this.query)).then(res => {
             if (res && res.data) {
                let data = res.data.data
-               console.log("Mr. L 🚀 ~ data:", data)
                if (data.pictureList) {
                   data.pictureList.forEach((item, index) => {
                      this.srcList.push(item.purl)

@@ -1,7 +1,7 @@
 <template>
     <basic-container>
         <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
-            :permission="permissionList" :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel"
+            :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel"
             @row-update="rowUpdate" @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange" @on-load="onLoad">
@@ -14,7 +14,7 @@
                 <el-image :src="scope.row.purl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
             </template>
             <template slot-scope="scope" slot="purlForm">
-                <imageUpload :disabled="scope.disabled" :list="form.purl" v-model="form.purl"></imageUpload>
+                <imageUpload :disabled="scope.disabled" :list="form.purl" v-model="form.purl" @on-change="onImgChange"></imageUpload>
             </template>
         </avue-crud>
     </basic-container>
@@ -23,14 +23,11 @@
 <script>
 import { getList, update, add } from "@/api/base/comImages";
 import { mainOption } from "@/const/base/comImages"
-import { mapGetters } from "vuex";
-import website from '@/config/website';
-
 export default {
     data() {
         return {
+            imgUrl:"",
             form: {},
-            cid: "C1690722866964",
             selectionList: [],
             srcList: [],
             query: {},
@@ -47,15 +44,6 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["userInfo", "permission"]),
-        permissionList() {
-            return {
-                addBtn: this.vaildData(this.permission.dept_add, false),
-                viewBtn: this.vaildData(this.permission.dept_view, false),
-                delBtn: this.vaildData(this.permission.dept_delete, false),
-                editBtn: this.vaildData(this.permission.dept_edit, false)
-            };
-        },
         ids() {
             let ids = [];
             this.selectionList.forEach(ele => {
@@ -68,10 +56,13 @@ export default {
     },
     methods: {
         handleAdd(row) {
-            this.parentId = row.id;
             this.$refs.crud.rowAdd();
         },
+        onImgChange(data){
+            this.imgUrl = data
+        },
         rowSave(row, done, loading) {
+            row.purl = this.imgUrl
             add(row).then((res) => {
                 // 获取新增数据的相关字段
                 // const data = res.data.data;
@@ -88,6 +79,7 @@ export default {
             });
         },
         rowUpdate(row, index, done, loading) {
+            row.purl = this.imgUrl
             update(row).then(() => {
                 this.$message({
                     type: "success",

@@ -35,9 +35,6 @@ import search from "./search";
 import top from "./top/";
 import sidebar from "./sidebar/";
 import admin from "@/util/admin";
-import {validatenull} from "@/util/validate";
-import {calcDate} from "@/util/date.js";
-import {getStore} from "@/util/store.js";
 
 export default {
   components: {
@@ -65,8 +62,6 @@ export default {
   },
   mounted() {
     this.init();
-    this.userId = this.userInfo.id;
-    console.log("Mr. L 🚀 ~ this.userInfo.id:", this.userInfo.id)
   },
   computed: mapGetters(["isMenu", "isCollapse", "website", "menu", "userInfo"]),
   props: [],
@@ -76,7 +71,6 @@ export default {
     },
     // 初始化
     init() {
-      // this.$store.dispatch("GetMenu","U1683250241398").then();
       this.$store.commit("SET_SCREEN", admin.getScreen());
       window.onresize = () => {
         setTimeout(() => {
@@ -86,7 +80,7 @@ export default {
     },
     //打开菜单
     openMenu(item = {}) {
-      this.$store.dispatch("GetMenu", "U1683250241398").then((data) => {
+      this.$store.dispatch("GetMenu", this.userInfo.token).then((data) => {
         if (data.length !== 0) {
           this.$router.$avueRouter.formatRoutes(data, true);
         }

@@ -54,7 +54,6 @@ export default {
   },
   mounted() {
     this.loginForm.account = localStorage.getItem("account");
-    console.log("Mr. L 🚀 ~ this.loginForm.account:", this.loginForm.account)
     this.loginForm.password = localStorage.getItem("password");
   },
   watch: {
@@ -80,17 +79,16 @@ export default {
             background: "rgb(255,255,255)"
           });
           this.$store.dispatch("LoginByUsername", this.loginForm).then(() => {
-              this.$router.replace({
-                path: "/"
-              });
-
-              //本地存储用户名和密码
-              localStorage.setItem("account", this.loginForm.account);
-              localStorage.setItem("password", this.loginForm.password);
-              
-              // this.$store.dispatch("GetUrlConfig").then();
-              loading.close();
-            })
+            this.$router.replace({
+              path: "/"
+            });
+            //本地存储用户名和密码
+            localStorage.setItem("account", this.loginForm.account);
+            localStorage.setItem("password", this.loginForm.password);
+            this.$store.dispatch("GetMenu",this.userInfo.token); //获取侧边栏菜单
+            this.$store.dispatch("GetMenu",this.userInfo.token); //获取权限菜单
+            loading.close();
+          })
             .catch((error) => {
               loading.close();
             });

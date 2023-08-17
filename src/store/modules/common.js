@@ -14,7 +14,6 @@ const common = {
     isMenu: true,
     isShade: false,
     screen: -1,
-    isLock: getStore({name: 'isLock'}) || false,
     showTag: true,
     showDebug: true,
     showCollapse: true,
@@ -26,7 +25,6 @@ const common = {
     showColor: true,
     colorName: getStore({name: 'colorName'}) || '#409EFF',
     themeName: getStore({name: 'themeName'}) || 'theme-default',
-    lockPasswd: getStore({name: 'lockPasswd'}) || '',
     website: website,
   },
   mutations: {
@@ -49,14 +47,6 @@ const common = {
     SET_IS_MENU: (state, menu) => {
       state.isMenu = menu;
     },
-    SET_LOCK: (state) => {
-      state.isLock = true;
-      setStore({
-        name: 'isLock',
-        content: state.isLock,
-        type: 'session'
-      })
-    },
     SET_SCREEN: (state, screen) => {
       state.screen = screen;
     },
@@ -73,26 +63,6 @@ const common = {
         name: 'themeName',
         content: state.themeName,
       })
-    },
-    SET_LOCK_PASSWD: (state, lockPasswd) => {
-      state.lockPasswd = lockPasswd;
-      setStore({
-        name: 'lockPasswd',
-        content: state.lockPasswd,
-        type: 'session'
-      })
-    },
-    CLEAR_LOCK: (state) => {
-      state.isLock = false;
-      state.lockPasswd = '';
-      removeStore({
-        name: 'lockPasswd',
-        type: 'session'
-      });
-      removeStore({
-        name: 'isLock',
-        type: 'session'
-      });
     },
   }
 }

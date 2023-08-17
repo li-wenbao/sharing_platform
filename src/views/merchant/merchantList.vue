@@ -1,19 +1,19 @@
 <template>
     <basic-container>
         <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
-            :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel"
-            @row-update="rowUpdate" @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
+            :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel" @row-update="rowUpdate"
+            @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange" @on-load="onLoad">
             <template #menu="{ size, row, index }">
                 <el-button type="button" class="el-button el-button--text el-button--small"
                     @click="openDetail(row, index, 1)">
-                    <i class="el-icon-view"></i>
-                    商户详情
+                    <i class="iconfont iconicon_doc"></i>
+                    详情
                 </el-button>
                 <el-button type="button" class="el-button el-button--text el-button--small" @click="openDetail(row, index)">
-                    <i class="el-icon-view"></i>
-                    商户轮播图
+                    <i class="iconfont iconicon_photo"></i>
+                    轮播图
                 </el-button>
             </template>
         </avue-crud>
@@ -31,8 +31,9 @@
 <script>
 import { getList, remove, update, add } from "@/api/base/merchant";
 import { getMerchantTypeList } from "@/api/merchant/merchantList"
+import { getList as getRoleList } from "@/api/user/role";
+import { getList as accountList } from "@/api/user/account";
 import { mainOption } from "@/const/merchant/merchantList"
-import { mapGetters } from "vuex";
 import { randomLenNum } from "@/util/util"
 import merchantDetail from "./merchantDetail";
 import merchantCarousel from "./merchantCarousel";
@@ -83,9 +84,35 @@ export default {
                 const column = this.findObject(this.option.column, "mtName");
                 column.dicData = res.data.data.merchantTypeList;
             })
+
+            if (this.form.status == '1') {
+                const status = this.findObject(this.option.column, "status");
+                status.editDisplay = false
+            }
+            else if (this.form.status == '2') {
+                getRoleList(this.page.currentPage, this.page.pageSize, Object.assign(params, this.query)).then(res => {
+                    const column = this.findObject(this.option.column, "roleid");
+                    column.dicData = res.data.data.roleList;
+                })
+                const status = this.findObject(this.option.column, "status");
+                status.dicData = [
+                    {
+                        label: "正常",
+                        value: "2",
+                    },
+                    {
+                        label: "注销",
+                        value: "4",
+                    },
+                ]
+            } else if (this.form.status == '4') {
+                accountList(this.page.currentPage, this.page.pageSize, Object.assign(params, this.query)).then(res => {
+                    const column = this.findObject(this.option.column, "roleid");
+                    column.dicData = res.data.data.roleList;
+                })
+            }
         },
         openDetail(row, index, type) {
-            this.tranceferDataForm.randomKey = randomLenNum(4, true)
             this.tranceferDataForm.id = row.miid
             if (type == 1) {
                 this.showShDetail = true
@@ -93,6 +120,7 @@ export default {
                 this.tranceferDataForm.status = row.status
                 this.showShCarousel = true
             }
+            this.tranceferDataForm.randomKey = randomLenNum(4, true)
         },
         rowSave(row, done, loading) {
             row.mtid = row.mtName  //重新给mtid赋值
@@ -112,35 +140,18 @@ export default {
             });
         },
         rowUpdate(row, index, done, loading) {
-            // row.status
-            console.log("Mr. L 🚀 ~ row.status:", row.status)
-            row.mtid = row.mtName  //重新给mtid赋值
-            console.log("Mr. L 🚀 ~ row.mtid:", row.mtid)
-            if (row.status == "2") {
-                row.account
-                row.password
-                row.roleid
-            } else if (row.status == "4") {
-                row.uid
-            } else {
-                row.account = ""
-                row.password = ""
-                row.roleid = ""
-                row.uid = ""
-            }
-            console.log("Mr. L 🚀 ~ row======>:", row)
-            // update(row).then(() => {
-            //     this.$message({
-            //         type: "success",
-            //         message: "操作成功!"
-            //     });
-            //     // 数据回调进行刷新
-            //     this.refreshChange()
-            //     done(row);
-            // }, error => {
-            //     window.console.log(error);
-            //     loading();
-            // });
+            update(row).then(() => {
+                this.$message({
+                    type: "success",
+                    message: "操作成功!"
+                });
+                // 数据回调进行刷新
+                this.refreshChange()
+                done(row);
+            }, error => {
+                window.console.log(error);
+                loading();
+            });
         },
         rowDel(row, index, done) {
             this.$confirm("确定将选择数据删除?", {
@@ -216,7 +227,7 @@ export default {
         currentChange(currentPage) {
             this.page.currentPage = currentPage;
         },
-        sizeChange(pageSize) {
+        sizeChange(pageSize) { 
             this.page.pageSize = pageSize;
         },
         refreshChange() {

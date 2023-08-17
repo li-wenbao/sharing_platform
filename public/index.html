@@ -16,10 +16,18 @@
   <link rel="stylesheet" href="<%= BASE_URL %>cdn/iconfont/avue/iconfont.css">
   <link rel="stylesheet" href="<%= BASE_URL %>cdn/iconfont/saber/iconfont.css">
   <link rel="stylesheet" href="<%= BASE_URL %>cdn/avue/2.10.10/index.css">
-  <script src="<%= BASE_URL %>cdn/xlsx/FileSaver.min.js"></script>
-  <script src="<%= BASE_URL %>cdn/xlsx/xlsx.full.min.js"></script>
+  <script src="<%= BASE_URL %>cdn/xlsx/FileSaver.min.js" charset="utf-8"></script>
+  <script src="<%= BASE_URL %>cdn/xlsx/xlsx.full.min.js" charset="utf-8"></script>
   <link rel="icon" href="<%= BASE_URL %>svg/favicon.svg">
-  <title>WiFi共享平台</title>
+  <script src="<%= BASE_URL %>tinymce/tinymce.min.js"></script>
+  <script src="<%= BASE_URL %>tinymce/themes/silver/theme.min.js"></script>
+  <!-- <script charset="utf-8" src="https://map.qq.com/api/gljs?v=1.exp&key=VRBBZ-3S46X-YS74T-TVJ7M-DV4EE-VMBOX"></script> -->
+  <!-- 这三个文件是新引入的腾讯地图的api 注意：key值是必须要填的 是一串字符串 -->
+  <script type="text/javascript" src="https://mapapi.qq.com/web/mapComponents/geoLocation/v/geolocation.min.js"></script>
+  <script type="text/javascript" src="https://map.qq.com/api/gljs?v=1.exp&libraries=service&key=VRBBZ-3S46X-YS74T-TVJ7M-DV4EE-VMBOX"></script>
+  <script type="text/javascript" src="https://map.qq.com/api/gljs?v=1.exp&key=VRBBZ-3S46X-YS74T-TVJ7M-DV4EE-VMBOX"></script>
+
+  <title>WiFi共享管理平台</title>
   <style>
     html,
     body,

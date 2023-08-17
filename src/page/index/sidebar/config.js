@@ -4,6 +4,6 @@ export default {
     path: 'url',
     icon: 'icon',
     children: 'children',
-    isOpen: 'isOpen'
+    isOpen: 'open'
   }
 }

@@ -1,6 +1,7 @@
 export const mainOption = {
   height: "auto",
   calcHeight: 10,
+  dialogDrag: true,
   tip: false,
   simplePage: true,
   searchShow: false,
@@ -18,11 +19,12 @@ export const mainOption = {
       label: "图片id",
       prop: "ppid",
       hide: true,
-      addDisplay: false,
+      display:false,
+      // addDisplay: false,
       rules: [
         {
           required: true,
-          message: "请输入规格id",
+          message: "请输入图片id",
           trigger: "blur",
         },
       ],
@@ -35,13 +37,6 @@ export const mainOption = {
       span: 24,
       formslot: true,
       slot: true,
-      rules: [
-        {
-          required: true,
-          message: "请选择商品封面",
-          trigger: "blur",
-        },
-      ],
     },
     {
       label: "类型",

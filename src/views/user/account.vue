@@ -16,10 +16,8 @@
   
 <script>
 import { getList, update, add } from "@/api/user/account";
-import { getList as roleList } from "@/api/system/role";
+import { getList as roleList } from "@/api/user/role";
 import { mainOption } from "@/const/user/account"
-import { mapGetters } from "vuex";
-import website from '@/config/website';
 
 export default {
     data() {
@@ -72,7 +70,6 @@ export default {
             if (row.level == "2") {
                 row.supuid = row.supname
             }
-            // add(row.roleid,row.account,row.password,row.name,row.level,row.supuid).then((res) => {
             add(row).then((res) => {
                 // 获取新增数据的相关字段
                 this.$message({
@@ -88,6 +85,9 @@ export default {
             });
         },
         rowUpdate(row, index, done, loading) {
+            if(row.type=='3'){
+                row.roleid = row.roleName //选项卡 重新赋值
+            }
             update(row).then(() => {
                 this.$message({
                     type: "success",

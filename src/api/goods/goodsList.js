@@ -12,22 +12,34 @@ export const getList = (pageNum, pageSize, params) => {
   });
 };
 
-export const add = (ctid,name,curl,type) => {
+// export const add = (ctid,name,curl,type) => {
+export const add = (params) => {
   return request({
     url: "/share/commodity/saveCommodityInfo",
     method: "post",
     params: {
-      ctid,name,curl,type
+      ...params,
     },
   });
 };
 
-export const update = (cid,ctid,name,curl,type,status) => {
+export const update = (params) => {
   return request({
     url: "/share/commodity/updateCommodityInfo",
     method: "post",
     params: {
-      cid,ctid,name,curl,type,status
+      ...params
     },
   });
 };
+
+export const release = (params) => {
+  return request({
+    url: "/share/commodity/commodityRelease",
+    method: "post",
+    params: {
+      ...params
+    },
+  });
+};
+

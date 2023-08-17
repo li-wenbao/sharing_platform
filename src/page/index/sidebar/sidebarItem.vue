@@ -121,12 +121,6 @@ export default {
       return split[0]
     },
     open(item) {
-      console.log("Mr. L 🚀 ~ item:", item)
-      // if(item.menuid==164){
-      //   item[this.pathKey] = '/system/menu'
-      // }
-      // item[this.pathKey]
-      console.log("Mr. L 🚀 ~ item[this.pathKey]:", item[this.pathKey])
       this.$set(item, `meta`, {})
       item.meta = item.menuid
       if (this.screen <= 1) this.$store.commit("SET_COLLAPSE");

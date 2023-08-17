@@ -1,21 +1,10 @@
 <template>
     <basic-container>
         <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
-            :permission="permissionList" :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel"
+            :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel"
             @row-update="rowUpdate" @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange" @on-load="onLoad">
-            <!-- <template slot="menuLeft">
-                <el-button type="danger" size="small" icon="el-icon-delete" v-if="permission.dept_delete" plain
-                    @click="handleDelete">删 除
-                </el-button>
-            </template> -->
-            <!-- <template slot-scope="scope" slot="purl">
-                <el-image :src="scope.row.purl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
-            </template> -->
-            <!-- <template slot-scope="scope" slot="purlForm">
-                <imageUpload :disabled="scope.disabled" :list="form.purl" v-model="form.purl"></imageUpload>
-            </template> -->
         </avue-crud>
     </basic-container>
 </template>
@@ -23,14 +12,11 @@
 <script>
 import { getList, update, add } from "@/api/base/comText";
 import { mainOption } from "@/const/base/comText"
-import { mapGetters } from "vuex";
-import website from '@/config/website';
 
 export default {
     data() {
         return {
             form: {},
-            cid: "C1690722866964",
             selectionList: [],
             srcList:[],
             query: {},
@@ -47,15 +33,6 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["userInfo", "permission"]),
-        permissionList() {
-            return {
-                addBtn: this.vaildData(this.permission.dept_add, false),
-                viewBtn: this.vaildData(this.permission.dept_view, false),
-                delBtn: this.vaildData(this.permission.dept_delete, false),
-                editBtn: this.vaildData(this.permission.dept_edit, false)
-            };
-        },
         ids() {
             let ids = [];
             this.selectionList.forEach(ele => {
@@ -68,7 +45,6 @@ export default {
     },
     methods: {
         handleAdd(row) {
-            this.parentId = row.id;
             this.$refs.crud.rowAdd();
         },
         rowSave(row, done, loading) {

@@ -4,31 +4,30 @@ export const getList = (cid,status) => {
   return request({
     url: "/share/commodity/getCommodityPicture",
     method: "post",
-    params: {
+    params: { 
       cid,status
     },
   });
 };
 
-export const add = (cid, purlList) => {
+export const add = (params) => {
   return request({
     url: "/share/commodity/saveCommodityPicture",
     method: "post",
     params: {
-      // ...row,
-      cid,
-      purlList,
+      ...params,
+      // cid,
+      // purlList,
     },
   });
 };
 
-export const update = (pid,status) => {
+export const update = (row) => {
   return request({
     url: "/share/commodity/updateCommodityPicture",
     method: "post",
     params: {
-      pid,
-      status,
+      ...row
     },
   });
 };
