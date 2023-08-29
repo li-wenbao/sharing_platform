@@ -60,9 +60,9 @@ export default {
   },
   created() {
   },
-  mounted() {},
+  mounted() { },
   computed: {
-    ...mapGetters(["roles", "tagList"]),
+    ...mapGetters(["roles"]),
     labelKey() {
       return this.props.label || this.config.propsDefault.label;
     },
@@ -99,40 +99,32 @@ export default {
     validatenull(val) {
       return validatenull(val);
     },
-    findTag(value) {
-      let tag, key;
-      this.tagList.map((item, index) => {
-        if (item.value === value) {
-          tag = item;
-          key = index;
-        }
-      });
-      return { tag: tag, key: key };
-    },
-    closeTag(value) {
-      let tag = value || this.$store.getters.tag;
-      if (typeof value === 'string') {
-        tag = this.$store.getters.tagList.filter(ele => this.getPathFromUrl(ele.value) === value)[0]
-      }
-      this.$store.commit('DEL_TAG', tag)
-    },
     getPathFromUrl(url) {
       let split = url.split('?');
       return split[0]
+    },
+    validIsOpen(item) {
+      if (item[this.isOpenKey] === 2 && isURL(item[this.pathKey])) {
+        return true;
+      }
     },
     open(item) {
       this.$set(item, `meta`, {})
       item.meta = item.menuid
       if (this.screen <= 1) this.$store.commit("SET_COLLAPSE");
-      this.$router.$avueRouter.group = item.group;
-      this.$router.$avueRouter.meta = item.meta;
-      this.$router.push({
-        path: this.$router.$avueRouter.getPath({
-          name: item[this.labelKey],
-          src: item[this.pathKey].replace("/index", "")
-        }, item.meta),
-        query: item.menuid
-      });
+      if (this.validIsOpen(item)) {
+        window.open(item[this.pathKey]);
+      } else {
+        this.$router.$avueRouter.group = item.group;
+        this.$router.$avueRouter.meta = item.meta;
+        this.$router.push({
+          path: this.$router.$avueRouter.getPath({
+            name: item[this.labelKey],
+            src: item[this.pathKey]
+          }, item.meta),
+          query: item.menuid
+        });
+      }
     }
   }
 };

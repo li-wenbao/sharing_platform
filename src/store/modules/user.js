@@ -4,22 +4,12 @@ import {
   removeToken,
   removeRefreshToken,
 } from "@/util/auth";
-import { Message } from "element-ui";
 import { setStore, getStore } from "@/util/store";
 import { isURL, validatenull } from "@/util/validate";
 import { deepClone } from "@/util/util";
 import website from "@/config/website";
-import {
-  loginByUsername,
-  loginBySocial,
-  loginBySso,
-  getUserInfo,
-  logout,
-  refreshToken,
-  getButtons,
-} from "@/api/user";
-import { getTopMenu, getRoutes,getMenu } from "@/api/system/menu";
-import md5 from "js-md5";
+import { loginByUsername, getUserInfo, refreshToken } from "@/api/user";
+import { getRoutes, getButtons } from "@/api/system/menu";
 
 function addPath(ele, first) {
   const menu = website.menu;
@@ -64,11 +54,8 @@ const user = {
           .then((res) => {
             const data = res.data.data;
             commit("SET_TOKEN", data.token);
-            // commit('SET_REFRESH_TOKEN', data.refresh_token);
-            // commit('SET_TENANT_ID', data.tenant_id);
             commit("SET_USER_INFO", data);
             commit("DEL_ALL_TAG");
-            // commit("CLEAR_LOCK");
             resolve();
           })
           .catch((error) => {
@@ -128,24 +115,6 @@ const user = {
     // 登出
     LogOut({ commit }) {
       removeToken();
-      // return new Promise((resolve, reject) => {
-      //   logout()
-      //     .then(() => {
-      //       commit("SET_TOKEN", "");
-      //       commit("SET_MENU", []);
-      //       commit("SET_MENU_ALL_NULL", []);
-      //       commit("SET_ROLES", []);
-      //       commit("SET_TAG_LIST", []);
-      //       commit("DEL_ALL_TAG");
-      //       commit("CLEAR_LOCK");
-      //       removeToken();
-      //       removeRefreshToken();
-      //       resolve();
-      //     })
-      //     .catch((error) => {
-      //       reject(error);
-      //     });
-      // });
     },
     //注销session
     FedLogOut({ commit }) {
@@ -165,32 +134,26 @@ const user = {
     //获取系统菜单
     GetMenu({ commit, dispatch }, topMenuId) {
       return new Promise((resolve) => {
-        getMenu(topMenuId, true).then((res) => {
-          const data = res.data.data;
-          console.log("Mr. L 🚀 ~ data:", data)
-          let menu = deepClone(data);
-          menu.forEach((ele) => {
-            addPath(ele, true);
-          });
-          // commit("SET_MENU_ALL", menu);
-          commit("SET_MENU", menu);
-          resolve(menu);
-        });
-      });
-    },
-    //获取系统菜单2
-    GetRoutes({ commit, dispatch }, topMenuId) {
-      console.log("Mr. L 🚀 ~ topMenuId:", topMenuId);
-      return new Promise((resolve) => {
-        getRoutes(topMenuId, true).then((res) => {
+        getRoutes(topMenuId).then((res) => {
           const data = res.data.data;
           let menu = deepClone(data);
           menu.forEach((ele) => {
             addPath(ele, true);
           });
           commit("SET_MENU_ALL", menu);
-          // commit("SET_MENU", menu);
+          commit("SET_MENU", menu);
+          dispatch("GetButtons");
           resolve(menu);
+        });
+      });
+    },
+    //获取系统按钮
+    GetButtons({ commit }) {
+      return new Promise((resolve) => {
+        getButtons().then((res) => {
+          const data = res.data.data;
+          commit('SET_PERMISSION', data);
+          resolve();
         });
       });
     },
@@ -247,12 +210,11 @@ const user = {
     },
     SET_PERMISSION: (state, permission) => {
       let result = [];
-
       function getCode(list) {
         list.forEach((ele) => {
           if (typeof ele === "object") {
             const chiildren = ele.children;
-            const code = ele.code;
+            const code = ele.menuid;
             if (chiildren) {
               getCode(chiildren);
             } else {

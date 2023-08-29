@@ -42,15 +42,15 @@
             </template>
         </avue-crud>
         <el-drawer :title="`商品详情`" :visible.sync="showShDetail" direction="rtl" :append-to-body="true"
-            :before-close="handleCloseDetail" size="80%">
+            :before-close="handleCloseDetail" size="60%">
             <goodsDetail :tranceferData="tranceferDataForm"></goodsDetail>
         </el-drawer>
         <el-drawer :title="`商品轮播图`" :visible.sync="showShCarousel" direction="rtl" :append-to-body="true"
-            :before-close="handleCloseDetail" size="80%">
+            :before-close="handleCloseDetail" size="60%">
             <goodsCarousel :tranceferData="tranceferDataForm"></goodsCarousel>
         </el-drawer>
         <el-drawer :title="`商品规格`" :visible.sync="showShSpecs" direction="rtl" :append-to-body="true"
-            :before-close="handleCloseDetail" size="80%">
+            :before-close="handleCloseDetail" size="60%">
             <goodsSpecs :tranceferData="tranceferDataForm"></goodsSpecs>
         </el-drawer>
     </basic-container>
@@ -172,6 +172,7 @@ export default {
         },
         rowUpdate(row, index, done, loading) {
             row.curl = this.imgUrl
+            row.status = ''   
             update(row).then(() => {
                 this.$message({
                     type: "success",

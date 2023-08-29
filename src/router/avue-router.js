@@ -5,14 +5,9 @@ let RouterPlugin = function () {
 };
 // RouterPlugin.install = function (vue,  option = {}) {
 RouterPlugin.install = function (vue, router, store, i18n) {
-  // console.log("Mr. L 🚀 ~ i18n:", i18n);
-  // this.$router = option.router;
-  // this.$store = option.store;
-  // this.$vue = new vue({ i18n: option.i18n });
   this.$router = router;
   this.$store = store;
   this.$vue = new vue({ i18n });
-  // this.$vue = new vue({ i18n });
 
   // 这个的作用是 为了检查出网页链接，因为本项目用到了 iframe
   function isURL(s) {
@@ -28,7 +23,7 @@ RouterPlugin.install = function (vue, router, store, i18n) {
     });
     return result.join("&");
   }
-
+  let that = this;
   this.$router.$avueRouter = {
     //全局配置
     $website: this.$store.getters.website,
@@ -210,15 +205,19 @@ RouterPlugin.install = function (vue, router, store, i18n) {
       // for循环结束
       // 这个first 卡的其实就是首路由
       if (first) {
-        // this.safe.$router.addRoutes(aRouter);
         // window.console.log(aRouter)
         if (!this.routerList.includes(aRouter[0][propsDefault.path])) {
-          this.safe.$router.addRoutes(aRouter);
-          this.routerList.push(aRouter[0][propsDefault.path]);
+          try {
+            this.safe.$router.addRoutes(aRouter)
+          } catch (e) {
+            that.$store.commit('SET_MENU', []);
+            that.$store.commit('SET_MENU_ALL', []);
+          }
+          this.routerList.push(aRouter[0][propsDefault.path])
         }
       } else {
         // 这里返回的是子组件
-        return aRouter;
+        return aRouter
       }
     },
   };

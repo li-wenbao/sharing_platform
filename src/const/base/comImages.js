@@ -12,7 +12,7 @@ export const mainOption = {
   selection: true,
   viewBtn: true,
   delBtn: false,
-  menuWidth: 200,
+  menuWidth: 160,
   dialogClickModal: false,
   column: [
     {
@@ -20,7 +20,6 @@ export const mainOption = {
       prop: "ppid",
       hide: true,
       display:false,
-      // addDisplay: false,
       rules: [
         {
           required: true,

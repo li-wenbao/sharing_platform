@@ -68,7 +68,7 @@ export const mainOption = {
       search: true,
       dicData: [
         {
-          label: "正常",
+          label: "启用",
           value: '1',
         },
         {

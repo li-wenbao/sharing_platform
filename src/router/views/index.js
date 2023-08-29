@@ -70,13 +70,13 @@ export default [
   },
   {
     path: "/user/account",
-    name: "账号",
+    name: "账号列表",
     component: Layout,
     redirect: "/user/account/index",
     children: [
       {
         path: "index",
-        name: "账号",
+        name: "账号列表",
         meta: {
           i18n: "account",
         },
@@ -116,6 +116,23 @@ export default [
         },
         component: () =>
           import(/* webpackChunkName: "views" */ "@/views/base/couponCategory"),
+      },
+    ],
+  },
+  {
+    path: "/signing/signingList",
+    name: "公共文本",
+    component: Layout,
+    redirect: "/signing/signingList/index",
+    children: [
+      {
+        path: "index",
+        name: "公共文本",
+        meta: {
+          i18n: "signingList",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/signing/signingList"),
       },
     ],
   },
@@ -189,13 +206,13 @@ export default [
   },
   {
     path: "/user/role",
-    name: "角色管理",
+    name: "角色列表",
     component: Layout,
     redirect: "/user/role/index",
     children: [
       {
         path: "index",
-        name: "角色管理",
+        name: "角色列表",
         meta: {
           i18n: "role",
         },

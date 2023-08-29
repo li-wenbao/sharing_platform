@@ -28,12 +28,9 @@ module.exports = {
       '/share': {
         //本地服务接口地址
         // target: 'http://localhost',
-        // 8.137.102.41:8080/share/user/login
-        // target: 'http://8.137.102.41:8080', //测试api
-        target: 'https://abc.ijiandai.com',
         //远程演示服务地址,可用于直接启动项目
-        // target: 'https://saber.bladex.cn/api',
-        // target: 'https://saber.bladex.vip/api',
+        // target: 'https://abc.ijiandai.com',
+        target: 'https://www.raoxiang.vip',
         ws: true,
         changeOrigin: true,
         pathRewrite: {

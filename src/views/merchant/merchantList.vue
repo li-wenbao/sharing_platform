@@ -5,6 +5,9 @@
             @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange" @on-load="onLoad">
+            <template slot="status" slot-scope="scope">
+                <enable :data="scope.row.status" type="2"></enable>
+            </template>
             <template #menu="{ size, row, index }">
                 <el-button type="button" class="el-button el-button--text el-button--small"
                     @click="openDetail(row, index, 1)">
@@ -18,11 +21,11 @@
             </template>
         </avue-crud>
         <el-drawer :title="`商户详情`" :visible.sync="showShDetail" direction="rtl" :append-to-body="true"
-            :before-close="handleCloseDetail" size="80%">
+            :before-close="handleCloseDetail" size="60%">
             <merchantDetail :tranceferData="tranceferDataForm"></merchantDetail>
         </el-drawer>
         <el-drawer :title="`商户轮播图`" :visible.sync="showShCarousel" direction="rtl" :append-to-body="true"
-            :before-close="handleCloseDetail" size="80%">
+            :before-close="handleCloseDetail" size="60%">
             <merchantCarousel :tranceferData="tranceferDataForm"></merchantCarousel>
         </el-drawer>
     </basic-container>
@@ -227,7 +230,7 @@ export default {
         currentChange(currentPage) {
             this.page.currentPage = currentPage;
         },
-        sizeChange(pageSize) { 
+        sizeChange(pageSize) {
             this.page.pageSize = pageSize;
         },
         refreshChange() {

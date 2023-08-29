@@ -47,6 +47,7 @@ export const mainOption = {
       width: 100,
       align: "center",
       hide: true,
+      slot: true,
       addDisplay: false,
       //账号-修改 1.修改密码2.重置密码3.修改角色 4.启用、禁用
       dicData: [
@@ -264,6 +265,7 @@ export const mainOption = {
       prop: "status",
       type: "select",
       width: 100,
+      slot: true,
       align: "center",
       addDisplay: false,
       editDisplay: false,
@@ -358,13 +360,6 @@ export const mainOption = {
       prop: "supuid",
       display:false,
       hide: true,
-      // rules: [
-      //   {
-      //     required: true,
-      //     message: "请输入账号id",
-      //     trigger: "blur",
-      //   },
-      // ],
     },
     {
       label: "创建时间",

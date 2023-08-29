@@ -5,11 +5,6 @@
             @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange">
-            <!-- <template slot="menuLeft">
-                <el-button type="danger" size="small" icon="el-icon-delete" v-if="permission.dept_delete" plain
-                    @click="handleDelete">删 除
-                </el-button>
-            </template> -->
             <template #menu="{ size, row, index }">
                 <el-button style="color:#E6A23C" v-if="row.status=='1'" type="button" class="el-button el-button--text el-button--small"
                     @click.stop.native="onChangeStatus(row, index, 1)">
@@ -21,6 +16,9 @@
                     <i class="iconfont iconicon_roundadd"></i>
                     启用
                 </el-button>
+            </template>
+            <template slot="status" slot-scope="scope">
+                <enable :data="scope.row.status"></enable>
             </template>
             <template slot-scope="scope" slot="purl">
                 <el-image :src="scope.row.purl" class="list-images-box-1" :preview-src-list="srcList"></el-image>

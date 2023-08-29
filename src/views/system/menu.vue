@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { getLazyList, remove, update, add, getMenu } from "@/api/system/menu";
+import { getLazyList, remove, update, add, getRoutes } from "@/api/system/menu";
 import { mapGetters } from "vuex";
 import iconList from "@/config/iconList";
 
@@ -45,6 +45,7 @@ export default {
       option: {
         height: "auto",
         calcHeight: 10,
+        dialogDrag: true,
         lazy: true,
         tip: false,
         simplePage: true,
@@ -104,6 +105,7 @@ export default {
             minWidth: 160,
             props: {
               label: "name",
+              value:'menuid'
             },
             rules: [
               {
@@ -119,6 +121,7 @@ export default {
             type: "icon",
             slot: true,
             iconList: iconList,
+            width: 100,
             rules: [
               {
                 required: true,
@@ -158,6 +161,7 @@ export default {
             label: "排序",
             prop: "ordernum",
             type: "number",
+            width: 100,
             rules: [
               {
                 required: true,
@@ -185,7 +189,7 @@ export default {
   },
   methods: {
     initData() { 
-      getMenu(this.userInfo.token).then(res => {
+      getRoutes(this.userInfo.token).then(res => {
         const column = this.findObject(this.option.column, "parentid");
         column.dicData = res.data.data;
       });
@@ -301,9 +305,6 @@ export default {
         this.initData();
       }
       if (["edit", "view"].includes(type)) {
-        getMenu(this.form.menuid).then(res => {
-          this.form = res.data.data;
-        });
       }
       done();
     },

@@ -63,7 +63,7 @@ export default {
   mounted() {
     this.init();
   },
-  computed: mapGetters(["isMenu", "isCollapse", "website", "menu", "userInfo"]),
+  computed: mapGetters(["isCollapse", "website", "menu", "userInfo"]),
   props: [],
   methods: {
     showCollapse() {

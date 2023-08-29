@@ -7,31 +7,31 @@ export const mainOption = {
   searchShow: false,
   searchMenuSpan: 4,
   dialogWidth: "50%",
-  border: true,
+  border: true, 
   index: true,
   selection: true,
   viewBtn: true,
   delBtn: false,
-  menuWidth: 160,
+  menuWidth: 200,
   dialogClickModal: false,
   column: [
     {
-      label: "内容",
-      prop: "content",
-      type: "textarea",
+      label: "名称",
+      prop: "name",
       span: 24,
       rules: [
         {
           required: true,
-          message: "请输入内容",
+          message: "请输入名称",
           trigger: "blur",
         },
       ],
     },
     {
-      label: "文本id",
-      prop: "pmid",
+      label: "id",
+      prop: "swid",
       hide: true,
+      display: false,
       addDisplay: false,
       rules: [
         {
@@ -48,15 +48,23 @@ export const mainOption = {
       width: 180,
       align: "center",
       search: true,
-      //1.首页公告 2.其它
+      //类型：1.按月 2.按季度 3.按年 4.买断
       dicData: [
         {
-          label: "首页公告",
-          value: '1',
+          label: "按月",
+          value: "1",
         },
         {
-          label: "其它",
-          value: '2',
+          label: "按季度",
+          value: "2",
+        },
+        {
+          label: "按年",
+          value: "3",
+        },
+        {
+          label: "买断",
+          value: "4",
         },
       ],
       rules: [
@@ -71,7 +79,7 @@ export const mainOption = {
       label: "状态",
       prop: "status",
       type: "select",
-      width: 100,
+      width: 180,
       align: "center",
       search: true,
       addDisplay: false,
@@ -79,11 +87,11 @@ export const mainOption = {
       dicData: [
         {
           label: "启用",
-          value: '1',
+          value: "1",
         },
         {
           label: "禁用",
-          value:'2',
+          value: "2",
         },
       ],
       rules: [
@@ -95,39 +103,37 @@ export const mainOption = {
       ],
     },
     {
-      label: "是否跳转",
-      prop: "isjump",
-      type: "select",
-      width: 100,
-      align: "center",
-      //是否跳转:1.是 2.否 
-      dicData: [
-        {
-          label: "是",
-          value: '1',
-        },
-        {
-          label: "否",
-          value: '2',
-        },
-      ],
+      label: "价格",
+      prop: "price",
+      hide: true,
       rules: [
         {
           required: true,
-          message: "请选择是否跳转",
+          message: "请输入价格",
           trigger: "blur",
         },
       ],
     },
     {
-      label: "跳转url",
-      prop: "jumpurl",
+      label: "上级提成",
+      prop: "levelratio",
       hide: true,
-      span:24,
       rules: [
         {
           required: true,
-          message: "请输入跳转url",
+          message: "请输入上级提成",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "提成比例",
+      prop: "ratio",
+      hide: true,
+      rules: [
+        {
+          required: true,
+          message: "请输入提成比例",
           trigger: "blur",
         },
       ],

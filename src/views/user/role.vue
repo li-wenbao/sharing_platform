@@ -12,10 +12,6 @@
                     权限
                 </el-button>
             </template>
-            <!-- <template slot="menuLeft">
-                <el-button size="small" icon="el-icon-delete" @click.stop="openDetail(row, index, 1)" plain>菜单配置
-                </el-button>
-            </template> -->
         </avue-crud>
         <el-dialog title="角色权限" append-to-body :visible.sync="perShow" width="345px">
             <el-tree :data="menuList" show-checkbox node-key="menuid" ref="treeMenu" :default-checked-keys="roleList"

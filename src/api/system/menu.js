@@ -56,11 +56,13 @@ export const Info = (menuid) => {
   return request({
     url: "/share/menu/getMenuInfo",
     method: "post",
-    params: { menuid },
+    params: { 
+      menuid 
+    },
   });
 };
 
-export const getMenu = (uid) => {
+export const getRoutes = (uid) => {
   return request({
     url: "/share/menu/userMenu",
     method: "post",
@@ -70,11 +72,10 @@ export const getMenu = (uid) => {
   });
 };
 
-export const getRoutes = () =>
-  request({
+export const getButtons = () => {
+  return request({
     url: "/share/menu/getMenuList",
     method: "get",
-    params: {
-      // uid,
-    },
+    params: {},
   });
+};

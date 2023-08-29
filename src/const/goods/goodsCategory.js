@@ -16,7 +16,7 @@ export const mainOption = {
   viewBtn: true,
   // editBtn: false,
   delBtn: false,
-  menuWidth: 200,
+  menuWidth: 160,
   dialogClickModal: false,
   column: [
     {
@@ -70,7 +70,7 @@ export const mainOption = {
       //状态:1.正常 2.禁用
       dicData: [
         {
-          label: "正常",
+          label: "启用",
           value: '1',
         },
         {

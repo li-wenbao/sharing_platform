@@ -92,20 +92,6 @@ export const rolePermissionsOption = {
     menuWidth: 200,
     dialogClickModal: false,
     column: [
-
-        // "menuid": 164, //菜单id
-        // "parentid": 163, //父菜单id
-        // "parentname": null, //父菜单名称
-        // "name": "菜单列表", //菜单名称
-        // "url": "/", //菜单url
-        // "perms": "menu1", //标识(无实际用处)
-        // "type": 1, //类型  0:目录  1:菜单   2:按钮
-        // "icon": "index", //图标
-        // "ordernum": 1, //排序
-        // "credate": "2023-07-26 17:24:52", //创建时间
-        // "upddate": "2023-07-26 17:24:52", //修改时间
-        // "open": true, //true 已选中 false 未选中
-        // "list": null //子集
       {
         label: "角色名称",
         prop: "name",
@@ -126,7 +112,6 @@ export const rolePermissionsOption = {
         editDisplay: false,
         hide: true,
         type: "select",
-        // slot: true,
         dicData: [],
         props: {
           label: "name",

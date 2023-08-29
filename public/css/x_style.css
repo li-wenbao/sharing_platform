@@ -60,6 +60,22 @@
   border: 1px solid #e8e8e8;
 }
 
+
+.fz-primary {
+  color:#409eff
+}
+.fz-success {
+  color:#67c23a
+}
+.fz-info {
+  color:#909399
+}
+.fz-warning {
+  color:#e6a23c
+}
+.fz-danger {
+  color:#f56c6c
+}
 /* 
 列表图片尺寸
 */

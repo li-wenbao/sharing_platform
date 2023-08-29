@@ -12,7 +12,7 @@ export const mainOption = {
   selection: true,
   viewBtn: true,
   delBtn: false,
-  menuWidth: 200,
+  menuWidth: 160,
   dialogClickModal: false,
   column: [
     {
@@ -88,7 +88,7 @@ export const mainOption = {
     },
 
     {
-      label: "种类",
+      label: "种类", 
       prop: "type",
       type: "select",
       width: 90,
@@ -240,37 +240,6 @@ export const mainOption = {
         },
       ],
     },
-    // {
-    //   label: "状态",
-    //   prop: "status",
-    //   type: "select",
-    //   width: 90,
-    //   align: "center",
-    //   search: true,
-    //   addDisplay: false,
-    //   props: {
-    //     label: "label",
-    //     value: "value",
-    //   },
-    //   //状态:1.正常 2.禁用
-    //   dicData: [
-    //     {
-    //       label: "正常",
-    //       value: "1",
-    //     },
-    //     {
-    //       label: "禁用",
-    //       value: "2",
-    //     },
-    //   ],
-    //   rules: [
-    //     {
-    //       required: true,
-    //       message: "请选择状态",
-    //       trigger: "blur",
-    //     },
-    //   ],
-    // },
     {
       label: "状态",
       prop: "status",

@@ -5,6 +5,9 @@
             @row-update="rowUpdate" @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange" @on-load="onLoad">
+            <template slot="status" slot-scope="scope">
+                <enable :data="scope.row.status"></enable>
+            </template>
         </avue-crud>
     </basic-container>
 </template>

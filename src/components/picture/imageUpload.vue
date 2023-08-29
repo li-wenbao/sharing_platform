@@ -11,9 +11,6 @@
           <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
             <i class="el-icon-zoom-in"></i>
           </span>
-          <!-- <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleDownload(file)">
-            <i class="el-icon-download"></i>
-          </span> -->
           <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
             <i class="el-icon-delete"></i>
           </span>

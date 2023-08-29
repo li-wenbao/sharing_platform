@@ -121,6 +121,7 @@ export const mainOption = {
       align: "center",
       addDisplay: false,
       search: true,
+      slot: true,
       // 1.审核中 2.正常 3.审核失败 4.注销 5.已取消
       dicData: [
         {
@@ -205,6 +206,7 @@ export const mainOption = {
       label: "账号id",
       prop: "uid",
       hide: true,
+      display:false,
       addDisplay: false,
       editDisplay: false,
       type: "select",
@@ -213,13 +215,6 @@ export const mainOption = {
         label: "account",
         value: "uid",
       },
-      // rules: [
-      //   {
-      //     required: true,
-      //     message: "请输入账号id",
-      //     trigger: "blur",
-      //   },
-      // ],
     },
     {
       label: "账号",
@@ -227,13 +222,6 @@ export const mainOption = {
       hide: true,
       addDisplay: false,
       editDisplay: false,
-      // rules: [
-      //   {
-      //     required: true,
-      //     message: "请输入账号",
-      //     trigger: "blur",
-      //   },
-      // ],
     },
     {
       label: "密码",
@@ -242,13 +230,6 @@ export const mainOption = {
       value:"123456",
       addDisplay: false,
       editDisplay: false,
-      // rules: [
-      //   {
-      //     required: true,
-      //     message: "请输入密码",
-      //     trigger: "blur",
-      //   },
-      // ],
     },
     {
       label: "角色",
@@ -262,13 +243,6 @@ export const mainOption = {
       },
       addDisplay: false,
       editDisplay: false,
-      // rules: [
-      //   {
-      //     required: true,
-      //     message: "请输入角色",
-      //     trigger: "blur",
-      //   },
-      // ],
     },
     {
       label: "推介码",

@@ -12,7 +12,7 @@ export const mainOption = {
   selection: true,
   viewBtn: true,
   delBtn: false,
-  menuWidth: 200,
+  menuWidth: 160,
   dialogClickModal: false,
   column: [
     {
@@ -73,7 +73,7 @@ export const mainOption = {
       label: "状态",
       prop: "status",
       type: "select",
-      width: 180,
+      width: 100,
       align: "center",
       search: true,
       addDisplay: false,
@@ -81,7 +81,7 @@ export const mainOption = {
       //状态:1.正常 2.禁用
       dicData: [
         {
-          label: "正常",
+          label: "启用",
           value: '1',
         },
         {

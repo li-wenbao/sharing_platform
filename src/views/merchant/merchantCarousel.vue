@@ -3,7 +3,10 @@
       <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
          :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel" @row-update="rowUpdate"
          @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset" @selection-change="selectionChange"
-         @current-change="currentChange" @size-change="sizeChange" @refresh-change="refreshChange" >
+         @current-change="currentChange" @size-change="sizeChange" @refresh-change="refreshChange">
+         <template slot="status" slot-scope="scope">
+            <enable :data="scope.row.status"></enable>
+         </template>
          <template slot-scope="scope" slot="purl">
             <el-image :src="scope.row.purl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
          </template>

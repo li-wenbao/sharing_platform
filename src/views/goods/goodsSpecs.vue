@@ -5,6 +5,9 @@
             @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange">
+            <template slot="status" slot-scope="scope">
+                <enable :data="scope.row.status"></enable>
+            </template>
             <template slot-scope="scope" slot="surl">
                 <el-image :src="scope.row.surl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
             </template>

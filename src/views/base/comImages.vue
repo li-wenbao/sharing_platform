@@ -5,11 +5,12 @@
             @row-update="rowUpdate" @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange" @on-load="onLoad">
-            <!-- <template slot="menuLeft">
-                <el-button type="danger" size="small" icon="el-icon-delete" v-if="permission.dept_delete" plain
-                    @click="handleDelete">删 除
-                </el-button> 
-            </template> -->
+            <template slot="status" slot-scope="scope">
+                <enable :data="scope.row.status"></enable>
+            </template>
+            <template slot="isjump" slot-scope="scope">
+                <enable :data="scope.row.isjump" type="3"></enable>
+            </template>
             <template slot-scope="scope" slot="purl">
                 <el-image :src="scope.row.purl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
             </template>
@@ -65,7 +66,6 @@ export default {
             row.purl = this.imgUrl
             add(row).then((res) => {
                 // 获取新增数据的相关字段
-                // const data = res.data.data;
                 this.$message({
                     type: "success",
                     message: "操作成功!"

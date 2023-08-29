@@ -13,7 +13,6 @@ import {getToken} from '@/util/auth';
 import {Message} from 'element-ui';
 import {isURL} from "@/util/validate";
 import website from '@/config/website';
-import {Base64} from 'js-base64';
 import { baseUrl } from '@/config/env';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';

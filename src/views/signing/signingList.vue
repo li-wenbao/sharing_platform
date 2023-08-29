@@ -1,39 +1,30 @@
 <template>
     <basic-container>
         <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
-            :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel" @row-update="rowUpdate"
-            @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
+            :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel"
+            @row-update="rowUpdate" @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange" @on-load="onLoad">
-            <template slot="type" slot-scope="scope">
-                <enable :data="scope.row.type" type="4"></enable>
-            </template>
-            <template slot="way" slot-scope="scope">
-                <enable :data="scope.row.way" type="5"></enable>
-            </template>
             <template slot="status" slot-scope="scope">
-                <enable :data="scope.row.status" type="6"></enable>
+                <enable :data="scope.row.status"></enable>
             </template>
         </avue-crud>
     </basic-container>
 </template>
   
 <script>
-import { mapGetters } from "vuex";
-import { getList, update, add } from "@/api/base/couponList";
-import { getList as goodsList} from "@/api/goods/goodsList";
-import { mainOption } from "@/const/base/couponList"
-
+import { getList, update, add } from "@/api/signing/signingList";
+import { mainOption } from "@/const/signing/signingList"
+import { Message } from "element-ui";
 export default {
     data() {
         return {
             form: {},
-            cid: "",
-            discountType: "",
             selectionList: [],
-            srcList: [],
+            srcList:[],
             query: {},
             loading: true,
+            parentId: 0,
             status: 1,
             page: {
                 pageSize: 10,
@@ -45,7 +36,6 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["userInfo"]),
         ids() {
             let ids = [];
             this.selectionList.forEach(ele => {
@@ -55,27 +45,41 @@ export default {
         }
     },
     mounted() {
-        this.initData()
     },
     methods: {
-        initData() {
-            let params = {}
-            goodsList(this.page.currentPage, this.page.pageSize, Object.assign(params, this.query)).then(res => {
-                const goodsList = this.findObject(this.option.column, "cid");
-                goodsList.dicData = res.data.data.returnList;
-            })
-        },
         handleAdd(row) {
             this.$refs.crud.rowAdd();
         },
         rowSave(row, done, loading) {
-            if (this.discountType == '1') {
-                if (Number(row.discount) > 100) {
-                    this.$message({
-                        type: "error",
-                        message: "折扣不能超过100元"
-                    });
-                }
+            if (Number(row.levelratio) < 0) {
+              Message({
+                message: "上级提成不能小于0",
+                type: "error",
+              });
+              loading();
+              return
+            } else if (Number(row.levelratio) > 100) {
+              Message({
+                message: "上级提成不能大于100",
+                type: "error",
+              });
+              loading();
+              return
+            }
+            if (Number(row.ratio) < 0) {
+              Message({
+                message: "提成比例不能小于0",
+                type: "error",
+              });
+              loading();
+              return
+            } else if (Number(row.ratio) > 100) {
+              Message({
+                message: "提成比例不能大于100",
+                type: "error",
+              });
+              loading();
+              return
             }
             add(row).then((res) => {
                 // 获取新增数据的相关字段
@@ -107,6 +111,7 @@ export default {
         },
         searchReset() {
             this.query = {};
+            this.parentId = 0;
             this.onLoad(this.page, this.query);
         },
         searchChange(params, done) {
@@ -124,10 +129,10 @@ export default {
         },
         beforeOpen(done, type) {
             if (["add", "edit"].includes(type)) {
-                this.form.type = this.discountType
-                this.form.cid = this.cid
+
             }
             if (["edit", "view"].includes(type)) {
+
             }
             done();
         },
@@ -149,10 +154,8 @@ export default {
             getList(page.currentPage, page.pageSize, Object.assign(params, this.query)).then(res => {
                 if (res && res.data) {
                     let data = res.data.data
-                    const ctidType = this.findObject(this.option.column, "ctid");
-                    ctidType.dicData = data.couponTypeList;
-                    if (data.couponList) {
-                        this.data = data.couponList
+                    if (data.signingWayList) {
+                        this.data = data.signingWayList
                     }
                     this.page.total = data.count;
                 }

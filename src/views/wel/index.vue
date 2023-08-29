@@ -13,17 +13,17 @@
         <router-link to="/user/account/index" class="grid-content bg-orange flex-all-center">
           <div class="flex-direction flex-all-center comHeight100 fz-24 white">
             <i class="iconfont iconicon_group fz-26"></i>
-            <div class="mt-2">账号</div>
+            <div class="mt-2">账号列表</div>
           </div>
         </router-link>
       </el-col>
     </el-row>
     <el-row :gutter="20">
       <el-col :span="8">
-        <router-link to="/authority/role/index" class="grid-content bg-olive flex-all-center">
+        <router-link to="/user/role/index" class="grid-content bg-olive flex-all-center">
           <div class="flex-direction flex-all-center comHeight100 fz-24 white">
             <i class="iconfont iconicon_group fz-26"></i>
-            <div class="mt-2">角色</div>
+            <div class="mt-2">角色列表</div>
           </div>
         </router-link>
       </el-col>
