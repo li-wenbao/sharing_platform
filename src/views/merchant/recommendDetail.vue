@@ -106,10 +106,6 @@ export default {
                } else {
                   this.showAdd = true
                }
-               // if (this.showAdd) {
-               //    this.viewForm = {}
-               //    this.tranceferDetail.randomKey = randomLenNum(4, true)
-               // }
                this.tranceferDetail.randomKey = randomLenNum(4, true)
             }
          })

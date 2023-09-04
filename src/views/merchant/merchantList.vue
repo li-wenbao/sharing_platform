@@ -16,7 +16,7 @@
             </template>
             <template #menu="{ size, row, index }">
                 <el-button v-if="row.status == '1'" type="button" class="el-button el-button--text el-button--small"
-                    @click.stop.native="examine(row)">
+                    @click.stop.native="openConfirm(row)">
                     <i class="iconfont iconicon_doc"></i>
                     审核
                 </el-button>
@@ -40,7 +40,7 @@
             <merchantCarousel :tranceferData="tranceferDataForm"></merchantCarousel>
         </el-drawer>
         <WbPopups title="商户审核" :visible.sync="showConfirm" width="50%" height="58%">
-            <avue-form ref="crud2" v-model="processFrom" :option="processOption" @change="selectChange" @submit="rowUpdate">
+            <avue-form ref="crud2" v-model="processFrom" :option="processOption" @change="selectChange" @submit="examine">
             </avue-form>
         </WbPopups>
     </basic-container>
@@ -221,6 +221,7 @@ export default {
                 // 数据回调进行刷新
                 this.refreshChange()
                 done(row);
+                this.showConfirm =false
             }, error => {
                 window.console.log(error);
                 loading();

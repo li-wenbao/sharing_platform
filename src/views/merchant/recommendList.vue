@@ -112,6 +112,7 @@ export default {
                     message: "操作成功!"
                 });
                 // 数据回调进行刷新
+                this.refreshChange()
                 done(row);
             }, error => {
                 window.console.log(error);

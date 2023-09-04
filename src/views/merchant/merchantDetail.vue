@@ -169,7 +169,7 @@ export default {
       },
       // 商户详情-修改 保存
       handleRowEditSave(item, done) {
-         item.address = item.address
+         item.address = item.address.join(',')
          item.miid = this.tranceferDetail.id
          item.coordinate = this.merchantAddForm.coordinate
          item.coverurl = this.imgUrl
@@ -198,7 +198,7 @@ export default {
       },
       // 商户详情-新增 保存
       handleRowAddSave(item, done) {
-         item.address = item.address
+         item.address = item.address.join(',')
          item.miid = this.tranceferDetail.id
          item.coverurl = this.imgUrl
          item.coordinate = this.merchantAddForm.coordinate

@@ -32,13 +32,13 @@ export const mainOption = {
         },
       ],
     },
-    {
-      label: "封面",
-      prop: "coverurl",
-      span: 24,
-      formslot: true,
-      slot: true,
-    },
+    // {
+    //   label: "封面",
+    //   prop: "coverurl",
+    //   span: 24,
+    //   formslot: true,
+    //   slot: true,
+    // },
     {
       label: "类型id",
       prop: "ctid",
