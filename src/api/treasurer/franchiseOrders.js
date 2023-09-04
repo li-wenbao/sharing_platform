@@ -1,8 +1,8 @@
 import request from "@/router/axios";
-// 特色功能
+// 加盟订单
 export const getList = (pageNum, pageSize, params) => {
   return request({
-    url: "/share/material/getFeaturedFeaturesList",
+    url: "/share/finance/getFinanceSummaryJoin",
     method: "post",
     params: {
       ...params,
@@ -13,7 +13,7 @@ export const getList = (pageNum, pageSize, params) => {
 };
 export const add = (params) => {
   return request({
-    url: "/share/material/saveFeaturedFeatures",
+    url: "/share/finance/saveFinanceSummaryJoin",
     method: "post",
     params: {
       ...params,
@@ -23,7 +23,7 @@ export const add = (params) => {
 
 export const update = (params) => {
   return request({
-    url: "/share/material/updateFeaturedFeatures",
+    url: "/share/finance/updateFinanceSummaryJoin",
     method: "post",
     params: {
       ...params,

@@ -2,7 +2,7 @@
     <div>
         <!-- 启用状态 -->
         <div v-if="type == 1">
-            <div class="fz-primary" v-if="data == '1'">启用</div>
+            <div class="fz-primary" v-if="data == '1'">正常</div>
             <div class="fz-danger" v-else-if="data == '2'">禁用</div>
         </div>
         <!-- 审核状态 -->
@@ -31,6 +31,28 @@
             <div class="fz-primary" v-if="data == '1'">正常</div>
             <div class="fz-success" v-else-if="data == '2'">禁用</div>
             <div class="fz-warning" v-else-if="data == '3'">待发布</div>
+        </div>
+        <!-- 审核状态 -->
+        <div v-else-if="type == 7">
+            <div class="fz-primary" v-if="data == '1'">审核中</div>
+            <div class="fz-success" v-else-if="data == '2'">正常</div>
+            <div class="fz-danger" v-else-if="data == '3'">审核失败</div>
+            <div class="fz-success" v-else-if="data == '4'">注销</div>
+            <div class="fz-info" v-else-if="data == '5'">已取消</div>
+        </div>
+        <!-- 支付状态 0.待确认 1.待付款 2.已付款 3.已取消 4.已退款-->
+        <div v-else-if="type == 8">
+            <div class="fz-info" v-if="data == '0'">待确认</div>
+            <div class="fz-primary" v-else-if="data == '1'">待付款</div>
+            <div class="fz-success" v-else-if="data == '2'">已付款</div>
+            <div class="fz-danger" v-else-if="data == '3'">已取消</div>
+            <div class="fz-success" v-else-if="data == '4'">已退款</div>
+        </div>
+        <!-- 加盟状态:1.申请中 2.加盟成功 3.申请失败-->
+        <div v-else-if="type == 9">
+            <div class="fz-primary" v-if="data == '1'">申请中</div>
+            <div class="fz-success" v-else-if="data == '2'">加盟成功</div>
+            <div class="fz-danger" v-else-if="data == '3'">申请失败</div>
         </div>
     </div>
 </template>

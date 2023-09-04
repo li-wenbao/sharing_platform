@@ -144,11 +144,11 @@
   font-size: 24px;
 }
 .fz-26 {
-  font-size: 26px;
+  font-size: 26px !important;
 }
 
 .fz-32 {
-  font-size: 32px;
+  font-size: 32px !important;
 }
 
 .fz-36 {

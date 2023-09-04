@@ -60,6 +60,7 @@ export const mainOption = {
       label: "功能id",
       prop: "ffid",
       hide: true,
+      display:false,
       addDisplay: false,
       rules: [
         {

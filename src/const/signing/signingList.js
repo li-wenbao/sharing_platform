@@ -106,6 +106,8 @@ export const mainOption = {
       label: "价格",
       prop: "price",
       hide: true,
+      dataType: 'number',
+      append: '元',
       rules: [
         {
           required: true,
@@ -117,6 +119,8 @@ export const mainOption = {
     {
       label: "上级提成",
       prop: "levelratio",
+      dataType: 'number',
+      append: '%',
       hide: true,
       rules: [
         {
@@ -129,6 +133,8 @@ export const mainOption = {
     {
       label: "提成比例",
       prop: "ratio",
+      dataType: 'number',
+      append: '%',
       hide: true,
       rules: [
         {

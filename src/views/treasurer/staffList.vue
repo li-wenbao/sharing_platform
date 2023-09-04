@@ -1,34 +1,24 @@
+<!-- 员工列表 -->
 <template>
     <basic-container>
         <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
             :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel" @row-update="rowUpdate"
             @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
-            @refresh-change="refreshChange">
-            <template slot="status" slot-scope="scope">
-                <enable :data="scope.row.status"></enable>
-            </template>
-            <template slot-scope="scope" slot="surl">
-                <el-image :src="scope.row.surl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
-            </template>
-            <template slot-scope="scope" slot="surlForm">
-                <imageUpload :disabled="scope.disabled" :list="form.surl" v-model="form.surl" @on-change="onImgChange">
-                </imageUpload>
-            </template>
+            @refresh-change="refreshChange" @on-load="onLoad">
         </avue-crud>
     </basic-container>
 </template>
   
 <script>
-import { getList, update, add } from "@/api/goods/goodsSpecs";
-import { mainOption } from "@/const/goods/goodsSpecs"
+import { getList, update, add } from "@/api/treasurer/staffList";
+import { mainOption } from "@/const/treasurer/staffList"
 
 export default {
     data() {
         return {
             form: {},
             imgUrl: "",
-            cid: "",
             selectionList: [],
             srcList: [],
             query: {},
@@ -44,22 +34,6 @@ export default {
             data: []
         };
     },
-    props: {
-        tranceferData: {
-            type: Object,
-        },
-    },
-    watch: {
-        tranceferData: {
-            handler(nowValue) {
-                if (nowValue) {
-                    this.cid = nowValue.id
-                    this.onLoad(this.cid);
-                }
-            },
-            deep: true,
-        },
-    },
     computed: {
         ids() {
             let ids = [];
@@ -70,22 +44,17 @@ export default {
         }
     },
     mounted() {
-        this.cid = this.tranceferData.id
-        this.onLoad(this.cid);
     },
     methods: {
         handleAdd(row) {
-            this.parentId = row.id;
             this.$refs.crud.rowAdd();
         },
         onImgChange(data) {
             this.imgUrl = data
         },
         rowSave(row, done, loading) {
-            row.cid = this.tranceferData.id
-            row.surl = this.imgUrl
-            // cid,name,price,discount,stock,surl
-            add(row.cid,row.name,row.price,row.discount,row.stock,row.surl).then((res) => {
+            row.iconurl = this.imgUrl
+            add(row).then((res) => {
                 // 获取新增数据的相关字段
                 // const data = res.data.data;
                 this.$message({
@@ -101,10 +70,8 @@ export default {
             });
         },
         rowUpdate(row, index, done, loading) {
-            // row.cid = this.tranceferData.id
-            row.surl = this.imgUrl
-            console.log("🚀 ~ file: goodsSpecs.vue:104 ~ rowUpdate ~ row:", row)
-            update(row.sid,row.name,row.price,row.discount,row.stock,row.surl,row.status).then(() => {
+            row.iconurl = this.imgUrl
+            update(row).then(() => {
                 this.$message({
                     type: "success",
                     message: "操作成功!"
@@ -120,12 +87,12 @@ export default {
         searchReset() {
             this.query = {};
             this.parentId = 0;
-            this.onLoad(this.cid);
+            this.onLoad(this.page, this.query);
         },
         searchChange(params, done) {
             this.query = params;
             this.page.currentPage = 1;
-            this.onLoad(this.cid);
+            this.onLoad(this.page, this.query);
             done();
         },
         selectionChange(list) {
@@ -137,10 +104,8 @@ export default {
         },
         beforeOpen(done, type) {
             if (["add", "edit"].includes(type)) {
-
             }
             if (["edit", "view"].includes(type)) {
-
             }
             done();
         },
@@ -154,18 +119,16 @@ export default {
             this.page.pageSize = pageSize;
         },
         refreshChange() {
-            this.onLoad(this.cid);
+            this.parentId = 0
+            this.onLoad(this.page, this.query);
         },
-        onLoad(cid) {
+        onLoad(page, params = {}) {
             this.loading = true;
-            getList(cid).then(res => {
+            getList(page.currentPage, page.pageSize, Object.assign(params, this.query)).then(res => {
                 if (res && res.data) {
                     let data = res.data.data
-                    if (data.specList) {
-                        data.specList.forEach((item, index) => {
-                            this.srcList.push(item.surl)
-                        })
-                        this.data = data.specList
+                    if (data.returnOrderList) {
+                        this.data = data.returnOrderList
                     }
                     this.page.total = data.count;
                 }

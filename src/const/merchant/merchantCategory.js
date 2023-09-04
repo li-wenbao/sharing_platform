@@ -32,7 +32,6 @@ export const mainOption = {
       span: 24,
       formslot: true,
       slot: true,
-      $cellEdit: true,
     },
     {
       label: "类型id",
@@ -74,6 +73,13 @@ export const mainOption = {
       prop: "sort",
       width: 150,
       align: "center",
+      rules: [
+        {
+          required: true,
+          message: "请输入排序",
+          trigger: "blur",
+        },
+      ],
     },
     {
       label: "创建时间",

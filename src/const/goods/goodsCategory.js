@@ -33,6 +33,13 @@ export const mainOption = {
       ],
     },
     {
+      label: "封面",
+      prop: "coverurl",
+      span: 24,
+      formslot: true,
+      slot: true,
+    },
+    {
       label: "类型id",
       prop: "ctid",
       hide: true,
@@ -47,11 +54,19 @@ export const mainOption = {
       ],
     },
     {
-      label: "商户id",
+      label: "商户",
       prop: "miid",
       hide: true,
       editDisplay: false,
-      addDisplay: false,
+      // addDisplay: false,
+      type: "select",
+      width: 90,
+      align: "center",
+      dicData:[],
+      props: {
+        label: "name",
+        value: "miid",
+      },
       rules: [
         {
           required: true,
@@ -64,7 +79,7 @@ export const mainOption = {
       label: "状态",
       prop: "status",
       type: "select",
-      width: 180,
+      width: 90,
       align: "center",
       addDisplay: false,
       //状态:1.正常 2.禁用
@@ -89,7 +104,7 @@ export const mainOption = {
     {
       label: "排序",
       prop: "sort",
-      width: 150,
+      width: 100,
       align: "center",
       rules: [
         {

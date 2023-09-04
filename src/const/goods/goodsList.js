@@ -142,6 +142,8 @@ export const mainOption = {
       prop: "number",
       addDisplay: false,
       editDisplay: false,
+      dataType: 'number',
+      append: '次',
       rules: [
         {
           required: true,

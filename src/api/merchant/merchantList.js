@@ -22,12 +22,13 @@ export const add = (params) => {
   });
 };
 
-export const update = (params) => {
+export const update = (miid,mtid,name,phone,contacts,sex,status,account,password,roleid,uid) => {
   return request({
     url: "/share/merchant/updateMerchantInfo",
     method: "post",
     params: {
-      ...params,
+      // ...params,
+      miid,mtid,name,phone,contacts,sex,status,account,password,roleid,uid
     },
   });
 };

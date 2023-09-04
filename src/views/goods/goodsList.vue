@@ -115,7 +115,6 @@ export default {
         onImgChange(data) {
             this.imgUrl = data
         },
-
         openDetail(row, index, type) {
             this.tranceferDataForm.randomKey = randomLenNum(4, true)
             this.tranceferDataForm.id = row.cid
@@ -149,11 +148,6 @@ export default {
             });
         },
         handleChangeStatus(event,row){
-            if(row.status=='1'){
-                row.status = '2'   
-            }else{
-                row.status = '1'    
-            }
             update(row).then(() => {
                 this.$message({
                     type: "success",

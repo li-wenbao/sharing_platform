@@ -125,7 +125,7 @@ RouterPlugin.install = function (vue, router, store, i18n) {
             }
           })(),
           //特殊处理组件 执行完这个 component 也就是精确到具体的文件了  views文件夹下面就是具体的页面代码
-          component = "views" + oMenu.alias,
+          component = "views" + oMenu.url,
           name = oMenu[propsDefault.label],
           icon = oMenu[propsDefault.icon],
           children = oMenu[propsDefault.children],

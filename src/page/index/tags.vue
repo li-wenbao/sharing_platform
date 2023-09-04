@@ -5,9 +5,9 @@
     <div v-if="contextmenuFlag"
          class="avue-tags__contentmenu"
          :style="{left:contentmenuX+'px',top:contentmenuY+'px'}">
-      <div class="item"
+      <!-- <div class="item"
            @click="clearCacheTags">{{$t('tagsView.clearCache')}}
-      </div>
+      </div> -->
       <div class="item"
            @click="closeOthersTags">{{$t('tagsView.closeOthers')}}
       </div>
@@ -40,7 +40,7 @@
           <el-dropdown-item @click.native="$parent.isSearch=true">{{$t('tagsView.search')}}</el-dropdown-item>
           <el-dropdown-item @click.native="closeOthersTags">{{$t('tagsView.closeOthers')}}</el-dropdown-item>
           <el-dropdown-item @click.native="closeAllTags">{{$t('tagsView.closeAll')}}</el-dropdown-item>
-          <el-dropdown-item @click.native="clearCacheTags">{{$t('tagsView.clearCache')}}</el-dropdown-item>
+          <!-- <el-dropdown-item @click.native="clearCacheTags">{{$t('tagsView.clearCache')}}</el-dropdown-item> -->
         </el-dropdown-menu>
       </el-dropdown>
     </div>

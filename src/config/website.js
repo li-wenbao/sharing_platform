@@ -1,13 +1,14 @@
 /**
  * 全局配置文件
  */
+const path = require('path')
 export default {
-  title: "共享 wifi",
-  logo: "S",
+  title: "共享wifi",
+  logo: '../../public/svg/favicon.svg',
   key: 'saber',//配置主键,目前用于存储
-  indexTitle: '共享 wifi',
+  indexTitle: '共享WIFI后台管理平台',
   clientId: 'saber', // 客户端id
-  clientSecret: 'saber_secret', // 客户端密钥
+  clientSecret: 'saber_secret', // 客户端密钥 
   tenantMode: true, // 是否开启租户模式
   tenantId: "000000", // 管理组租户编号
   captchaMode: true, // 是否开启验证码模式

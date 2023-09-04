@@ -22,12 +22,34 @@ export const add = (params) => {
   });
 };
 
-export const update = (params) => {
+// export const update = (params) => {
+//   return request({
+//     url: "/share/merchant/updateMerchantInfo",
+//     method: "post",
+//     params: {
+//       ...params,
+//     },
+//   });
+// };
+// 做修改用
+export const editUpdate = (miid,mtid,name,phone,contacts,sex) => {
   return request({
     url: "/share/merchant/updateMerchantInfo",
     method: "post",
     params: {
-      ...params,
+      // ...params,
+      miid,mtid,name,phone,contacts,sex
+    },
+  });
+};
+// 做审核用
+export const update = (miid,mtid,name,phone,contacts,sex,status,account,password,roleid,uid) => {
+  return request({
+    url: "/share/merchant/updateMerchantInfo",
+    method: "post",
+    params: {
+      // ...params,
+      miid,mtid,name,phone,contacts,sex,status,account,password,roleid,uid
     },
   });
 };

@@ -32,6 +32,7 @@ export const mainOption = {
       label: "文本id",
       prop: "pmid",
       hide: true,
+      display:false,
       addDisplay: false,
       rules: [
         {

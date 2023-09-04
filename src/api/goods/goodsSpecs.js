@@ -9,22 +9,42 @@ export const getList = (cid) => {
     },
   });
 };
-export const add = (params) => {
+export const add = (cid,name,price,discount,stock,surl) => {
   return request({
     url: "/share/commodity/saveCommoditySpec",
     method: "post",
     params: {
-      ...params
+      cid,name,price,discount,stock,surl
     },
   });
 };
 
-export const update = (params) => {
+export const update = (sid,name,price,discount,stock,surl,status) => {
   return request({
     url: "/share/commodity/updateCommoditySpec",
     method: "post",
     params: {
-      ...params
+      sid,name,price,discount,stock,surl,status
     },
   });
 };
+
+// export const add = (params) => {
+//   return request({
+//     url: "/share/commodity/saveCommoditySpec",
+//     method: "post",
+//     params: {
+//       ...params
+//     },
+//   });
+// };
+
+// export const update = (params) => {
+//   return request({
+//     url: "/share/commodity/updateCommoditySpec",
+//     method: "post",
+//     params: {
+//       ...params
+//     },
+//   });
+// };

@@ -6,8 +6,7 @@
                     @blur="souShow = false">
                     <el-button slot="append" icon="el-icon-search" @click="onSearch()"></el-button>
                 </el-input>
-                <!-- <div>{{ latLngPosition }}</div> -->
-                <el-input placeholder="" style="width: 360px;" class="ml-4" v-model="latLngPosition">
+                <el-input placeholder="" style="width: 460px;" class="ml-4" v-model="latLngPosition">
                     <template slot="prepend">坐标</template>
                     <el-button slot="append" @click="onLatLng()">确认</el-button>
                 </el-input>

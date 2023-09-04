@@ -4,28 +4,29 @@
          :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel" @row-update="rowUpdate"
          @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset" @selection-change="selectionChange"
          @current-change="currentChange" @size-change="sizeChange" @refresh-change="refreshChange">
-         <template slot="status" slot-scope="scope">
+         <!-- <template slot="status" slot-scope="scope">
             <enable :data="scope.row.status"></enable>
-         </template>
+         </template> -->
          <template slot-scope="scope" slot="purl">
             <el-image :src="scope.row.purl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
          </template>
-         <template slot-scope="scope" slot="purlList">
-            <el-image :src="scope.row.purlList" class="list-images-box-1" :preview-src-list="srcList"></el-image>
-         </template>
-         <template slot-scope="scope" slot="purlListForm">
-            <imageUpload :disabled="scope.disabled" :list="form.purlList" v-model="form.purlList" @on-change="onImgChange"></imageUpload>
-         </template>
          <template slot-scope="scope" slot="purlForm">
-            <imageUpload :disabled="scope.disabled" :list="form.purl" v-model="form.purl" @on-change="onImgChange2"></imageUpload>
+            <imageUpload :disabled="scope.disabled" :list="form.purl" v-model="form.purl" @on-change="onImgChange">
+            </imageUpload>
+         </template>
+         <template slot="status" slot-scope="scope">
+            <el-switch v-model="scope.row.status" @change="handleChangeStatus($event, scope.row, scope.$index)"
+               active-value='1' inactive-value='2' active-color="#13ce66" inactive-color="#ff4949" active-text="正常"
+               inactive-text="禁用">
+            </el-switch>
          </template>
       </avue-crud>
    </div>
 </template>
  
 <script>
-import { getList, update, add } from "@/api/merchant/merchantCarousel";
-import { mainOption } from "@/const/merchant/merchantCarousel"
+import { getRecommendPictureList, saveRecommendPicture, updateRecommendPicture } from "@/api/merchant/recommendList";
+import { carouselOption } from "@/const/merchant/recommendList"
 import { mapGetters } from "vuex";
 export default {
    data() {
@@ -35,7 +36,6 @@ export default {
          srcList: [],
          imgUrl: "",
          imgUrl2: "",
-         status:"1",
          query: {},
          loading: true,
          parentId: 0,
@@ -44,7 +44,7 @@ export default {
             currentPage: 1,
             total: 0,
          },
-         option: mainOption,
+         option: carouselOption,
          data: []
       };
    },
@@ -57,11 +57,8 @@ export default {
       tranceferData: {
          handler(nowValue) {
             if (nowValue) {
-               this.query = {
-                  miid: nowValue.id,
-                  status: this.status
-               }
-               this.onLoad(this.page, this.query);
+               this.rdid = nowValue.id,
+                  this.onLoad(this.rdid);
             }
          },
          deep: true,
@@ -69,11 +66,8 @@ export default {
    },
    mounted() {
       if (this.tranceferData.id) {
-         this.query = {
-            miid: this.tranceferData.id,
-            status: this.status
-         }
-         this.onLoad(this.page, this.query);
+         this.rdid = this.tranceferData.id,
+         this.onLoad(this.rdid);
       }
    },
    computed: {
@@ -92,13 +86,10 @@ export default {
       onImgChange(data) {
          this.imgUrl = data
       },
-      onImgChange2(data) {
-         this.imgUrl2 = data
-      },
       rowSave(row, done, loading) {
-         row.miid = this.query.miid
-         row.purlList = this.imgUrl
-         add(row).then((res) => {
+         row.rdid = this.tranceferData.id
+         row.purl = this.imgUrl
+         saveRecommendPicture(row).then((res) => {
             // 获取新增数据的相关字段
             // const data = res.data.data;
             this.$message({
@@ -113,9 +104,26 @@ export default {
             loading();
          });
       },
+      handleChangeStatus(event, row) {
+         updateRecommendPicture(row).then(() => {
+            this.$message({
+               type: "success",
+               message: "操作成功!"
+            });
+            // 数据回调进行刷新
+            this.refreshChange()
+         }, error => {
+            if (row.status == '1') {
+               row.status = '1'
+            } else {
+               row.status = '2'
+            }
+            window.console.log(error);
+         });
+      },
       rowUpdate(row, index, done, loading) {
-         row.purlList = this.imgUrl
-         update(row).then(() => {
+         // row.rpid = this.imgUrl
+         updateRecommendPicture(row).then(() => {
             this.$message({
                type: "success",
                message: "操作成功!"
@@ -131,12 +139,12 @@ export default {
       searchReset() {
          this.query = {};
          this.parentId = 0;
-         this.onLoad(this.page, this.query);
+         this.onLoad(this.rdid);
       },
       searchChange(params, done) {
          this.query = params;
          this.page.currentPage = 1;
-         this.onLoad(this.page, this.query);
+         this.onLoad(this.rdid);
          done();
       },
       selectionChange(list) {
@@ -166,11 +174,11 @@ export default {
       },
       refreshChange() {
          this.parentId = 0
-         this.onLoad(this.page, this.query);
+         this.onLoad(this.rdid);
       },
-      onLoad(page, params = {}) {
+      onLoad(rdid) {
          this.loading = true;
-         getList(page.currentPage, page.pageSize, Object.assign(params, this.query)).then(res => {
+         getRecommendPictureList(rdid).then(res => {
             if (res && res.data) {
                let data = res.data.data
                if (data.pictureList) {
@@ -179,7 +187,6 @@ export default {
                   })
                   this.data = data.pictureList
                }
-               this.page.total = data.count;
             }
             this.loading = false;
             this.selectionClear();

@@ -12,6 +12,7 @@ export const mainOption = {
   selection: true,
   viewBtn: true,
   delBtn: false,
+  editBtn: false,
   menuWidth: 160,
   dialogClickModal: false,
   column: [
@@ -32,6 +33,7 @@ export const mainOption = {
       label: "账号",
       prop: "account",
       minWidth: 140,
+      type: 'number',
       rules: [
         {
           required: true,
@@ -169,11 +171,36 @@ export const mainOption = {
           trigger: "blur",
         },
       ],
+    }, 
+    {
+      label: "介推码",
+      prop: "invitationcode",
+      minWidth: 140,
+      rules: [
+        {
+          required: true,
+          message: "请输入介推码",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "介推码二维码",
+      prop: "codeurl",
+      minWidth: 140,
+      rules: [
+        {
+          required: true,
+          message: "请输入介推码",
+          trigger: "blur",
+        },
+      ],
     },
     {
       label: "密码",
       prop: "password",
       editDisplay: false,
+      viewDisplay: false,
       hide:true,
       minWidth: 140,
       rules: [
@@ -189,6 +216,7 @@ export const mainOption = {
       prop: "newpwd",
       minWidth: 140,
       hide:true,
+      viewDisplay: false,
       addDisplay: false,
       editDisplay: false,
       rules: [
@@ -204,6 +232,7 @@ export const mainOption = {
       prop: "oldpwd",
       minWidth: 140,
       hide:true,
+      viewDisplay: false,
       addDisplay: false,
       editDisplay: false,
       rules: [
@@ -219,6 +248,7 @@ export const mainOption = {
       prop: "uid",
       addDisplay:false,
       editDisplay:false,
+      display:false,
       hide: true,
       rules: [
         {
@@ -252,6 +282,7 @@ export const mainOption = {
       prop: "roleid",
       addDisplay:false,
       display:false,
+      hide: true,
       rules: [
         {
           required: true,
@@ -296,8 +327,12 @@ export const mainOption = {
       align: "center",
       editDisplay: false,
       search: true,
-      //级别：1.主管 2.员工 3.非员工
+      //级别：0.管理员 1.主管 2.员工 3.非员工
       dicData: [
+        {
+          label: "管理员",
+          value: "0",
+        },
         {
           label: "主管",
           value: "1",

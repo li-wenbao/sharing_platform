@@ -133,9 +133,6 @@ export default {
                 if (res && res.data) {
                     let data = res.data.data
                     if (data.returnOrderList) {
-                        // data.returnOrderList.forEach((item, index) => {
-                        //     this.srcList.push(item.iconurl)
-                        // })
                         this.data = data.returnOrderList
                     }
                     this.page.total = data.count;

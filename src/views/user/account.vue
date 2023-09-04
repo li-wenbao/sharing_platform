@@ -8,6 +8,16 @@
             <template slot="status" slot-scope="scope">
                 <enable :data="scope.row.status"></enable>
             </template>
+            <template slot="codeurl" slot-scope="scope">
+                <el-image :src="scope.row.codeurl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
+            </template>
+            <template #menu="{ size, row, index }">
+                <el-button v-if="row.level !='0'" type="button" class="el-button el-button--text el-button--small"
+                    @click.stop.native="rowUpdate(row, index)">
+                    <i class="iconfont iconicon_doc"></i>
+                    编辑
+                </el-button>
+            </template>
         </avue-crud>
     </basic-container>
 </template>
@@ -51,10 +61,6 @@ export default {
     methods: {
         initData() {
             let params = {}
-            getList(this.page.currentPage, this.page.pageSize, Object.assign(params, this.query)).then(res => { //账号
-                const column = this.findObject(this.option.column, "supname");
-                column.dicData = res.data.data.userList;
-            })
             roleList(this.page.currentPage, this.page.pageSize, Object.assign(params, this.query)).then(res => { //角色
                 const column = this.findObject(this.option.column, "roleName");
                 column.dicData = res.data.data.roleList;
@@ -145,6 +151,8 @@ export default {
                     if (data.userList) {
                         this.data = data.userList
                     }
+                    const column = this.findObject(this.option.column, "supname");
+                    column.dicData = res.data.data.userList;
                     this.page.total = data.count;
                 }
                 this.loading = false;

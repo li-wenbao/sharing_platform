@@ -1,5 +1,4 @@
-import { number } from "echarts";
-
+import {option} from "@/const/base/city"
 export const mainOption = {
   height: "auto",
   calcHeight: 10,
@@ -104,6 +103,7 @@ export const mainOption = {
       label: "联系方式",
       prop: "phone",
       search: true,
+      type:'number',
       maxlength: 11,
       rules: [
         {
@@ -235,7 +235,8 @@ export const merchantOption = {
     {
       label: "人均(元)",
       prop: "evaluate",
-      type: "number",
+      dataType: 'number',
+      append: '元',
       rules: [
         {
           required: true,
@@ -247,7 +248,8 @@ export const merchantOption = {
     {
       label: "销量",
       prop: "sales",
-      type: "number",
+      dataType: 'number',
+      append: '个',
       rules: [
         {
           required: true,
@@ -271,6 +273,8 @@ export const merchantOption = {
     {
       label: "省市区",
       prop: "address",
+      type: "cascader",
+      dicData:option.city,
     },
     {
       label: "详细地址",
@@ -352,6 +356,7 @@ export const merchantBaseOption = {
       label: "联系人",
       prop: "contacts",
       search: true,
+      span: 8,
       rules: [
         {
           required: true,
@@ -365,6 +370,7 @@ export const merchantBaseOption = {
       prop: "sex",
       search: true,
       type: "radio",
+      span: 8,
       width: 80,
       align: "center",
       dicData: [
@@ -389,6 +395,7 @@ export const merchantBaseOption = {
       label: "联系方式",
       prop: "phone",
       search: true,
+      span: 8,
       maxlength: 11,
       rules: [
         {
@@ -402,6 +409,7 @@ export const merchantBaseOption = {
       label: "账户id",
       prop: "uid",
       hide: true,
+      display: false,
       addDisplay: true, //新增时不显示
     },
     {
@@ -520,6 +528,8 @@ export const merchantEditOption = {
     {
       label: "省市区",
       prop: "address",
+      type: "cascader",
+      dicData:option.city,
       rules: [
         {
           required: true,
@@ -531,6 +541,7 @@ export const merchantEditOption = {
     {
       label: "详细地址",
       prop: "location",
+      
       rules: [
         {
           required: true,
@@ -597,7 +608,7 @@ export const merchantAddOption = {
     {
       label: "人均(元)",
       prop: "evaluate",
-      type: "number",
+      append: '元',
       rules: [
         {
           required: true,
@@ -609,9 +620,8 @@ export const merchantAddOption = {
     {
       label: "省市区",
       prop: "address",
-      // slot: true,
-      type: 'cascader',
-      dicData:[],
+      type: "cascader",
+      dicData:option.city,
       rules: [
         {
           required: true,

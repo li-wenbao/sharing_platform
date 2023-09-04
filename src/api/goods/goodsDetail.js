@@ -5,7 +5,7 @@ export const getDetail = (cid) => {
   return request({
     url: "/share/commodity/getCommodityDesc",
     method: "post",
-    params: {
+    params: { 
       cid,
     },
   });

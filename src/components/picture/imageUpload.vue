@@ -1,7 +1,7 @@
 <template>
   <div class="file-upload-boxLine" element-loading-text="正在上传,请稍后..." v-loading="loading">
     <el-upload class="avue-upload" ref="showAdd" :action="option.actions" :limit="option.limit" :headers="headers"
-      :data="option.data" :multiple="option.multiple" drag :list-type="option.listType" :file-list="fileList"
+      :data="option.data" :multiple="option.multiple" drag  :list-type="option.listType" :file-list="fileList"
       :on-success="onSuccess" :before-upload="beforeUpload" :on-preview="handlePictureCardPreview"
       :on-remove="handleRemove" :on-error="onError" :on-exceed="onExceed">
       <i class="el-icon-plus"></i>
@@ -65,7 +65,7 @@ export default {
         span: 24,
         limit: 1,
         multiple: true,
-        actions: 'https://abc.ijiandai.com/share/merchant/materialUpload',
+        actions: 'https://www.raoxiang.vip/share/merchant/materialUpload',
       },
       fileList: [],
       fileUrlList: [],

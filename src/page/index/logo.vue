@@ -4,7 +4,8 @@
       <span v-if="keyCollapse"
             class="avue-logo_subtitle"
             key="0">
-        {{website.logo}}
+        <!-- {{website.logo}}  -->
+        <img :src="require(website.logo)">
       </span>
     </transition>
     <transition-group name="fade">

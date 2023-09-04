@@ -23,7 +23,7 @@ export const mainOption = {
       label: "角色名称",
       prop: "name",
       search: true,
-      span: 24,
+      span: 12,
       rules: [
         {
           required: true,
@@ -35,6 +35,7 @@ export const mainOption = {
     {
       label: "角色",
       prop: "roleid",
+      display: false,
       addDisplay: false,
       editDisplay: false,
       hide: true,
@@ -49,6 +50,7 @@ export const mainOption = {
     {
       label: "角色标识",
       prop: "sign",
+      span: 12,
       width: 160,
     },
     {
@@ -66,6 +68,7 @@ export const mainOption = {
     {
       label: "备注",
       prop: "remark",
+      rows: 5,
       span: 24,
     },
   ],

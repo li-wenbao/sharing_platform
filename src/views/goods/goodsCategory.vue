@@ -1,8 +1,8 @@
 <template>
     <basic-container>
         <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
-            :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel"
-            @row-update="rowUpdate" @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
+            :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel" @row-update="rowUpdate"
+            @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange" @on-load="onLoad">
             <template slot="status" slot-scope="scope">
@@ -14,6 +14,8 @@
   
 <script>
 import { getList, update, add } from "@/api/goods/goodsCategory";
+import { getMerchantTypeList } from "@/api/merchant/merchantList"
+import { getList as getMiidList } from "@/api/base/merchant";
 import { mainOption } from "@/const/goods/goodsCategory"
 export default {
     data() {
@@ -42,13 +44,24 @@ export default {
             return ids.join(",");
         }
     },
+    mounted() {
+        this.initData()
+    },
     methods: {
         handleAdd(row) {
             this.parentId = row.id;
             this.$refs.crud.rowAdd();
         },
+        initData() {
+            let params = {}
+            getMiidList(this.page.currentPage, this.page.pageSize, Object.assign(params, this.query)).then(res => {
+                const column = this.findObject(this.option.column, "miid");
+                column.dicData = res.data.data.merchantInfoList;
+            })
+        },
         rowSave(row, done, loading) {
-            add(row.miid,row.name,row.sort).then((res) => {
+            // console.log("🚀 ~ file: goodsCategory.vue:51 ~ rowSave ~ row:", row)
+            add(row.miid, row.name, row.sort).then((res) => {
                 // 获取新增数据的相关字段
                 // const data = res.data.data;
                 this.$message({
@@ -64,7 +77,7 @@ export default {
             });
         },
         rowUpdate(row, index, done, loading) {
-            update(row.ctid,row.name,row.sort,row.status).then(() => {
+            update(row.ctid, row.name, row.sort, row.status).then(() => {
                 this.$message({
                     type: "success",
                     message: "操作成功!"
@@ -97,7 +110,7 @@ export default {
         },
         beforeOpen(done, type) {
             if (["add", "edit"].includes(type)) {
-  
+
             }
             if (["edit", "view"].includes(type)) {
 

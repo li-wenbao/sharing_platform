@@ -17,40 +17,7 @@ export default [
       },
     ],
   },
-  {
-    path: "/merchant/merchantList",
-    name: "商户列表",
-    component: Layout,
-    redirect: "/merchant/merchantList/index",
-    children: [
-      {
-        path: "index",
-        name: "商户列表",
-        meta: {
-          i18n: "merchantList",
-        },
-        component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/merchant/merchantList"),
-      },
-    ],
-  },
-  {
-    path: "/merchant/merchantCategory",
-    name: "商户类型",
-    component: Layout,
-    redirect: "/merchant/merchantCategory/index",
-    children: [
-      {
-        path: "index",
-        name: "商户类型",
-        meta: {
-          i18n: "merchantCategory",
-        },
-        component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/merchant/merchantCategory"),
-      },
-    ],
-  },
+  // 权限管理
   {
     path: "/system/menu",
     name: "菜单管理",
@@ -86,125 +53,6 @@ export default [
     ],
   },
   {
-    path: "/base/couponList",
-    name: "优惠券",
-    component: Layout,
-    redirect: "/base/couponList/index",
-    children: [
-      {
-        path: "index",
-        name: "优惠券",
-        meta: {
-          i18n: "couponList",
-        },
-        component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/base/couponList"),
-      },
-    ],
-  },
-  {
-    path: "/base/couponCategory",
-    name: "优惠券类型",
-    component: Layout,
-    redirect: "/base/couponCategory/index",
-    children: [
-      {
-        path: "index",
-        name: "优惠券类型",
-        meta: {
-          i18n: "couponCategory",
-        },
-        component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/base/couponCategory"),
-      },
-    ],
-  },
-  {
-    path: "/signing/signingList",
-    name: "公共文本",
-    component: Layout,
-    redirect: "/signing/signingList/index",
-    children: [
-      {
-        path: "index",
-        name: "公共文本",
-        meta: {
-          i18n: "signingList",
-        },
-        component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/signing/signingList"),
-      },
-    ],
-  },
-  {
-    path: "/order/orderList",
-    name: "订单管理",
-    component: Layout,
-    redirect: "/order/orderList/index",
-    children: [
-      {
-        path: "index",
-        name: "订单管理",
-        meta: {
-          i18n: "orderList",
-        },
-        component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/order/orderList"),
-      },
-    ],
-  },
-  {
-    path: "/base/comImages",
-    name: "公共图片",
-    component: Layout,
-    redirect: "/base/comImages/index",
-    children: [
-      {
-        path: "index",
-        name: "公共图片",
-        meta: {
-          i18n: "comImages",
-        },
-        component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/base/comImages"),
-      },
-    ],
-  },
-  {
-    path: "/base/comText",
-    name: "公共文本",
-    component: Layout,
-    redirect: "/base/comText/index",
-    children: [
-      {
-        path: "index",
-        name: "公共文本",
-        meta: {
-          i18n: "comText",
-        },
-        component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/base/comText"),
-      },
-    ],
-  },
-  {
-    path: "/base/features",
-    name: "特色功能",
-    component: Layout,
-    redirect: "/base/features/index",
-    children: [
-      {
-        path: "index",
-        name: "特色功能",
-        meta: {
-          i18n: "features",
-        },
-        component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/base/features"),
-      },
-    ],
-  },
-  {
     path: "/user/role",
     name: "角色列表",
     component: Layout,
@@ -221,7 +69,66 @@ export default [
       },
     ],
   },
+  // 商户管理
   {
+    path: "/merchant/merchantList",
+    name: "商户列表",
+    component: Layout,
+    redirect: "/merchant/merchantList/index",
+    children: [
+      {
+        path: "index",
+        name: "商户列表",
+        meta: {
+          i18n: "merchantList",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "views" */ "@/views/merchant/merchantList"
+          ),
+      },
+    ],
+  },
+  {
+    path: "/merchant/merchantCategory",
+    name: "商户类型",
+    component: Layout,
+    redirect: "/merchant/merchantCategory/index",
+    children: [
+      {
+        path: "index",
+        name: "商户类型",
+        meta: {
+          i18n: "merchantCategory",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "views" */ "@/views/merchant/merchantCategory"
+          ),
+      },
+    ],
+  },
+  {
+    path: "/merchant/recommendList",
+    name: "推荐位列表",
+    component: Layout,
+    redirect: "/merchant/recommendList/index",
+    children: [
+      {
+        path: "index",
+        name: "推荐位列表",
+        meta: {
+          i18n: "recommendList",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "views" */ "@/views/merchant/recommendList"
+          ),
+      },
+    ],
+  },
+   // 商品管理
+   {
     path: "/goods/goodsList",
     name: "商品列表",
     component: Layout,
@@ -286,6 +193,237 @@ export default [
         },
         component: () =>
           import(/* webpackChunkName: "views" */ "@/views/goods/goodsSpecs"),
+      },
+    ],
+  },
+  // 签约管理
+  {
+    path: "/signing/signingOrderList",
+    name: "签约订单",
+    component: Layout,
+    redirect: "/signing/signingOrderList/index",
+    children: [
+      {
+        path: "index",
+        name: "签约订单",
+        meta: {
+          i18n: "signingOrderList",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/signing/signingOrderList"),
+      },
+    ],
+  },
+  {
+    path: "/signing/signingOrderListAver",
+    name: "签约订单",
+    component: Layout,
+    redirect: "/signing/signingOrderListAver/index",
+    children: [
+      {
+        path: "index",
+        name: "签约订单",
+        meta: {
+          i18n: "signingOrderListAver",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/signing/signingOrderListAver"),
+      },
+    ],
+  },
+  {
+    path: "/signing/signingList",
+    name: "签约方式",
+    component: Layout,
+    redirect: "/signing/signingList/index",
+    children: [
+      {
+        path: "index",
+        name: "签约方式",
+        meta: {
+          i18n: "signingList",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/signing/signingList"),
+      },
+    ],
+  },
+  // 订单管理
+  {
+    path: "/order/orderList",
+    name: "订单列表",
+    component: Layout,
+    redirect: "/order/orderList/index",
+    children: [
+      {
+        path: "index",
+        name: "订单列表",
+        meta: {
+          i18n: "orderList",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/order/orderList"),
+      },
+    ],
+  },
+  // 素材管理
+  {
+    path: "/base/couponList",
+    name: "优惠券",
+    component: Layout,
+    redirect: "/base/couponList/index",
+    children: [
+      {
+        path: "index",
+        name: "优惠券",
+        meta: {
+          i18n: "couponList",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/base/couponList"),
+      },
+    ],
+  },
+  {
+    path: "/base/couponCategory",
+    name: "优惠券类型",
+    component: Layout,
+    redirect: "/base/couponCategory/index",
+    children: [
+      {
+        path: "index",
+        name: "优惠券类型",
+        meta: {
+          i18n: "couponCategory",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/base/couponCategory"),
+      },
+    ],
+  },
+  {
+    path: "/base/comImages",
+    name: "公共图片",
+    component: Layout,
+    redirect: "/base/comImages/index",
+    children: [
+      {
+        path: "index",
+        name: "公共图片",
+        meta: {
+          i18n: "comImages",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/base/comImages"),
+      },
+    ],
+  },
+  {
+    path: "/base/comText",
+    name: "公共文本",
+    component: Layout,
+    redirect: "/base/comText/index",
+    children: [
+      {
+        path: "index",
+        name: "公共文本",
+        meta: {
+          i18n: "comText",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/base/comText"),
+      },
+    ],
+  },
+  {
+    path: "/base/features",
+    name: "特色功能",
+    component: Layout,
+    redirect: "/base/features/index",
+    children: [
+      {
+        path: "index",
+        name: "特色功能",
+        meta: {
+          i18n: "features",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/base/features"),
+      },
+    ],
+  },
+  // 财务管理
+  {
+    path: "/treasurer/franchiseOrders",
+    name: "加盟订单",
+    component: Layout,
+    redirect: "/treasurer/franchiseOrders/index",
+    children: [
+      {
+        path: "index",
+        name: "加盟订单",
+        meta: {
+          i18n: "franchiseOrders",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "views" */ "@/views/treasurer/franchiseOrders"
+          ),
+      },
+    ],
+  },
+  {
+    path: "/treasurer/mallOrdersList",
+    name: "商城订单(总览)",
+    component: Layout,
+    redirect: "/treasurer/mallOrdersList/index",
+    children: [
+      {
+        path: "index",
+        name: "商城订单(总览)",
+        meta: {
+          i18n: "mallOrdersList",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "views" */ "@/views/treasurer/mallOrdersList"
+          ),
+      },
+    ],
+  },
+  {
+    path: "/treasurer/franchiseOrders",
+    name: "商城订单(商户)",
+    component: Layout,
+    redirect: "/treasurer/franchiseOrders/index",
+    children: [
+      {
+        path: "index",
+        name: "商城订单(商户)",
+        meta: {
+          i18n: "franchiseOrders",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "views" */ "@/views/treasurer/franchiseOrders"
+          ),
+      },
+    ],
+  },
+  {
+    path: "/treasurer/staffList",
+    name: "员工列表",
+    component: Layout,
+    redirect: "/treasurer/staffList/index",
+    children: [
+      {
+        path: "index",
+        name: "员工列表",
+        meta: {
+          i18n: "staffList",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/treasurer/staffList"),
       },
     ],
   },

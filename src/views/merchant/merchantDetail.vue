@@ -20,10 +20,17 @@
             </el-tab-pane>
             <el-tab-pane label="修改详情" name="edit">
                <div class="avueForm-content">
-                  <avue-form :option="merchantEditOption" @submit="handleRowEditSave" v-model="merchantEditForm">
+                  <avue-form :option="merchantAddOption" @submit="handleRowEditSave" v-model="merchantEditForm">
                      <template slot-scope="scope" slot="coverurl">
                         <imageUpload :disabled="scope.disabled" :list="merchantEditForm.coverurl" @on-change="onImgChange"
                            v-model="merchantEditForm.coverurl"></imageUpload>
+                     </template>
+                     <template slot-scope="scope" slot="coordinate">
+                        <el-input v-model="merchantAddForm.coordinate" placeholder="选择经纬度">
+                           <el-button slot="append" @click="mapShow = true">
+                              获取经纬度
+                           </el-button>
+                        </el-input>
                      </template>
                   </avue-form>
                </div>
@@ -106,6 +113,8 @@ export default {
       initData() {
          const address = this.findObject(this.merchantAddOption.column, "address");
          address.dicData = option.city;
+         const address2 = this.findObject(this.merchantEditOption.column, "address");
+         address2.dicData = option.city;
       },
       tMapHandle(params) {
          console.log(params)
@@ -141,7 +150,7 @@ export default {
             if (res && res.data) {
                let data = res.data.data;
                this.merchantBaseForm = data.merchant;
-               if(data.shareMerchantDetails){
+               if (data.shareMerchantDetails) {
                   if (this.activeName == "base") {
                      this.merchantBaseForm = data.merchant;
                   } else if (this.activeName == "details") {
@@ -160,6 +169,10 @@ export default {
       },
       // 商户详情-修改 保存
       handleRowEditSave(item, done) {
+         item.address = item.address
+         item.miid = this.tranceferDetail.id
+         item.coordinate = this.merchantAddForm.coordinate
+         item.coverurl = this.imgUrl
          updateMerchantDetails(item).then((res) => {
             this.$message({
                type: "success",
@@ -185,7 +198,7 @@ export default {
       },
       // 商户详情-新增 保存
       handleRowAddSave(item, done) {
-         item.address = item.address.join(",")
+         item.address = item.address
          item.miid = this.tranceferDetail.id
          item.coverurl = this.imgUrl
          item.coordinate = this.merchantAddForm.coordinate

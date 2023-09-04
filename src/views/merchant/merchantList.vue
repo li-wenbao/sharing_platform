@@ -6,9 +6,20 @@
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange" @on-load="onLoad">
             <template slot="status" slot-scope="scope">
-                <enable :data="scope.row.status" type="2"></enable>
+                <enable :data="scope.row.status" type="7"></enable>
+            </template>
+            <template slot="payStatus" slot-scope="scope">
+                <enable :data="scope.row.payStatus" type="8"></enable>
+            </template>
+            <template slot="appStatus" slot-scope="scope">
+                <enable :data="scope.row.appStatus" type="9"></enable>
             </template>
             <template #menu="{ size, row, index }">
+                <el-button v-if="row.status == '1'" type="button" class="el-button el-button--text el-button--small"
+                    @click.stop.native="examine(row)">
+                    <i class="iconfont iconicon_doc"></i>
+                    审核
+                </el-button>
                 <el-button type="button" class="el-button el-button--text el-button--small"
                     @click="openDetail(row, index, 1)">
                     <i class="iconfont iconicon_doc"></i>
@@ -28,15 +39,19 @@
             :before-close="handleCloseDetail" size="60%">
             <merchantCarousel :tranceferData="tranceferDataForm"></merchantCarousel>
         </el-drawer>
+        <WbPopups title="商户审核" :visible.sync="showConfirm" width="50%" height="58%">
+            <avue-form ref="crud2" v-model="processFrom" :option="processOption" @change="selectChange" @submit="rowUpdate">
+            </avue-form>
+        </WbPopups>
     </basic-container>
 </template>
 
 <script>
-import { getList, remove, update, add } from "@/api/base/merchant";
+import { getList, remove, update,editUpdate, add } from "@/api/base/merchant";
 import { getMerchantTypeList } from "@/api/merchant/merchantList"
 import { getList as getRoleList } from "@/api/user/role";
 import { getList as accountList } from "@/api/user/account";
-import { mainOption } from "@/const/merchant/merchantList"
+import { mainOption, processOption } from "@/const/merchant/merchantList"
 import { randomLenNum } from "@/util/util"
 import merchantDetail from "./merchantDetail";
 import merchantCarousel from "./merchantCarousel";
@@ -48,6 +63,7 @@ export default {
         return {
             showShDetail: false,
             showShCarousel: false,
+            showConfirm: false,
             tranceferDataForm: {
                 randomKey: randomLenNum(4, true),
             },
@@ -62,6 +78,13 @@ export default {
                 total: 0,
             },
             option: mainOption,
+            processOption: processOption,
+            processFrom: {
+                account: "",
+                password: "",
+                roleid: "",
+                uid: "",
+            },
             data: []
         };
     },
@@ -86,17 +109,26 @@ export default {
             getMerchantTypeList(this.page.currentPage, this.page.pageSize, Object.assign(params, this.query)).then(res => {
                 const column = this.findObject(this.option.column, "mtName");
                 column.dicData = res.data.data.merchantTypeList;
+                const column2 = this.findObject(this.option.column, "mtid");
+                column2.dicData = res.data.data.merchantTypeList;
+                const column12 = this.findObject(this.processOption.column, "mtid");
+                column12.dicData = res.data.data.merchantTypeList;
+            })
+            getRoleList(this.page.currentPage, this.page.pageSize, Object.assign(params, this.query)).then(res => {
+                const column = this.findObject(this.option.column, "roleid");
+                column.dicData = res.data.data.roleList;
+                const column1 = this.findObject(this.processOption.column, "roleid");
+                column1.dicData = res.data.data.roleList;
             })
 
-            if (this.form.status == '1') {
-                const status = this.findObject(this.option.column, "status");
-                status.editDisplay = false
-            }
-            else if (this.form.status == '2') {
-                getRoleList(this.page.currentPage, this.page.pageSize, Object.assign(params, this.query)).then(res => {
-                    const column = this.findObject(this.option.column, "roleid");
-                    column.dicData = res.data.data.roleList;
-                })
+            accountList(this.page.currentPage, this.page.pageSize, Object.assign(params, this.query)).then(res => {
+                const column = this.findObject(this.option.column, "uid");
+                column.dicData = res.data.data.userList;
+                const column1 = this.findObject(this.processOption.column, "uid");
+                column1.dicData = res.data.data.userList;
+            })
+
+            if (this.form.status == '2') {
                 const status = this.findObject(this.option.column, "status");
                 status.dicData = [
                     {
@@ -108,11 +140,48 @@ export default {
                         value: "4",
                     },
                 ]
-            } else if (this.form.status == '4') {
-                accountList(this.page.currentPage, this.page.pageSize, Object.assign(params, this.query)).then(res => {
-                    const column = this.findObject(this.option.column, "roleid");
-                    column.dicData = res.data.data.roleList;
-                })
+            }
+        },
+        openConfirm(row) {
+            this.processFrom = row
+            if (this.processFrom.status == '2') {
+                const status2 = this.findObject(this.processOption.column, "status");
+                status2.dicData = [
+                    {
+                        label: "正常",
+                        value: "2",
+                    },
+                    {
+                        label: "注销",
+                        value: "4",
+                    },
+                ]
+            }
+            this.processFrom.account = row.phone;
+            this.processFrom.password = "123456";
+            this.showConfirm = true
+        },
+        selectChange(column) {
+            let status = column.status
+            let account = this.findObject(this.processOption.column, "account");
+            let password = this.findObject(this.processOption.column, "password");
+            let roleid = this.findObject(this.processOption.column, "roleid");
+            let uid = this.findObject(this.processOption.column, "uid");
+            account.display = false;
+            password.display = false;
+            roleid.display = false;
+            uid.display = false;
+            if (status == '2') {
+                account.display = true;
+                password.display = true;
+                roleid.display = true;
+                uid.display = false
+            }
+            if (status == '4') {
+                account.display = false;
+               password.display = false;
+               roleid.display = false;
+               uid.display = true
             }
         },
         openDetail(row, index, type) {
@@ -120,13 +189,12 @@ export default {
             if (type == 1) {
                 this.showShDetail = true
             } else {
-                this.tranceferDataForm.status = row.status
                 this.showShCarousel = true
             }
             this.tranceferDataForm.randomKey = randomLenNum(4, true)
         },
         rowSave(row, done, loading) {
-            row.mtid = row.mtName  //重新给mtid赋值
+            row.mtid = row.mtid  //重新给mtid赋值
             add(row).then((res) => {
                 // 获取新增数据的相关字段
                 const data = res.data;
@@ -142,8 +210,26 @@ export default {
                 loading();
             });
         },
-        rowUpdate(row, index, done, loading) {
-            update(row).then(() => {
+
+        examine(row, index, done, loading) { //做审核
+            row.mtid = row.mtid  //重新给mtid赋值
+            update(row.miid,row.mtid,row.name,row.phone,row.contacts,row.sex,row.status,row.account,row.password,row.roleid,row.uid).then(() => {
+                this.$message({
+                    type: "success",
+                    message: "操作成功!"
+                });
+                // 数据回调进行刷新
+                this.refreshChange()
+                done(row);
+            }, error => {
+                window.console.log(error);
+                loading();
+            });
+        },
+
+        rowUpdate(row, index, done, loading) { //做修改
+            row.mtid = row.mtid  //重新给mtid赋值
+            editUpdate(row.miid,row.mtid,row.name,row.phone,row.contacts,row.sex).then(() => {
                 this.$message({
                     type: "success",
                     message: "操作成功!"
