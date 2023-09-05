@@ -16,7 +16,7 @@ export const mainOption = {
   viewBtn: true,
   // editBtn: false,
   delBtn: false,
-  menuWidth: 200,
+  menuWidth: 140,
   dialogClickModal: false,
   column: [
     {
@@ -35,7 +35,7 @@ export const mainOption = {
     {
       label: "价格",
       prop: "price",
-      // type:"number",
+      dataType:"number",
       append: '元',
       hide: true,
       rules: [
@@ -50,6 +50,7 @@ export const mainOption = {
       label: "折扣",
       prop: "discount",
       hide: true,
+      dataType:"number",
       append: '%',
       rules: [
         {
@@ -63,6 +64,7 @@ export const mainOption = {
       label: "库存",
       prop: "stock",
       hide: true,
+      dataType:"number",
       append: '个',
       rules: [
         {

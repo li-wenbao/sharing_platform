@@ -94,7 +94,7 @@ export const mainOption = {
       label: "类型",
       prop: "type",
       type: "select",
-      width: 180,
+      width: 90,
       align: "center",
       props: {
         label: "label",

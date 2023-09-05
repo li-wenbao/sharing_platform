@@ -217,9 +217,15 @@ export default {
         onLoad(page, params = {}) {
             this.loading = true;
             getList(page.currentPage, page.pageSize, Object.assign(params, this.query)).then(res => {
-                this.data = res.data.data.recommendList;
+                if (res && res.data) {
+                    let data = res.data.data
+                    if (data.recommendList) {
+                        this.data = data.recommendList
+                    }
+                    this.page.total = data.count;
+                }
                 this.loading = false;
-                this.selectionClear();
+                this.selectionClear(); 
             });
         },
     }

@@ -26,7 +26,7 @@
                            v-model="merchantEditForm.coverurl"></imageUpload>
                      </template>
                      <template slot-scope="scope" slot="coordinate">
-                        <el-input v-model="merchantAddForm.coordinate" placeholder="选择经纬度">
+                        <el-input disabled @click="mapShow = true" v-model="merchantEditForm.coordinate" placeholder="选择经纬度">
                            <el-button slot="append" @click="mapShow = true">
                               获取经纬度
                            </el-button>
@@ -45,7 +45,7 @@
                   v-model="merchantAddForm.coverurl"></imageUpload>
             </template>
             <template slot-scope="scope" slot="coordinate">
-               <el-input v-model="merchantAddForm.coordinate" placeholder="选择经纬度">
+               <el-input disabled v-model="merchantAddForm.coordinate" placeholder="选择经纬度">
                   <el-button slot="append" @click="mapShow = true">
                      获取经纬度
                   </el-button>
@@ -169,10 +169,10 @@ export default {
       },
       // 商户详情-修改 保存
       handleRowEditSave(item, done) {
-         item.address = item.address.join(',')
+         item.address = item.address
          item.miid = this.tranceferDetail.id
-         item.coordinate = this.merchantAddForm.coordinate
          item.coverurl = this.imgUrl
+         item.coordinate = this.merchantAddForm.coordinate
          updateMerchantDetails(item).then((res) => {
             this.$message({
                type: "success",
@@ -189,11 +189,17 @@ export default {
       },
       onChangeAddress(data) {
          this.coordinate = data.location
-         this.merchantAddForm.coordinate = data.location.lat + "," + data.location.lng
+         if (this.showAdd) {
+            this.merchantAddForm.coordinate = data.location.lat + "," + data.location.lng
+         }
+         this.merchantEditForm.coordinate = data.location.lat + "," + data.location.lng
          this.mapShow = false
       },
       initLatLng(data) {
-         this.merchantAddForm.coordinate = data
+         if (this.showAdd) {
+            this.merchantAddForm.coordinate = data
+         }
+         this.merchantEditForm.coordinate = data
          this.mapShow = false
       },
       // 商户详情-新增 保存

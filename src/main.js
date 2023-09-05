@@ -32,6 +32,7 @@ import isNoData from './components/isnodata/isnodata';
 import imageUpload from "./components/picture/imageUpload";
 import enable from "./components/condition/enable";
 import VueTinymce from '@packy-tang/vue-tinymce';
+import unitsInput from './components/tools/unitsInput';
 // 业务组件
 // import tenantPackage from './views/system/tenantpackage';
 
@@ -59,6 +60,7 @@ Vue.component('comEcharts', comEcharts);
 Vue.component('isNoData', isNoData);
 Vue.component('imageUpload', imageUpload);
 Vue.component('enable', enable);
+Vue.component('unitsInput', unitsInput);
 // Vue.component('VueTinymce', VueTinymce);
 Vue.use(VueTinymce); // 安装vue的tinymce组件
 // 加载相关url地址

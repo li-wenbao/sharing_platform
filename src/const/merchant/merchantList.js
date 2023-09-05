@@ -297,6 +297,7 @@ export const mainOption = {
     {
       label: "账号",
       prop: "account",
+      type:"number",
       hide: true,
       addDisplay: false,
       editDisplay: false,
@@ -305,6 +306,7 @@ export const mainOption = {
       label: "密码",
       prop: "password",
       hide: true,
+      type:"number",
       value:"123456",
       addDisplay: false,
       editDisplay: false,

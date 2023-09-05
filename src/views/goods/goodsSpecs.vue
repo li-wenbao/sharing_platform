@@ -8,6 +8,15 @@
             <template slot="status" slot-scope="scope">
                 <enable :data="scope.row.status"></enable>
             </template>
+            <!-- <template slot-scope="scope" slot="discountForm">
+               <unitsInput :value="form.discount" units="%"></unitsInput>
+            </template>
+            <template slot-scope="scope" slot="priceForm">
+               <unitsInput :value="form.price" units="元"></unitsInput>
+            </template>
+            <template slot-scope="scope" slot="stockForm">
+               <unitsInput :value="form.stock" units="个"></unitsInput>
+            </template> -->
             <template slot-scope="scope" slot="surl">
                 <el-image :src="scope.row.surl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
             </template>
@@ -103,7 +112,6 @@ export default {
         rowUpdate(row, index, done, loading) {
             // row.cid = this.tranceferData.id
             row.surl = this.imgUrl
-            console.log("🚀 ~ file: goodsSpecs.vue:104 ~ rowUpdate ~ row:", row)
             update(row.sid,row.name,row.price,row.discount,row.stock,row.surl,row.status).then(() => {
                 this.$message({
                     type: "success",

@@ -446,7 +446,7 @@ export const addOption = {
 
 export const carouselOption = {
   height: "auto",
-  calcHeight: 200,
+  calcHeight: 50,
   dialogDrag: true,
   lazy: true,
   tip: false,
