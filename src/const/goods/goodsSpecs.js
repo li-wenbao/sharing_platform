@@ -140,15 +140,13 @@ export const mainOption = {
     {
       label: "创建时间",
       prop: "credate",
-      width: 160,
-      // hide: true,
+      width: 140,
       display: false,
     },
     {
       label: "修改时间",
       prop: "upddate",
-      width: 160,
-      // hide: true,
+      width: 140,
       display: false,
     },
   ],

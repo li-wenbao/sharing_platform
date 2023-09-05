@@ -1,3 +1,5 @@
+import { Select } from "element-ui";
+
 export const mainOption = {
   height: "auto",
   calcHeight: 10,
@@ -8,7 +10,7 @@ export const mainOption = {
   searchMenuSpan: 4,
   dialogWidth: "50%",
   border: true,
-  index: true,
+  index: true, 
   selection: true,
   viewBtn: true,
   addBtn: false,
@@ -20,6 +22,7 @@ export const mainOption = {
       label: "商户名称",
       prop: "name",
       span: 24,
+      minWidth: 210,
       editDisplay: false,
       rules: [
         {
@@ -57,6 +60,7 @@ export const mainOption = {
       label: "联系方式",
       prop: "phone",
       editDisplay: false,
+      minWidth: 100,
       rules: [
         {
           required: true,
@@ -70,6 +74,7 @@ export const mainOption = {
       prop: "supphone", // "supphone": "普吉", //主管电话
       type: "number",
       editDisplay: false,
+      minWidth: 100,
       maxlength: 11,
       rules: [
         {
@@ -84,6 +89,7 @@ export const mainOption = {
       prop: "uphone", // "uphone": "15687371830", //经理电话
       type: "number",
       editDisplay: false,
+      minWidth: 100,
       maxlength: 11,
       rules: [
         {
@@ -384,15 +390,13 @@ export const mainOption = {
     {
       label: "创建时间",
       prop: "credate",
-      width: 160,
-      // hide: true,
+      width: 140,
       display: false,
     },
     {
       label: "修改时间",
       prop: "upddate",
-      width: 160,
-      // hide: true,
+      width: 140,
       display: false,
     },
   ],
@@ -452,10 +456,120 @@ export const confirmOption = {
       display: false,
       editDisplay: false,
     },
+    {
+      label: "期限",
+      prop: "term",
+      type:"select",
+      hide: true,
+      editDisplay: false,
+      dicData:[
+        {
+          label: "1年",
+          value: "1",
+        },
+        {
+          label: "2年",
+          value: "2",
+        },
+        {
+          label: "3年",
+          value: "3",
+        },
+        {
+          label: "4年",
+          value: "4",
+        },
+        {
+          label: "5年",
+          value: "5",
+        },
+        {
+          label: "6年",
+          value: "6",
+        },
+        {
+          label: "7年",
+          value: "7",
+        },
+        {
+          label: "8年",
+          value: "8",
+        },
+        {
+          label: "9年",
+          value: "9",
+        },
+        {
+          label: "10年",
+          value: "10",
+        },
+        {
+          label: "11年",
+          value: "11",
+        },
+        {
+          label: "12年",
+          value: "12",
+        },
+        {
+          label: "13年",
+          value: "13",
+        },
+        {
+          label: "14年",
+          value: "14",
+        },
+        {
+          label: "15年",
+          value: "15",
+        },
+        {
+          label: "16年",
+          value: "16",
+        },
+        {
+          label: "17年",
+          value: "17",
+        },
+        {
+          label: "18年",
+          value: "18",
+        },
+        {
+          label: "19年",
+          value: "19",
+        },
+        {
+          label: "20年",
+          value: "20",
+        },
+        {
+          label: "30年",
+          value: "30",
+        },
+        {
+          label: "40年",
+          value: "40",
+        },
+        {
+          label: "50年",
+          value: "50",
+        },
+      ],
+      append: "年",
+      rules: [
+        {
+          required: true,
+          message: "请输入期限",
+          trigger: "blur",
+        },
+      ],
+    },
     { 
       label: "金额",
       prop: "price",
       hide: true,
+      disabled:true,
       dataType: "number",
       append: "元",
       editDisplay: false,
@@ -471,20 +585,6 @@ export const confirmOption = {
         {
           required: true,
           message: "请输入总金额",
-          trigger: "blur",
-        },
-      ],
-    },
-    {
-      label: "期限",
-      prop: "term",
-      hide: true,
-      dataType: "number",
-      editDisplay: false,
-      rules: [
-        {
-          required: true,
-          message: "请输入期限",
           trigger: "blur",
         },
       ],

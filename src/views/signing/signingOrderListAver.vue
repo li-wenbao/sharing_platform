@@ -49,6 +49,7 @@ export default {
             joid: "",
             swid: "",
             ways: "",
+            price: "",
             showConfirm: false,
             selectionList: [],
             srcList: [],
@@ -96,6 +97,8 @@ export default {
                     this.ways = ele.name;
                 }
             });
+            this.price =  Number(data.term)*100
+            this.form.price = this.price
         },
         handleAdd(row) {
             this.$refs.crud.rowAdd();
@@ -107,9 +110,10 @@ export default {
             this.joid = row.joid
             this.showConfirm = true
         },
-        handleRowEditSave(row, index, loading) {
+        handleRowEditSave(row, index, loading) { //做审核
             row.joid = this.joid
             row.way = this.ways
+            row.price = this.price + ''
             joinOrderConfirm(row).then((res) => {
                 // 获取新增数据的相关字段
                 this.$message({

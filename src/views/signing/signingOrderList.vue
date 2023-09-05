@@ -29,8 +29,9 @@
                 </el-button>
             </template>
         </avue-crud>
-        <WbPopups title="" :visible.sync="showConfirm" width="50%" height="40%">
-            <avue-form ref="crud" v-model="form" :option="payConfirmOption" @change="onSelectionChange"
+
+        <WbPopups title="确认收款" :visible.sync="showConfirm" width="50%" height="46%">
+            <avue-form ref="crud" v-model="form" :option="payConfirmOption"
                 @submit="handleRowEditSave">
                 <template slot-scope="scope" slot="payurl">
                     <imageUpload :disabled="scope.disabled" :list="form.payurl" v-model="form.payurl"
@@ -44,8 +45,7 @@
   
 <script>
 import { getList, update, add, confirmReceipt } from "@/api/signing/signingOrderList";
-import { getList as signingList, } from "@/api/signing/signingList";
-import { mainOption, payConfirmOption } from "@/const/signing/signingOrderList"
+import { mainOption, payConfirmOption,confirmOption } from "@/const/signing/signingOrderList"
 export default {
     data() {
         return {
@@ -83,13 +83,6 @@ export default {
     mounted() {
     },
     methods: {
-        onSelectionChange(data) {
-            this.wayList.forEach(ele => {
-                if (data.swid == ele.swid) {
-                    this.ways = ele.name;
-                }
-            });
-        },
         handleAdd(row) {
             this.$refs.crud.rowAdd();
         },
