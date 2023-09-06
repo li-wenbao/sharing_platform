@@ -51,6 +51,7 @@ export const mainOption = {
       prop: "discount",
       hide: true,
       dataType:"number",
+      value:'100',
       append: '%',
       rules: [
         {
