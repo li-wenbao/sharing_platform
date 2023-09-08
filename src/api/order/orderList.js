@@ -11,22 +11,33 @@ export const getList = (pageNum, pageSize, params) => {
     },
   });
 };
-export const add = (params) => {
-  return request({
-    url: "/share/material/saveFeaturedFeatures",
-    method: "post",
-    params: {
-      ...params,
-    },
-  });
-};
+// export const add = (params) => {
+//   return request({
+//     url: "/share/material/saveFeaturedFeatures",
+//     method: "post",
+//     params: {
+//       ...params,
+//     },
+//   });
+// };
 
-export const update = (params) => {
+// export const update = (params) => {
+//   return request({
+//     url: "/share/material/updateFeaturedFeatures",
+//     method: "post",
+//     params: {
+//       ...params,
+//     },
+//   });
+// };
+
+// 订单确认
+export const orderConfirm = (oid) => {
   return request({
-    url: "/share/material/updateFeaturedFeatures",
+    url: "/share/order/orderConfirm",
     method: "post",
     params: {
-      ...params,
+      oid
     },
   });
 };

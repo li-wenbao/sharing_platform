@@ -1,4 +1,4 @@
-<!-- 商城订单 -->
+<!-- 商城订单(总览) -->
 <template>
     <basic-container>
         <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
@@ -6,15 +6,30 @@
             @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange" @on-load="onLoad">
+            <template #menu="{ size, row, index }">
+                <el-button type="button" class="el-button el-button--text el-button--small"
+                    @click="openDetail(row, index, 1)">
+                    <i class="iconfont iconicon_doc"></i>
+                    退单详情
+                </el-button>
+            </template>
         </avue-crud>
+        <el-drawer :title="`详情`" :visible.sync="showShDetail" direction="rtl" :append-to-body="true"
+            :before-close="handleCloseDetail" size="60%">
+            <orderDescList :tranceferData="tranceferDataForm"></orderDescList>
+        </el-drawer>
     </basic-container>
 </template>
   
 <script>
+import { randomLenNum } from "@/util/util";
 import { getList, update, add } from "@/api/treasurer/mallOrdersList";
 import { mainOption } from "@/const/treasurer/mallOrdersList"
-
+import orderDescList from "./orderDescList";
 export default {
+    components: {
+        orderDescList
+    },
     data() {
         return {
             form: {},
@@ -31,7 +46,13 @@ export default {
                 total: 0,
             },
             option: mainOption,
-            data: []
+            data: [],
+            showShDetail: false,
+            showConfirm: false,
+            tranceferDataForm: {
+                list: [],
+                randomKey: randomLenNum(4, true),
+            },
         };
     },
     computed: {
@@ -48,6 +69,11 @@ export default {
     methods: {
         handleAdd(row) {
             this.$refs.crud.rowAdd();
+        },
+        openDetail(row, index, type) {
+            this.tranceferDataForm.list = row.returnOrderDescList
+            this.tranceferDataForm.randomKey = randomLenNum(4, true)
+            this.showShDetail = true
         },
         onImgChange(data) {
             this.imgUrl = data

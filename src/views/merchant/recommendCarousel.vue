@@ -27,7 +27,6 @@
 <script>
 import { getRecommendPictureList, saveRecommendPicture, updateRecommendPicture } from "@/api/merchant/recommendList";
 import { carouselOption } from "@/const/merchant/recommendList"
-import { mapGetters } from "vuex";
 export default {
    data() {
       return {
@@ -57,8 +56,8 @@ export default {
       tranceferData: {
          handler(nowValue) {
             if (nowValue) {
-               this.rdid = nowValue.id,
-                  this.onLoad(this.rdid);
+               this.rdid = nowValue.id;
+               this.onLoad(this.rdid);
             }
          },
          deep: true,
@@ -66,7 +65,7 @@ export default {
    },
    mounted() {
       if (this.tranceferData.id) {
-         this.rdid = this.tranceferData.id,
+         this.rdid = this.tranceferData.id
          this.onLoad(this.rdid);
       }
    },

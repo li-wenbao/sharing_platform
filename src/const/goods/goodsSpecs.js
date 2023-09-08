@@ -124,7 +124,7 @@ export const mainOption = {
       //状态:1.正常 2.禁用
       dicData: [
         {
-          label: "启用",
+          label: "正常",
           value: '1',
         },
         {
