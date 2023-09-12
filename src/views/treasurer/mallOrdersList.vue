@@ -14,7 +14,7 @@
                 </el-button>
             </template>
         </avue-crud>
-        <el-drawer :title="`详情`" :visible.sync="showShDetail" direction="rtl" :append-to-body="true"
+        <el-drawer :title="`退单详情`" :visible.sync="showShDetail" direction="rtl" :append-to-body="true"
             :before-close="handleCloseDetail" size="60%">
             <orderDescList :tranceferData="tranceferDataForm"></orderDescList>
         </el-drawer>

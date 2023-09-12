@@ -204,9 +204,6 @@ export const retOrdOption = {
     {
       label: "商户名称",
       prop: "mname",
-      type: "number",
-      maxlength: 11,
-      width: 100,
       span: 24,
       rules: [
         {
@@ -217,26 +214,8 @@ export const retOrdOption = {
       ],
     },
     {
-      label: "商户电话",
-      prop: "mphone",
-      type: "number",
-      maxlength: 11,
-      width: 100,
-      span: 24,
-      rules: [
-        {
-          required: true,
-          message: "请输入商户电话",
-          trigger: "blur",
-        },
-      ],
-    },
-    {
       label: "商品名称",
       prop: "cname",
-      type: "number",
-      maxlength: 11,
-      width: 100,
       span: 24,
       rules: [
         {
@@ -254,6 +233,21 @@ export const retOrdOption = {
       span: 24,
       formslot: true,
       slot: true,
+    },
+    {
+      label: "商户电话",
+      prop: "mphone",
+      type: "number",
+      maxlength: 11,
+      width: 110,
+      span: 24,
+      rules: [
+        {
+          required: true,
+          message: "请输入商户电话",
+          trigger: "blur",
+        },
+      ],
     },
     {
       label: "套卡次数",
@@ -351,7 +345,6 @@ export const shaSpecOption = {
     {
       label: "规格名称",
       prop: "name",
-      width: 100,
       span: 24,
       rules: [
         {
@@ -394,7 +387,7 @@ export const shaSpecOption = {
       label: "状态",
       prop: "status",
       type: "select",
-      width: 180,
+      width: 110,
       span: 8,
       align: "center",
       addDisplay: false,
@@ -456,7 +449,6 @@ export const shaSpecOption = {
       formslot: true,
       slot: true,
     },
-    
     {
       label: "创建时间",
       prop: "credate",
@@ -471,3 +463,4 @@ export const shaSpecOption = {
     },
   ],
 };
+ 

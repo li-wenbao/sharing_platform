@@ -392,20 +392,20 @@ export default [
     ],
   },
   {
-    path: "/treasurer/franchiseOrders",
+    path: "/treasurer/mallOrdersMerList",
     name: "商城订单(商户)",
     component: Layout,
-    redirect: "/treasurer/franchiseOrders/index",
+    redirect: "/treasurer/mallOrdersMerList/index",
     children: [
       {
         path: "index",
         name: "商城订单(商户)",
         meta: {
-          i18n: "franchiseOrders",
+          i18n: "mallOrdersMerList",
         },
         component: () =>
           import(
-            /* webpackChunkName: "views" */ "@/views/treasurer/franchiseOrders"
+            /* webpackChunkName: "views" */ "@/views/treasurer/mallOrdersMerList"
           ),
       },
     ],

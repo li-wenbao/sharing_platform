@@ -14,12 +14,35 @@ export const mainOption = {
   addBtn: false,
   delBtn: false,
   editBtn: false,
-  menuWidth: 240,
+  menuWidth: 100,
   dialogClickModal: false,
   column: [
     {
-      label: "单号",
+      label: "商户名称",
+      prop: "cname",
+      rules: [
+        {
+          required: true,
+          message: "请输入商户名称",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "规格名称",
+      prop: "name",
+      rules: [
+        {
+          required: true,
+          message: "请输入规格名称",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "订单号",
       prop: "oid",
+      // hide: true,
       rules: [
         {
           required: true,
@@ -29,109 +52,129 @@ export const mainOption = {
       ],
     },
     {
-      label: "金额",
-      prop: "amount",
+      label: "价格",
+      prop: "price",
       dataType: "number",
       append: "元",
+      width: 140,
       rules: [
         {
           required: true,
-          message: "请输入金额",
+          message: "请输入价格",
           trigger: "blur",
         },
       ],
     },
     {
-      label: "联系方式",
-      prop: "phone",
-      type: "number",
-      maxlength: 11,
+      label: "次数",
+      prop: "number",
+      dataType: "number",
+      append: "次",
+      span:8,
+      //次数(type=2才有)
       rules: [
         {
           required: true,
-          message: "请输入联系方式",
+          message: "请输入次数",
           trigger: "blur",
         },
       ],
     },
     {
-      label: "用户id",
-      prop: "wuid",
+      label: "数量",
+      prop: "quantity",
+      dataType: "number",
+      append: "个",
+      span:8,
+      rules: [
+        {
+          required: true,
+          message: "请输入数量",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "订单id(子)",
+      prop: "did",
       hide: true,
       display: false,
       rules: [
         {
           required: true,
-          message: "请输入用户id",
+          message: "请输入订单id(子)",
           trigger: "blur",
         },
       ],
     },
     {
-      label: "状态",
-      prop: "status",
+      label: "商品id",
+      prop: "cid",
+      hide: true,
+      display: false,
+      rules: [
+        {
+          required: true,
+          message: "请输入商品id",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "规格id",
+      prop: "sid",
+      hide: true,
+      display: false,
+      rules: [
+        {
+          required: true,
+          message: "请输入规格id",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "类型",
+      prop: "type",
       type: "select",
       align: "center",
       search: true,
       addDisplay: false,
-      //状态:1.未支付 2.支付中  3.支付取消 4.支付失败
-      //5.待确认 6.待使用  7.使用中 8.待评价
-      //9.系统关单(超时未支付) 10.用户关单(申请退款)
-      //11.转入退款 12.订单完成
+      span:8,
+      //类型:1.单品 2.套卡
       dicData: [
         {
-          label: "未支付",
+          label: "单品",
           value: "1",
         },
         {
-          label: "支付中",
+          label: "套卡",
           value: "2",
         },
-        {
-          label: "支付取消",
-          value: "3",
-        },
-        {
-          label: "支付失败",
-          value: "4",
-        },
-        {
-          label: "待确认",
-          value: "5",
-        },
-        {
-          label: "待使用",
-          value: "6",
-        },
-        {
-          label: "使用中",
-          value: "7",
-        },
-        {
-          label: "待评价",
-          value: "8",
-        },
-        {
-          label: "系统关单",
-          value: "9",
-        },
-        {
-          label: "用户关单",
-          value: "10",
-        },
-        {
-          label: "转入退款",
-          value: "11",
-        },
-        {
-          label: "订单完成",
-          value: "12",
-        },
       ],
+      control: (val, form) => {
+        if (val == "2") {
+          return {
+            number: {
+              hide: true,
+              display: true,
+              editDisplay: true,
+            },
+          };
+        }else {
+          return {
+            number: {
+              hide: false,
+              display: false,
+              editDisplay: false,
+            },
+          };
+        }
+      },
       rules: [
         {
           required: true,
-          message: "请选择状态",
+          message: "请选择类型",
           trigger: "blur",
         },
       ],
@@ -192,8 +235,10 @@ export const retOrdOption = {
     {
       label: "商户名称",
       prop: "mname",
+      type: "number",
+      maxlength: 11,
+      width: 100,
       span: 24,
-      width: 180,
       rules: [
         {
           required: true,
@@ -208,6 +253,7 @@ export const retOrdOption = {
       type: "number",
       maxlength: 11,
       width: 100,
+      span: 24,
       rules: [
         {
           required: true,
@@ -219,7 +265,10 @@ export const retOrdOption = {
     {
       label: "商品名称",
       prop: "cname",
+      type: "number",
+      maxlength: 11,
       width: 100,
+      span: 24,
       rules: [
         {
           required: true,
@@ -244,7 +293,6 @@ export const retOrdOption = {
       editDisplay: false,
       dataType: "number",
       append: "次",
-      width: 140,
       rules: [
         {
           required: true,
@@ -257,7 +305,7 @@ export const retOrdOption = {
       label: "类型",
       prop: "type",
       type: "select",
-      width: 140,
+      width: 80,
       align: "center",
       search: true,
       addDisplay: false,
@@ -282,7 +330,7 @@ export const retOrdOption = {
     },
   ],
 };
-// 规格订单 shareCommoditySpec 
+// 退货订单 shareCommoditySpec 
 export const shaSpecOption = {
   height: "auto",
   calcHeight: 10,
@@ -331,6 +379,7 @@ export const shaSpecOption = {
       prop: "name",
       type: "number",
       maxlength: 11,
+      width: 100,
       span: 24,
       rules: [
         {
@@ -446,4 +495,3 @@ export const shaSpecOption = {
     },
   ],
 };
- 

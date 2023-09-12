@@ -22,7 +22,8 @@
          <div class="avueForm-content">
             <avue-form :option="shaSpecOption" v-model="shaSpecFrom">
                <template slot-scope="scope" slot="surl">
-                  <imageUpload :disabled="true" :list="shaSpecFrom.surl" v-model="shaSpecFrom.surl" @on-change="onImgChange2">
+                  <imageUpload :disabled="true" :list="shaSpecFrom.surl" v-model="shaSpecFrom.surl"
+                     @on-change="onImgChange2">
                   </imageUpload>
                </template>
             </avue-form>
@@ -72,8 +73,12 @@ export default {
       this.onLoad()
    },
    methods: {
+      refreshChange() {
+         this.onLoad();
+      },
       onLoad() {
          this.data = this.tranceferData.list;
+         this.tranceferDataForm.randomKey = randomLenNum(4, true)
       },
       openDetail(row, index, type) {
          this.shaSpecFrom = row.shareCommoditySpec

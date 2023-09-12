@@ -1,8 +1,8 @@
 import request from "@/router/axios";
-// 商城订单（总览）
+// 商城订单（商户）
 export const getList = (pageNum, pageSize, params) => {
   return request({
-    url: "/share/finance/getFinanceSummaryTable",
+    url: "/share/finance/getFinanceList",
     method: "post",
     params: {
       ...params,

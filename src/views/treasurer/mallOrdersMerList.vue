@@ -11,10 +11,14 @@
 </template>
   
 <script>
-import { getList, update, add } from "@/api/treasurer/mallOrdersList";
-import { mainOption } from "@/const/treasurer/mallOrdersList"
-
+import { randomLenNum } from "@/util/util";
+import { getList, update, add } from "@/api/treasurer/mallOrdersMerList";
+import { mainOption } from "@/const/treasurer/mallOrdersMerList"
+import orderDescList from "./orderDescList";
 export default {
+    components: {
+        orderDescList
+    },
     data() {
         return {
             form: {},
@@ -31,7 +35,13 @@ export default {
                 total: 0,
             },
             option: mainOption,
-            data: []
+            data: [],
+            showShDetail: false,
+            showConfirm: false,
+            tranceferDataForm: {
+                list: [],
+                randomKey: randomLenNum(4, true),
+            },
         };
     },
     computed: {
@@ -48,6 +58,11 @@ export default {
     methods: {
         handleAdd(row) {
             this.$refs.crud.rowAdd();
+        },
+        openDetail(row, index, type) {
+            this.tranceferDataForm.list = row.returnOrderDescList
+            this.tranceferDataForm.randomKey = randomLenNum(4, true)
+            this.showShDetail = true
         },
         onImgChange(data) {
             this.imgUrl = data
@@ -127,8 +142,8 @@ export default {
             getList(page.currentPage, page.pageSize, Object.assign(params, this.query)).then(res => {
                 if (res && res.data) {
                     let data = res.data.data
-                    if (data.returnOrderList) {
-                        this.data = data.returnOrderList
+                    if (data.returnList) {
+                        this.data = data.returnList
                     }
                     this.page.total = data.count;
                 }
