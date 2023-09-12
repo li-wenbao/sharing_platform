@@ -1,13 +1,12 @@
 <template>
   <basic-container>
     <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
-      :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel"
-      @row-update="rowUpdate" @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
-      @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
-      @refresh-change="refreshChange" @on-load="onLoad" @tree-load="treeLoad">
+      :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel" @row-update="rowUpdate" @row-save="rowSave"
+      @search-change="searchChange" @search-reset="searchReset" @selection-change="selectionChange"
+      @current-change="currentChange" @size-change="sizeChange" @refresh-change="refreshChange" @on-load="onLoad"
+      @tree-load="treeLoad">
       <template slot="menuLeft">
-        <el-button type="danger" size="small" icon="el-icon-delete" plain
-          @click="handleDelete">删 除
+        <el-button type="danger" size="small" icon="el-icon-delete" plain @click="handleDelete">删 除
         </el-button>
       </template>
       <template slot-scope="scope" slot="menu">
@@ -105,7 +104,7 @@ export default {
             minWidth: 160,
             props: {
               label: "name",
-              value:'menuid'
+              value: 'menuid'
             },
             rules: [
               {
@@ -162,6 +161,7 @@ export default {
             prop: "ordernum",
             type: "number",
             width: 100,
+            align: "center",
             rules: [
               {
                 required: true,
@@ -188,16 +188,16 @@ export default {
     }
   },
   methods: {
-    initData() { 
+    initData() {
       getRoutes(this.userInfo.token).then(res => {
         const column = this.findObject(this.option.column, "parentid");
         column.dicData = res.data.data;
       });
     },
     handleAdd(row) {
-      this.parentId = row.menuid;
+      this.parentId = row.parentid;
       const column = this.findObject(this.option.column, "parentid");
-      column.value = row.menuid;
+      column.value = row.parentid;
       column.addDisabled = true;
       this.$refs.crud.rowAdd();
     },
@@ -222,6 +222,7 @@ export default {
       });
     },
     rowUpdate(row, index, done, loading) {
+      row.orderNum = row.ordernum
       update(row).then(() => {
         this.$message({
           type: "success",
@@ -332,7 +333,9 @@ export default {
     onLoad(page, params = {}) {
       this.loading = true;
       getLazyList(this.parentId, Object.assign(params, this.query)).then(res => {
-        this.data = res.data.data;
+        if (res && res.data) {
+          this.data = res.data.data;
+        }
         this.loading = false;
         this.selectionClear();
       });

@@ -32,22 +32,33 @@ export const update = (params) => {
 };
 
 // 提成明细
-export const getCommissionDetails = (params) => {
+export const getCommissionDetails = (uid) => {
   return request({
     url: "/share/finance/getCommissionDetails",
     method: "post",
     params: {
-      ...params,
+      uid,
     },
   });
 };
 // 分佣明细
-export const getCommission = (params) => {
+export const getCommission = (uid) => {
   return request({
     url: "/share/finance/getCommission",
     method: "post",
     params: {
-      ...params,
+      uid,
+    },
+  });
+};
+
+// 核销记录
+export const getWriteOffRecord = (uid) => {
+  return request({
+    url: "/share/finance/getWriteOffRecord",
+    method: "post",
+    params: {
+      uid,
     },
   });
 };

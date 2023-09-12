@@ -1,59 +1,22 @@
-<!-- 员工列表 -->
 <template>
+    <!-- 核销记录 -->
     <basic-container>
         <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
             :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel" @row-update="rowUpdate"
             @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange" @on-load="onLoad">
-            <template slot-scope="scope" slot="codeurl">
-                <el-image :src="scope.row.codeurl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
-            </template>
-            <template slot-scope="scope" slot="codeurlForm">
-                <imageUpload :disabled="scope.disabled" :list="form.codeurl" v-model="form.codeurl"
-                    @on-change="onImgChange">
-                </imageUpload>
-            </template>
-            <template #menu="{ size, row, index }">
-                <el-button type="button" class="el-button el-button--text el-button--small"
-                    @click="openDetail(row, index, 1)">
-                    <i class="iconfont iconicon_doc"></i>
-                    提成明细
-                </el-button>
-                <el-button type="button" class="el-button el-button--text el-button--small"
-                    @click="openDetail(row, index, 2)">
-                    <i class="iconfont iconicon_doc"></i>
-                    分佣明细
-                </el-button>
-            </template>
         </avue-crud>
-        <el-drawer :title="`提成明细`" :visible.sync="showDetail" direction="rtl" :append-to-body="true"
-            :before-close="handleCloseDetail" size="60%">
-            <commissionList :tranceferData="tranceferDataForm"></commissionList>
-        </el-drawer>
-        <el-drawer :title="`分佣明细`" :visible.sync="showDividDetail" direction="rtl" :append-to-body="true"
-            :before-close="handleCloseDetail" size="60%">
-            <comDivideList :tranceferData="tranceferDataForm"></comDivideList>
-        </el-drawer>
     </basic-container>
 </template>
   
 <script>
-import { randomLenNum } from "@/util/util";
-import { getList, update, add } from "@/api/treasurer/staffList";
-import { mainOption } from "@/const/treasurer/staffList"
-import commissionList from "./commissionList";
-import comDivideList from "./comDivideList";
+import { getList, update, add } from "@/api/treasurer/writeOffRecord";
+import { mainOption } from "@/const/treasurer/writeOffRecord"
 export default {
-    components: {
-        commissionList, comDivideList
-    },
     data() {
         return {
-            showDetail: false,
-            showDividDetail: false,
             form: {},
-            imgUrl: "",
             selectionList: [],
             srcList: [],
             query: {},
@@ -66,10 +29,7 @@ export default {
                 total: 0,
             },
             option: mainOption,
-            data: [],
-            tranceferDataForm: {
-                randomKey: randomLenNum(4, true),
-            },
+            data: []
         };
     },
     computed: {
@@ -87,20 +47,7 @@ export default {
         handleAdd(row) {
             this.$refs.crud.rowAdd();
         },
-        onImgChange(data) {
-            this.imgUrl = data
-        },
-        openDetail(row, index, type) {
-            this.tranceferDataForm.id = row.uid
-            if (type == 1) {
-                this.showDetail = true
-            } else {
-                this.showDividDetail = true
-            }
-            this.tranceferDataForm.randomKey = randomLenNum(4, true)
-        },
         rowSave(row, done, loading) {
-            row.iconurl = this.imgUrl
             add(row).then((res) => {
                 // 获取新增数据的相关字段
                 // const data = res.data.data;
@@ -117,7 +64,6 @@ export default {
             });
         },
         rowUpdate(row, index, done, loading) {
-            row.iconurl = this.imgUrl
             update(row).then(() => {
                 this.$message({
                     type: "success",
@@ -151,8 +97,10 @@ export default {
         },
         beforeOpen(done, type) {
             if (["add", "edit"].includes(type)) {
+
             }
             if (["edit", "view"].includes(type)) {
+
             }
             done();
         },
@@ -174,8 +122,8 @@ export default {
             getList(page.currentPage, page.pageSize, Object.assign(params, this.query)).then(res => {
                 if (res && res.data) {
                     let data = res.data.data
-                    if (data.returnList) {
-                        this.data = data.returnList
+                    if (data.materialList) {
+                        this.data = data.materialList
                     }
                     this.page.total = data.count;
                 }

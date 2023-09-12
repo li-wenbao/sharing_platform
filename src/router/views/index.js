@@ -127,8 +127,8 @@ export default [
       },
     ],
   },
-   // 商品管理
-   {
+  // 商品管理
+  {
     path: "/goods/goodsList",
     name: "商品列表",
     component: Layout,
@@ -210,7 +210,9 @@ export default [
           i18n: "signingOrderList",
         },
         component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/signing/signingOrderList"),
+          import(
+            /* webpackChunkName: "views" */ "@/views/signing/signingOrderList"
+          ),
       },
     ],
   },
@@ -227,7 +229,9 @@ export default [
           i18n: "signingOrderListAver",
         },
         component: () =>
-          import(/* webpackChunkName: "views" */ "@/views/signing/signingOrderListAver"),
+          import(
+            /* webpackChunkName: "views" */ "@/views/signing/signingOrderListAver"
+          ),
       },
     ],
   },
@@ -424,6 +428,25 @@ export default [
         },
         component: () =>
           import(/* webpackChunkName: "views" */ "@/views/treasurer/staffList"),
+      },
+    ],
+  },
+  {
+    path: "/treasurer/writeOffRecord",
+    name: "核销记录",
+    component: Layout,
+    redirect: "/treasurer/writeOffRecord/index",
+    children: [
+      {
+        path: "index",
+        name: "核销记录",
+        meta: {
+          i18n: "writeOffRecord",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "views" */ "@/views/treasurer/writeOffRecord"
+          ),
       },
     ],
   },

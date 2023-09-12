@@ -19,7 +19,7 @@ export const mainOption = {
     {
       label: "名称",
       prop: "name",
-      minWidth:180,
+      minWidth: 180,
       span: 24,
       rules: [
         {
@@ -33,7 +33,7 @@ export const mainOption = {
       label: "账号",
       prop: "account",
       minWidth: 140,
-      type: 'number',
+      type: "number",
       rules: [
         {
           required: true,
@@ -74,7 +74,7 @@ export const mainOption = {
         //按条件设置显示隐藏
         if (val == "1") {
           return {
-            account:{
+            account: {
               editDisplay: false,
             },
             newpwd: {
@@ -90,9 +90,9 @@ export const mainOption = {
               editDisplay: false,
             },
           };
-        }else if (val == "2") {
+        } else if (val == "2") {
           return {
-            account:{
+            account: {
               editDisplay: true,
             },
             newpwd: {
@@ -108,9 +108,9 @@ export const mainOption = {
               editDisplay: false,
             },
           };
-        }else if (val == "3") {
+        } else if (val == "3") {
           return {
-            account:{
+            account: {
               editDisplay: false,
             },
             roleName: {
@@ -128,7 +128,7 @@ export const mainOption = {
           };
         } else if (val == "4") {
           return {
-            account:{
+            account: {
               editDisplay: false,
             },
             status: {
@@ -144,9 +144,9 @@ export const mainOption = {
               editDisplay: false,
             },
           };
-        }else{
+        } else {
           return {
-            account:{
+            account: {
               editDisplay: false,
             },
             newpwd: {
@@ -171,7 +171,7 @@ export const mainOption = {
           trigger: "blur",
         },
       ],
-    }, 
+    },
     {
       label: "介推码",
       prop: "invitationcode",
@@ -201,7 +201,7 @@ export const mainOption = {
       prop: "password",
       editDisplay: false,
       viewDisplay: false,
-      hide:true,
+      hide: true,
       minWidth: 140,
       rules: [
         {
@@ -215,7 +215,7 @@ export const mainOption = {
       label: "新密码",
       prop: "newpwd",
       minWidth: 140,
-      hide:true,
+      hide: true,
       viewDisplay: false,
       addDisplay: false,
       editDisplay: false,
@@ -231,7 +231,7 @@ export const mainOption = {
       label: "旧密码",
       prop: "oldpwd",
       minWidth: 140,
-      hide:true,
+      hide: true,
       viewDisplay: false,
       addDisplay: false,
       editDisplay: false,
@@ -246,9 +246,9 @@ export const mainOption = {
     {
       label: "账号id",
       prop: "uid",
-      addDisplay:false,
-      editDisplay:false,
-      display:false,
+      addDisplay: false,
+      editDisplay: false,
+      display: false,
       hide: true,
       rules: [
         {
@@ -261,7 +261,7 @@ export const mainOption = {
     {
       label: "角色名称",
       prop: "roleName",
-      minWidth:140,
+      minWidth: 140,
       type: "select",
       editDisplay: false,
       dicData: [],
@@ -280,8 +280,8 @@ export const mainOption = {
     {
       label: "角色id",
       prop: "roleid",
-      addDisplay:false,
-      display:false,
+      addDisplay: false,
+      display: false,
       hide: true,
       rules: [
         {
@@ -354,7 +354,7 @@ export const mainOption = {
               addDisplay: true,
             },
           };
-        }else{
+        } else {
           return {
             supname: {
               addDisplay: false,
@@ -365,7 +365,7 @@ export const mainOption = {
       rules: [
         {
           required: true,
-          message: "请选择状态",
+          message: "请选择级别",
           trigger: "blur",
         },
       ],
@@ -373,15 +373,15 @@ export const mainOption = {
     {
       label: "上级",
       prop: "supname",
-      minWidth:140,
+      minWidth: 140,
       type: "select",
       dicData: [],
       props: {
         label: "name",
         value: "uid",
       },
-      addDisplay:false,
-      editDisplay:false,
+      addDisplay: false,
+      editDisplay: false,
       rules: [
         {
           required: true,
@@ -393,7 +393,7 @@ export const mainOption = {
     {
       label: "上级uid",
       prop: "supuid",
-      display:false,
+      display: false,
       hide: true,
     },
     {
