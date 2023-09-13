@@ -1,41 +1,34 @@
 <template>
    <div class="p-2 pt-0">
       <div v-if="!showAdd">
-         <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="基本信息" name="base">
-               <div class="avueForm-content">
-                  <avue-form :option="merchantBaseOption" v-model="merchantBaseForm"></avue-form>
-               </div>
-            </el-tab-pane>
-            <el-tab-pane label="商户详情" name="details">
-               <div class="avueForm-content">
-                  <avue-form :option="merchantOption" v-model="merchantForm">
-                     <template slot-scope="scope" slot="coverurl">
-                        <div class="flex comWidth100 p-2 box-sizing">
-                           <el-image :src="merchantForm.coverurl" class="list-images-box-1"></el-image>
-                        </div>
-                     </template>
-                  </avue-form>
-               </div>
-            </el-tab-pane>
-            <el-tab-pane label="修改详情" name="edit">
-               <div class="avueForm-content">
-                  <avue-form :option="merchantAddOption" @submit="handleRowEditSave" v-model="merchantEditForm">
-                     <template slot-scope="scope" slot="coverurl">
-                        <imageUpload :disabled="scope.disabled" :list="merchantEditForm.coverurl" @on-change="onImgChange"
-                           v-model="merchantEditForm.coverurl"></imageUpload>
-                     </template>
-                     <template slot-scope="scope" slot="coordinate">
-                        <el-input disabled @click="mapShow = true" v-model="merchantEditForm.coordinate" placeholder="选择经纬度">
-                           <el-button slot="append" @click="mapShow = true">
-                              获取经纬度
-                           </el-button>
-                        </el-input>
-                     </template>
-                  </avue-form>
-               </div>
-            </el-tab-pane>
-         </el-tabs>
+         <comTitle :data="tabData" :active="aCurrent" @onChange="OnTabChange"></comTitle>
+         <div v-if="aCurrent == 0" class="avueForm-content">
+            <avue-form :option="merchantBaseOption" v-model="merchantBaseForm"></avue-form>
+         </div>
+         <div v-if="aCurrent == 1" class="avueForm-content">
+            <avue-form :option="merchantOption" v-model="merchantForm">
+               <template slot-scope="scope" slot="coverurl">
+                  <div class="flex comWidth100 p-2 box-sizing">
+                     <el-image :src="merchantForm.coverurl" class="list-images-box-1"></el-image>
+                  </div>
+               </template>
+            </avue-form>
+         </div>
+         <div v-if="aCurrent == 2" class="avueForm-content">
+            <avue-form :option="merchantAddOption" @submit="handleRowEditSave" v-model="merchantEditForm">
+               <template slot-scope="scope" slot="coverurl">
+                  <imageUpload :disabled="scope.disabled" :list="merchantEditForm.coverurl" @on-change="onImgChange"
+                     v-model="merchantEditForm.coverurl"></imageUpload>
+               </template>
+               <template slot-scope="scope" slot="coordinate">
+                  <el-input disabled @click="mapShow = true" v-model="merchantEditForm.coordinate" placeholder="选择经纬度">
+                     <el-button slot="append" @click="mapShow = true">
+                        获取经纬度
+                     </el-button>
+                  </el-input>
+               </template>
+            </avue-form>
+         </div>
       </div>
       <div v-if="showAdd">
          <div class="flex-all-center comWidth100 text-blue">新增详情</div>
@@ -89,6 +82,12 @@ export default {
          merchantBaseOption: merchantBaseOption,
          merchantEditOption: merchantEditOption,
          merchantAddOption: merchantAddOption,
+         tabData: [
+            { name: "基本信息", id: "1" },
+            { name: "商户详情", id: "2" },
+            { name: "修改详情", id: "3" },
+         ],
+         aCurrent: 0,
       }
    },
 
@@ -100,12 +99,14 @@ export default {
    watch: {
       'tranceferData': {
          handler() {
+            this.aCurrent = 0
             this.onLoadFormData();
          },
          deep: true,
       },
    },
    mounted() {
+      this.aCurrent = 0
       this.onLoadFormData();
       this.initData()
    },
@@ -125,21 +126,9 @@ export default {
       addCoordinate() {
          this.mapShow = true
       },
-      handleClick(tab, event) {
-         switch (tab.name) {
-            case "base":
-               this.tranceferDetail.pageType = "base";
-               this.onLoadFormData()
-               break;
-            case "details":
-               this.tranceferDetail.pageType = "details";
-               this.onLoadFormData()
-               break;
-            case "edit":
-               this.tranceferDetail.pageType = "edit";
-               this.onLoadFormData()
-               break;
-         }
+      OnTabChange(index) {
+         this.aCurrent = index
+         this.onLoadFormData()
       },
       onLoadFormData() {
          this.merchantBaseForm = {}
@@ -151,11 +140,11 @@ export default {
                let data = res.data.data;
                this.merchantBaseForm = data.merchant;
                if (data.shareMerchantDetails) {
-                  if (this.activeName == "base") {
+                  if (this.aCurrent == 0) {
                      this.merchantBaseForm = data.merchant;
-                  } else if (this.activeName == "details") {
+                  } else if (this.aCurrent == 1) {
                      this.merchantForm = data.shareMerchantDetails;
-                  } else if (this.activeName == "edit") {
+                  } else if (this.aCurrent == 2) {
                      this.merchantEditForm = data.shareMerchantDetails;
                   }
                   this.srcList.push(data.shareMerchantDetails.coverurl)
@@ -178,7 +167,7 @@ export default {
                type: "success",
                message: "保存成功!",
             });
-            this.activeName = "base"
+            this.OnTabChange(0)
             this.onLoadFormData()
             done();
          }, (error) => {
@@ -213,7 +202,7 @@ export default {
                type: "success",
                message: "保存成功!",
             });
-            this.activeName = "base"
+            this.OnTabChange(0)
             this.onLoadFormData()
             this.tranceferDetail.randomKey = randomLenNum(4, true)
             done();

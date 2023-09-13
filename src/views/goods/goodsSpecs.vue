@@ -2,21 +2,12 @@
     <basic-container>
         <avue-crud :option="option" :table-loading="loading" :data="data" ref="crud" v-model="form" :page.sync="page"
             :before-open="beforeOpen" :before-close="beforeClose" @row-del="rowDel" @row-update="rowUpdate"
-            @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset"
+            @row-save="rowSave" @search-change="searchChange" @search-reset="searchReset" @change="onChange"
             @selection-change="selectionChange" @current-change="currentChange" @size-change="sizeChange"
             @refresh-change="refreshChange">
             <template slot="status" slot-scope="scope">
                 <enable :data="scope.row.status"></enable>
             </template>
-            <!-- <template slot-scope="scope" slot="discountForm">
-               <unitsInput :value="form.discount" units="%"></unitsInput>
-            </template>
-            <template slot-scope="scope" slot="priceForm">
-               <unitsInput :value="form.price" units="元"></unitsInput>
-            </template>
-            <template slot-scope="scope" slot="stockForm">
-               <unitsInput :value="form.stock" units="个"></unitsInput>
-            </template> -->
             <template slot-scope="scope" slot="surl">
                 <el-image :src="scope.row.surl" class="list-images-box-1" :preview-src-list="srcList"></el-image>
             </template>
@@ -76,13 +67,17 @@ export default {
                 ids.push(ele.id);
             });
             return ids.join(",");
-        }
+        },
     },
     mounted() {
         this.cid = this.tranceferData.id
         this.onLoad(this.cid);
     },
     methods: {
+        onChange(data) {
+            let nowprice = data.discount / 100 * data.price
+            data.nowprice = nowprice.toFixed(2)
+        },
         handleAdd(row) {
             this.parentId = row.id;
             this.$refs.crud.rowAdd();
@@ -90,11 +85,12 @@ export default {
         onImgChange(data) {
             this.imgUrl = data
         },
+
         rowSave(row, done, loading) {
             row.cid = this.tranceferData.id
             row.surl = this.imgUrl
             // cid,name,price,discount,stock,surl
-            add(row.cid,row.name,row.price,row.discount,row.stock,row.surl).then((res) => {
+            add(row.cid, row.name, row.price, row.discount, row.stock, row.surl).then((res) => {
                 // 获取新增数据的相关字段
                 // const data = res.data.data;
                 this.$message({
@@ -112,7 +108,7 @@ export default {
         rowUpdate(row, index, done, loading) {
             // row.cid = this.tranceferData.id
             row.surl = this.imgUrl
-            update(row.sid,row.name,row.price,row.discount,row.stock,row.surl,row.status).then(() => {
+            update(row.sid, row.name, row.price, row.discount, row.stock, row.surl, row.status).then(() => {
                 this.$message({
                     type: "success",
                     message: "操作成功!"

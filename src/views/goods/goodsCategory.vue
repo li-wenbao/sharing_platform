@@ -60,7 +60,6 @@ export default {
             })
         },
         rowSave(row, done, loading) {
-            // console.log("🚀 ~ file: goodsCategory.vue:51 ~ rowSave ~ row:", row)
             add(row.miid, row.name, row.sort).then((res) => {
                 // 获取新增数据的相关字段
                 // const data = res.data.data;

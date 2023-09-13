@@ -33,10 +33,9 @@ export const mainOption = {
       ],
     },
     {
-      label: "价格",
+      label: "原价(元)",
       prop: "price",
-      dataType:"number",
-      append: '元',
+      type: "number",
       hide: true,
       rules: [
         {
@@ -47,12 +46,12 @@ export const mainOption = {
       ],
     },
     {
-      label: "折扣",
+      label: "折扣(%)",
       prop: "discount",
       hide: true,
-      dataType:"number",
-      value:'100',
-      append: '%',
+      type: "number",
+      min: 1,
+      max: 100,
       rules: [
         {
           required: true,
@@ -62,11 +61,26 @@ export const mainOption = {
       ],
     },
     {
-      label: "库存",
+      label: "现价(元)",
+      prop: "nowprice",
+      type: "number",
+      hide: true,
+      disabled: true,
+      rules: [
+        {
+          required: true,
+          message: "请输入价格",
+          trigger: "blur",
+        },
+      ],
+    },
+    {
+      label: "库存(件/个)",
       prop: "stock",
       hide: true,
-      dataType:"number",
-      append: '个',
+      labelWidth: 120,
+      type: "number",
+      append: "个",
       rules: [
         {
           required: true,
@@ -125,11 +139,11 @@ export const mainOption = {
       dicData: [
         {
           label: "正常",
-          value: '1',
+          value: "1",
         },
         {
           label: "禁用",
-          value: '2',
+          value: "2",
         },
       ],
       rules: [

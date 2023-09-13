@@ -1,25 +1,18 @@
 <template>
    <div class="p-2 pt-0" :key="tranceferDetail.randomKey">
       <div v-show="!showAdd">
-         <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="基本信息" name="first">
-               <div class="avueForm-content">
-                  <avue-form :option="viewOption" v-model="viewForm">
-                  </avue-form>
-               </div>
-            </el-tab-pane>
-            <el-tab-pane label="修改详情" name="edit">
-               <div class="avueForm-content">
-                  <avue-form :option="editOption" v-model="viewForm" @submit="handleRowEditSave">
-                  </avue-form>
-               </div>
-            </el-tab-pane>
-            <el-tab-pane label="轮播图" name="list">
-               <div class="avueForm-content">
-                  <recommendCarousel :tranceferData="tranceferDetail"></recommendCarousel>
-               </div>
-            </el-tab-pane>
-         </el-tabs>
+         <comTitle :data="tabData" :active="aCurrent" @onChange="OnTabChange"></comTitle>
+         <div v-if="aCurrent == 0" class="avueForm-content">
+            <avue-form :option="viewOption" v-model="viewForm">
+            </avue-form>
+         </div>
+         <div v-if="aCurrent == 1" class="avueForm-content">
+            <avue-form :option="editOption" v-model="viewForm" @submit="handleRowEditSave">
+            </avue-form>
+         </div>
+         <div v-if="aCurrent == 2" class="avueForm-content">
+            <recommendCarousel :tranceferData="tranceferDetail"></recommendCarousel>
+         </div>
       </div>
       <div v-show="showAdd">
          <div class="flex-all-center comWidth100 text-blue">新增详情</div>
@@ -55,6 +48,12 @@ export default {
          editForm: {},
          addOption: addOption,
          editForm2: {},
+         tabData: [
+            { name: "基本信息", id: "1" },
+            { name: "修改详情", id: "2" },
+            { name: "轮播图", id: "3" },
+         ],
+         aCurrent: 0,
       }
    },
    props: {
@@ -66,6 +65,7 @@ export default {
       tranceferData: {
          handler(newData) {
             this.rlid = newData.id
+            this.aCurrent = 0
             this.onLoadFormData();
          },
          deep: true,
@@ -73,24 +73,19 @@ export default {
    },
    mounted() {
       this.rlid = this.tranceferData.id
+      this.aCurrent = 0
       this.onLoadFormData();
    },
    methods: {
-      handleClick(tab, event) {
-         switch (tab.name) {
-            case "first":
-               this.tranceferDetail.pageType = "first";
-               this.tranceferDetail.randomKey = randomLenNum(4, true)
-               break;
-            case "edit":
-               this.tranceferDetail.pageType = "edit";
-               this.onLoadFormData()
-               break;
-            case "list":
-               this.tranceferDetail.pageType = "list";
-               this.tranceferDetail.id = this.rdid
-               this.tranceferDetail.randomKey = randomLenNum(4, true)
-               break;
+      OnTabChange(index) {
+         this.aCurrent = index
+         if (this.aCurrent == 0) {
+            this.tranceferDetail.randomKey = randomLenNum(4, true)
+         } else if (this.aCurrent == 1) {
+            this.onLoadFormData()
+         } else {
+            this.tranceferDetail.id = this.rdid
+            this.tranceferDetail.randomKey = randomLenNum(4, true)
          }
       },
       onLoadFormData() {
@@ -118,7 +113,7 @@ export default {
                type: "success",
                message: "保存成功!",
             });
-            this.activeName = "first"
+            this.OnTabChange(0)
             this.tranceferDetail.randomKey = randomLenNum(4, true)
             this.onLoadFormData()
             done();
@@ -135,7 +130,7 @@ export default {
                type: "success",
                message: "保存成功!",
             });
-            this.activeName = "first"
+            this.OnTabChange(0)
             this.showAdd = false
             this.onLoadFormData()
             done();

@@ -52,7 +52,14 @@
   box-sizing: border-box;
 }
 
-.initTinymce{
+.el-input.is-disabled .el-input__inner {
+  background-color: #ffffff !important;
+  border-color: #e4e7ed;
+  color: #606266;
+  cursor: not-allowed;
+}
+
+.initTinymce {
   min-height: 140px;
   max-height: 340px;
   overflow-y: auto;
@@ -60,21 +67,20 @@
   border: 1px solid #e8e8e8;
 }
 
-
 .fz-primary {
-  color:#409eff
+  color: #409eff;
 }
 .fz-success {
-  color:#67c23a
+  color: #67c23a;
 }
 .fz-info {
-  color:#909399
+  color: #909399;
 }
 .fz-warning {
-  color:#e6a23c
+  color: #e6a23c;
 }
 .fz-danger {
-  color:#f56c6c
+  color: #f56c6c;
 }
 /* 
 列表图片尺寸
@@ -231,6 +237,94 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.text-green,
+.line-green,
+.lines-green {
+  color: #39b54a;
+}
+
+.text-cyan,
+.line-cyan,
+.lines-cyan {
+  color: #1cbbb4;
+}
+
+.text-blue,
+.line-blue,
+.lines-blue {
+  color: #0081ff;
+}
+
+.text-purple,
+.line-purple,
+.lines-purple {
+  color: #6739b6;
+}
+
+.text-mauve,
+.line-mauve,
+.lines-mauve {
+  color: #9c26b0;
+}
+
+.text-pink,
+.line-pink,
+.lines-pink {
+  color: #e03997;
+}
+
+.text-brown,
+.line-brown,
+.lines-brown {
+  color: #a5673f;
+}
+
+.text-grey,
+.line-grey,
+.lines-grey {
+  color: #8799a3;
+}
+
+.text-gray,
+.line-gray,
+.lines-gray {
+  color: #aaaaaa;
+}
+
+.text-grays,
+.line-grays,
+.lines-grays {
+  color: #666666;
+}
+
+.text-black,
+.line-black,
+.lines-black {
+  color: #333333;
+}
+
+.text-white,
+.line-white,
+.lines-white {
+  color: #ffffff;
+}
+.baseHeights {
+  height: 36px;
+}
+.baseHeight {
+  height: 56px;
+}
+.baseHeightBig {
+  height: 130px;
+}
+.box-border {
+  border: 1px solid #efefef;
+}
+
+.box-border-quau {
+  border: 1px solid #00ffff;
 }
 
 /* // 大数据屏页面的 工具悬浮 */
@@ -668,7 +762,6 @@ border
 .pt-1 {
   padding-top: 10px;
 }
-
 
 .padding-0 {
   padding: 0;
