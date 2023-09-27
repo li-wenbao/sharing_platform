@@ -1,0 +1,17 @@
+export const tableOption = {
+  height: "auto",
+  calcHeight: 10,
+  dialogDrag: true,
+  editBtn: false,
+  tip: false,
+  simplePage: true,
+  searchShow: false,
+  searchMenuSpan: 4,
+  border: true,
+  index: true,
+  selection: true,
+  viewBtn: true,
+  menuWidth: 360,
+  dialogClickModal: false,
+  column: [],
+};

@@ -43,7 +43,7 @@ export default {
                 randomKey: randomLenNum(4, true),
             },
             form: {},
-            formName: "",    
+            formName: "",
             selectionList: [],
             srcList: [],
             query: {},
@@ -97,6 +97,7 @@ export default {
                         let data = res.data.data
                         changeId(data, "list", "children"); //格式化数据
                         let dad = getChidlren(data, 'open', true)
+                        console.log("Mr. L 🚀 ~ dad:", dad)
                         this.roleList = dad
                     }
                     this.loading = false;

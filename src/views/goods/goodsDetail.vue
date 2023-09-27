@@ -39,19 +39,19 @@
             <template slot-scope="scope" slot="intr">
                <div v-if="scope.disabled" class="initTinymce" v-html="goodsAddForm.intr"></div>
                <div v-else>
-                  <VueTinymce v-model="goodsAddForm.intr" :setting="setting" />
+                  <VueTinymce v-model="goodsAddForm.intr" />
                </div>
             </template>
             <template slot-scope="scope" slot="desc">
                <div v-if="scope.disabled" class="initTinymce" v-html="goodsAddForm.desc"></div>
                <div v-else>
-                  <VueTinymce v-model="goodsAddForm.desc" :setting="setting" />
+                  <VueTinymce v-model="goodsAddForm.desc" />
                </div>
             </template>
             <template slot-scope="scope" slot="terms">
                <div v-if="scope.disabled" class="initTinymce" v-html="goodsAddForm.terms"></div>
                <div v-else>
-                  <VueTinymce v-model="goodsAddForm.terms" :setting="setting" />
+                  <VueTinymce v-model="goodsAddForm.terms" />
                </div>
             </template>
          </avue-form>

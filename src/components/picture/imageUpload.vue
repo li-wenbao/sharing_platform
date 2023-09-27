@@ -1,7 +1,7 @@
 <template>
   <div class="file-upload-boxLine" element-loading-text="正在上传,请稍后..." v-loading="loading">
     <el-upload class="avue-upload" ref="showAdd" :action="option.actions" :limit="option.limit" :headers="headers"
-      :data="option.data" :multiple="option.multiple" drag  :list-type="option.listType" :file-list="fileList"
+      :data="option.data" :multiple="option.multiple" drag :list-type="option.listType" :file-list="fileList"
       :on-success="onSuccess" :before-upload="beforeUpload" :on-preview="handlePictureCardPreview"
       :on-remove="handleRemove" :on-error="onError" :on-exceed="onExceed">
       <i class="el-icon-plus"></i>
@@ -127,7 +127,7 @@ export default {
       this.appImg(data.purl)
     },
     onError(res) {
-      this.$message.success("上传失败");
+      this.$message.success(res);
     },
     appImg(data) {
       this.imgData.push(data)

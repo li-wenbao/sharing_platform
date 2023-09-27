@@ -56,7 +56,7 @@ export default {
                 language_url: "@/asset/tinymce/langs/zh_CN.js", // 这里需要单独处理
                 language: "zh_CN",
                 height: 400,
-                width: 1200,
+                // width: 1400,
                 plugins: this.plugins,
                 toolbar: this.toolbar,
                 branding: true,

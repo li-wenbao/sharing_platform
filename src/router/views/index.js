@@ -450,6 +450,24 @@ export default [
       },
     ],
   },
+  // 评论管理
+  {
+    path: "/comment/commentList",
+    name: "评论列表",
+    component: Layout,
+    redirect: "/comment/commentList/index",
+    children: [
+      {
+        path: "index",
+        name: "评论列表",
+        meta: {
+          i18n: "commentList",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/comment/commentList"),
+      },
+    ],
+  },
   {
     path: "/info",
     component: Layout,

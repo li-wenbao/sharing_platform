@@ -1,22 +1,22 @@
 /**
  * 全局配置文件
  */
-const path = require('path')
+const path = require("path");
 export default {
-  title: "共享wifi",
-  logo: '../../public/svg/favicon.svg',
-  key: 'saber',//配置主键,目前用于存储
-  indexTitle: '共享WIFI后台管理平台',
-  clientId: 'saber', // 客户端id
-  clientSecret: 'saber_secret', // 客户端密钥 
+  title: "共享WIFI",
+  logo: "../../public/svg/favicon.svg",
+  key: "community", //配置主键,目前用于存储
+  indexTitle: "共享WIFI管理平台",
+  clientId: "saber", // 客户端id
+  clientSecret: "saber_secret", // 客户端密钥
   tenantMode: true, // 是否开启租户模式
   tenantId: "000000", // 管理组租户编号
   captchaMode: true, // 是否开启验证码模式
   switchMode: false, // 是否开启部门切换模式
-  lockPage: '/lock',
+  lockPage: "/lock",
   tokenTime: 3000,
-  uid:'U1683250241398',
-  tokenHeader: 'Authorization',
+  uid: "U1683250241398",
+  tokenHeader: "Authorization",
   //http的status默认放行列表
   statusWhiteList: [],
   //配置首页不可关闭
@@ -27,20 +27,20 @@ export default {
     params: {},
     query: {},
     meta: {
-      i18n: 'dashboard'
+      i18n: "dashboard",
     },
     group: [],
-    close: false
+    close: false,
   },
   //配置菜单的属性
   menu: {
-    iconDefault: 'iconfont icon-caidan',
+    iconDefault: "iconfont icon-caidan",
     props: {
-      label: 'name',
-      path: 'url',
-      icon: 'icon',
-      children: 'children'
-    }
+      label: "name",
+      path: "url",
+      icon: "icon",
+      children: "children",
+    },
   },
 
   // // 第三方系统授权地址
@@ -51,4 +51,4 @@ export default {
   // ssoUrl: 'http://localhost:8100/oauth/authorize?client_id=saber&response_type=code&redirect_uri=',
   // // 单点登录回调地址(Saber服务的地址)
   // redirectUri: 'http://localhost:1888',
-}
+};
