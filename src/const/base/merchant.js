@@ -233,6 +233,13 @@ export const merchantOption = {
       slot: true,
     },
     {
+      label: "营业执照",
+      prop: "license",
+      span: 24,
+      formslot: true,
+      slot: true,
+    },
+    {
       label: "人均(元)",
       prop: "evaluate",
       dataType: 'number',
@@ -526,6 +533,13 @@ export const merchantEditOption = {
       slot: true,
     },
     {
+      label: "营业执照",
+      prop: "license",
+      span: 24,
+      formslot: true,
+      slot: true,
+    },
+    {
       label: "省市区",
       prop: "address",
       type: "cascader",
@@ -565,6 +579,7 @@ export const merchantEditOption = {
   ],
 };
 
+// 新增
 export const merchantAddOption = {
   height: "auto",
   calcHeight: 10,
@@ -601,6 +616,13 @@ export const merchantAddOption = {
     {
       label: "商户封面",
       prop: "coverurl",
+      span: 24,
+      formslot: true,
+      slot: true,
+    },
+    {
+      label: "营业执照",
+      prop: "license",
       span: 24,
       formslot: true,
       slot: true,

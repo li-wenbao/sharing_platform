@@ -29,11 +29,11 @@
         </avue-crud>
         <el-drawer :title="`提成明细`" :visible.sync="showDetail" direction="rtl" :append-to-body="true"
             :before-close="handleCloseDetail" size="60%">
-            <commissionList :tranceferData="tranceferDataForm"></commissionList>
+            <commissionList :tranceferData="tranceferDataForm" :kay='tranceferDataForm.randomKey'></commissionList>
         </el-drawer>
         <el-drawer :title="`分佣明细`" :visible.sync="showDividDetail" direction="rtl" :append-to-body="true"
             :before-close="handleCloseDetail" size="60%">
-            <comDivideList :tranceferData="tranceferDataForm"></comDivideList>
+            <comDivideList :tranceferData="tranceferDataForm" :kay='tranceferDataForm.randomKey'></comDivideList>
         </el-drawer>
     </basic-container>
 </template>
@@ -68,6 +68,7 @@ export default {
             option: mainOption,
             data: [],
             tranceferDataForm: {
+                id:"",
                 randomKey: randomLenNum(4, true),
             },
         };
@@ -91,13 +92,14 @@ export default {
             this.imgUrl = data
         },
         openDetail(row, index, type) {
-            this.tranceferDataForm.id = row.uid
+            this.tranceferDataForm.randomKey = randomLenNum(4, true)
             if (type == 1) {
                 this.showDetail = true
             } else {
                 this.showDividDetail = true
             }
-            this.tranceferDataForm.randomKey = randomLenNum(4, true)
+            this.tranceferDataForm.id = row.uid
+           
         },
         rowSave(row, done, loading) {
             row.iconurl = this.imgUrl

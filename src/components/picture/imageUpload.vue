@@ -1,6 +1,6 @@
 <template>
   <div
-    class="file-upload-boxLine"
+    class="file-upload-boxLine m-2"
     element-loading-text="正在上传,请稍后..."
     v-loading="loading"
   >
@@ -23,6 +23,9 @@
       :on-exceed="onExceed"
     >
       <i class="el-icon-plus"></i>
+      <div class="fc-red" v-if="!disabled" slot="tip">
+        只能上传jpg/png文件,且不超过1Mb
+      </div>
       <div slot="file" slot-scope="{ file }">
         <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
         <span class="el-upload-list__item-actions">
@@ -86,7 +89,7 @@ export default {
         listType: "picture-card",
         data: { file: "" },
         loadText: "文件上传中，请稍等",
-        tips: "",
+        tips: "上传图片大小不能超过 1MB!",
         span: 24,
         limit: 1,
         multiple: true,
@@ -184,4 +187,19 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+// .file-upload-boxLine .el-upload {
+  .el-upload-list--picture-card .el-upload-list__item {
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid #c0ccda;
+    border-radius: 6px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 148px;
+    height: 148px;
+    margin: 8px !important;
+    display: inline-block;
+  }
+// }
+</style>

@@ -57,7 +57,7 @@ export const getDetail = (miid) => {
 };
 
 // 修改商户详情
-export const updateMerchantDetails = (mdid,coverurl,address,location,coordinate) => {
+export const updateMerchantDetails = (mdid,coverurl,address,location,coordinate,license) => {
   return request({
     url: "/share/merchant/updateMerchantDetails",
     method: "post",
@@ -66,7 +66,8 @@ export const updateMerchantDetails = (mdid,coverurl,address,location,coordinate)
       coverurl,
       address,
       location,
-      coordinate
+      coordinate,
+      license,
     },
   });
 };

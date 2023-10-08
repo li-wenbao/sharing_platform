@@ -7,14 +7,13 @@
          </div>
          <div v-if="aCurrent == 1" class="avueForm-content">
             <avue-form :option="merchantOption" v-model="merchantForm">
-               <!-- <template slot-scope="scope" slot="coverurl">
-                  <div class="flex comWidth100 p-2 box-sizing">
-                     <el-image :src="merchantForm.coverurl" :list="merchantEditForm.coverurl" class="list-images-box-1"></el-image>
-                  </div>
-               </template> -->
                <template slot-scope="scope" slot="coverurl">
                   <imageUpload :disabled="scope.disabled" :list="merchantForm.coverurl" @on-change="onImgChange"
                      v-model="merchantForm.coverurl"></imageUpload>
+               </template>
+               <template slot-scope="scope" slot="license">
+                  <imageUpload :disabled="scope.disabled" :list="merchantForm.license" @on-change="onImgChange2"
+                     v-model="merchantForm.license"></imageUpload>
                </template>
             </avue-form>
          </div>
@@ -23,6 +22,10 @@
                <template slot-scope="scope" slot="coverurl">
                   <imageUpload :disabled="scope.disabled" :list="merchantEditForm.coverurl" @on-change="onImgChange"
                      v-model="merchantEditForm.coverurl"></imageUpload>
+               </template>
+               <template slot-scope="scope" slot="license">
+                  <imageUpload :disabled="scope.disabled" :list="merchantEditForm.license" @on-change="onImgChange2"
+                     v-model="merchantEditForm.license"></imageUpload>
                </template>
                <template slot-scope="scope" slot="coordinate">
                   <el-input disabled @click="mapShow = true" v-model="merchantEditForm.coordinate" placeholder="选择经纬度">
@@ -40,6 +43,10 @@
             <template slot-scope="scope" slot="coverurl">
                <imageUpload :disabled="scope.disabled" :list="merchantAddForm.coverurl" @on-change="onImgChange"
                   v-model="merchantAddForm.coverurl"></imageUpload>
+            </template>
+            <template slot-scope="scope" slot="license">
+               <imageUpload :disabled="scope.disabled" :list="merchantAddForm.license" @on-change="onImgChange2"
+                  v-model="merchantAddForm.license"></imageUpload>
             </template>
             <template slot-scope="scope" slot="coordinate">
                <el-input disabled v-model="merchantAddForm.coordinate" placeholder="选择经纬度">
@@ -71,6 +78,7 @@ export default {
          showAdd: false,
          mapShow: false,
          imgUrl: "",
+         imgUrl2:"",
          activeName: "base",
          tranceferDetail: {
             pageType: "",
@@ -127,6 +135,9 @@ export default {
       onImgChange(data) {
          this.imgUrl = data
       },
+      onImgChange2(data){
+         this.imgUrl2 = data
+      },
       addCoordinate() {
          this.mapShow = true
       },
@@ -164,9 +175,10 @@ export default {
       handleRowEditSave(item, done) {
          item.address = item.address
          item.miid = this.tranceferDetail.id
-         item.coverurl = this.imgUrl
-         item.coordinate = this.merchantAddForm.coordinate
-         updateMerchantDetails(item).then((res) => {
+         item.coverurl = this.imgUrl?this.imgUrl:item.coverurl
+         item.license = this.imgUrl2?this.imgUrl2:item.license
+         item.coordinate = this.merchantEditForm.coordinate
+         updateMerchantDetails(item.mdid,item.coverurl,item.address,item.location,item.coordinate,item.license).then((res) => {
             this.$message({
                type: "success",
                message: "保存成功!",
@@ -200,6 +212,7 @@ export default {
          item.address = item.address.join(',')
          item.miid = this.tranceferDetail.id
          item.coverurl = this.imgUrl
+         item.license = this.imgUrl2
          item.coordinate = this.merchantAddForm.coordinate
          saveMerchantDetails(item).then((res) => {
             this.$message({
