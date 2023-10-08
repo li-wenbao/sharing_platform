@@ -7,10 +7,14 @@
          </div>
          <div v-if="aCurrent == 1" class="avueForm-content">
             <avue-form :option="merchantOption" v-model="merchantForm">
-               <template slot-scope="scope" slot="coverurl">
+               <!-- <template slot-scope="scope" slot="coverurl">
                   <div class="flex comWidth100 p-2 box-sizing">
-                     <el-image :src="merchantForm.coverurl" class="list-images-box-1"></el-image>
+                     <el-image :src="merchantForm.coverurl" :list="merchantEditForm.coverurl" class="list-images-box-1"></el-image>
                   </div>
+               </template> -->
+               <template slot-scope="scope" slot="coverurl">
+                  <imageUpload :disabled="scope.disabled" :list="merchantForm.coverurl" @on-change="onImgChange"
+                     v-model="merchantForm.coverurl"></imageUpload>
                </template>
             </avue-form>
          </div>

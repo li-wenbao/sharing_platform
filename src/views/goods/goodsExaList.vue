@@ -1,4 +1,5 @@
 <template>
+  <!-- 审核列表 -->
   <basic-container>
     <avue-crud
       :option="option"
@@ -7,6 +8,7 @@
       ref="crud"
       v-model="form"
       :page.sync="page"
+      :permission="permissionList"
       :before-open="beforeOpen"
       :before-close="beforeClose"
       @row-del="rowDel"
@@ -36,7 +38,7 @@
         >
         </imageUpload>
       </template>
-      <template slot="status" slot-scope="scope">
+      <!-- <template slot="status" slot-scope="scope">
         <el-switch
           v-model="scope.row.status"
           @change="handleChangeStatus($event, scope.row, scope.$index)"
@@ -48,7 +50,7 @@
           inactive-text="禁用"
         >
         </el-switch>
-      </template>
+      </template> -->
       <template #menu="{ size, row, index }">
         <el-button
           type="button"
@@ -74,11 +76,14 @@
           <i class="iconfont iconicon_study"></i>
           规格
         </el-button>
-        <!-- <el-button type="button" class="el-button el-button--text el-button--small"
-                    @click.stop.native="toRelease(row, index)">
-                    <i class="iconfont iconicon_share"></i>
-                    发布
-                </el-button> -->
+        <el-button
+          type="button"
+          class="el-button el-button--text el-button--small"
+          @click.stop.native="toRelease(row, index)"
+        >
+          <i class="iconfont iconicon_share"></i>
+          发布
+        </el-button>
       </template>
     </avue-crud>
     <el-drawer
@@ -113,12 +118,18 @@
     </el-drawer>
   </basic-container>
 </template>
-  
+
 <script>
 import { randomLenNum } from "@/util/util";
-import { getList, update, add, release } from "@/api/goods/goodsList";
+import {
+  getList,
+  getExaList,
+  update,
+  add,
+  release,
+} from "@/api/goods/goodsList";
 import { getList as getListCtidType } from "@/api/goods/goodsCategory";
-import { mainOption } from "@/const/goods/goodsList";
+import { mainOption, mainExaOption } from "@/const/goods/goodsList";
 import goodsDetail from "./goodsDetail";
 import goodsCarousel from "./goodsCarousel";
 import goodsSpecs from "./goodsSpecs";
@@ -148,7 +159,7 @@ export default {
         currentPage: 1,
         total: 0,
       },
-      option: mainOption,
+      option: mainExaOption,
       data: [],
     };
   },
@@ -260,20 +271,24 @@ export default {
     },
     // 发布商品
     toRelease(row, index) {
-      release(row).then(
-        () => {
-          this.$message({
-            type: "success",
-            message: "操作成功!",
+      this.$confirm(`请确定要是否要发布?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          release(row).then(() => {
+            this.$message({
+              type: "success",
+              message: "操作成功!",
+            });
+            // 数据回调进行刷新
+            this.refreshChange();
           });
-          // 数据回调进行刷新
-          this.refreshChange();
-        },
-        (error) => {
-          window.console.log(error);
-          loading();
-        }
-      );
+        })
+        .catch(() => {
+          row.status = "3";
+        });
     },
     searchReset() {
       this.query = {};
@@ -314,7 +329,7 @@ export default {
     },
     onLoad(page, params = {}) {
       this.loading = true;
-      getList(
+      getExaList(
         page.currentPage,
         page.pageSize,
         Object.assign(params, this.query)
@@ -322,7 +337,6 @@ export default {
         if (res && res.data) {
           let data = res.data.data;
           if (data.returnList) {
-            data.returnList.sort((a, b) => Number(a.status) - Number(b.status)); //按启用禁用排序
             data.returnList.forEach((item, index) => {
               this.srcList.push(item.curl);
             });
@@ -337,6 +351,5 @@ export default {
   },
 };
 </script>
-  
+
 <style></style>
-  

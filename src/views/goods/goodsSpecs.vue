@@ -166,6 +166,7 @@ export default {
                 if (res && res.data) {
                     let data = res.data.data
                     if (data.specList) {
+                        data.specList.sort((a, b) => Number(a.status) - Number(b.status)); //按启用禁用排序
                         data.specList.forEach((item, index) => {
                             this.srcList.push(item.surl)
                         })

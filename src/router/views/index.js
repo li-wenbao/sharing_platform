@@ -129,6 +129,41 @@ export default [
   },
   // 商品管理
   {
+    path: "/goods/goodsAllList",
+    name: "商品总表",
+    component: Layout,
+    redirect: "/goods/goodsAllList/index",
+    children: [
+      {
+        path: "index",
+        name: "商品总表",
+        meta: {
+          i18n: "goodsAllList",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/goods/goodsAllList"),
+      },
+    ],
+  },
+  {
+    path: "/goods/goodsExaList",
+    name: "审核列表",
+    component: Layout,
+    redirect: "/goods/goodsExaList/index",
+    children: [
+      {
+        path: "index",
+        name: "审核列表",
+        meta: {
+          i18n: "goodsExaList",
+        },
+        component: () =>
+          import(/* webpackChunkName: "views" */ "@/views/goods/goodsExaList"),
+      },
+    ],
+  },
+
+  {
     path: "/goods/goodsList",
     name: "商品列表",
     component: Layout,

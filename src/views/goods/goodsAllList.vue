@@ -1,4 +1,5 @@
 <template>
+  <!-- 商品总表 -->
   <basic-container>
     <avue-crud
       :option="option"
@@ -7,6 +8,7 @@
       ref="crud"
       v-model="form"
       :page.sync="page"
+      :permission="permissionList"
       :before-open="beforeOpen"
       :before-close="beforeClose"
       @row-del="rowDel"
@@ -74,11 +76,24 @@
           <i class="iconfont iconicon_study"></i>
           规格
         </el-button>
-        <!-- <el-button type="button" class="el-button el-button--text el-button--small"
-                    @click.stop.native="toRelease(row, index)">
-                    <i class="iconfont iconicon_share"></i>
-                    发布
-                </el-button> -->
+        <el-button
+          v-show="row.status == '4'"
+          type="button"
+          class="el-button el-button--text el-button--small"
+          @click.stop.native="grounding(row, index, 1)"
+        >
+          <i class="iconfont iconicon_share"></i>
+          上架
+        </el-button>
+        <el-button
+          v-show="row.status == '1'"
+          type="button"
+          class="el-button el-button--text el-button--small"
+          @click.stop.native="grounding(row, index, 2)"
+        >
+          <i class="iconfont iconicon_share"></i>
+          下架
+        </el-button>
       </template>
     </avue-crud>
     <el-drawer
@@ -113,12 +128,18 @@
     </el-drawer>
   </basic-container>
 </template>
-  
+
 <script>
 import { randomLenNum } from "@/util/util";
-import { getList, update, add, release } from "@/api/goods/goodsList";
+import {
+  getAllList,
+  commodityUpDown,
+  update,
+  add,
+  release,
+} from "@/api/goods/goodsList";
 import { getList as getListCtidType } from "@/api/goods/goodsCategory";
-import { mainOption } from "@/const/goods/goodsList";
+import { mainOption, mainAllOption } from "@/const/goods/goodsList";
 import goodsDetail from "./goodsDetail";
 import goodsCarousel from "./goodsCarousel";
 import goodsSpecs from "./goodsSpecs";
@@ -148,7 +169,7 @@ export default {
         currentPage: 1,
         total: 0,
       },
-      option: mainOption,
+      option: mainAllOption,
       data: [],
     };
   },
@@ -258,22 +279,47 @@ export default {
         }
       );
     },
-    // 发布商品
-    toRelease(row, index) {
-      release(row).then(
-        () => {
-          this.$message({
-            type: "success",
-            message: "操作成功!",
+   
+    // 商品上架/下架
+    grounding(row, index, num) {
+      let title = "";
+      if (num == 1) {
+        title = "上架";
+      } else {
+        title = "下架";
+      }
+      this.$confirm(`请确定要是否要${title}?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          if (num == 1) {
+            row.status = "1";
+          } else {
+            row.status = "4";
+          }
+          commodityUpDown(row.cid, row.status).then(() => {
+            this.$message({
+              type: "success",
+              message: "操作成功!",
+            });
+            // 数据回调进行刷新
+            this.refreshChange();
           });
-          // 数据回调进行刷新
-          this.refreshChange();
-        },
-        (error) => {
-          window.console.log(error);
-          loading();
-        }
-      );
+          if (num == 1) {
+            row.status = "1";
+          } else {
+            row.status = "4";
+          }
+        })
+        .catch(() => {
+          if (num == 1) {
+            row.status = "1";
+          } else {
+            row.status = "4";
+          }
+        });
     },
     searchReset() {
       this.query = {};
@@ -314,7 +360,7 @@ export default {
     },
     onLoad(page, params = {}) {
       this.loading = true;
-      getList(
+      getAllList(
         page.currentPage,
         page.pageSize,
         Object.assign(params, this.query)
@@ -337,6 +383,5 @@ export default {
   },
 };
 </script>
-  
+
 <style></style>
-  

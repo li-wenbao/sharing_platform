@@ -20,6 +20,7 @@ export const mainOption = {
       label: "单号",
       prop: "oid",
       span: 24,
+      search: true,
       hide: true,
       rules: [
         {

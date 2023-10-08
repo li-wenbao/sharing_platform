@@ -193,6 +193,7 @@ export default {
                 if (res && res.data) {
                     let data = res.data.data
                     if (data.pictureList) {
+                        data.pictureList.sort((a, b) => Number(a.status) - Number(b.status)); //按启用禁用排序
                         data.pictureList.forEach((item, index) => {
                             this.srcList.push(item.purl)
                         })
