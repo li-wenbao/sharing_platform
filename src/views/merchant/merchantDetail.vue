@@ -5,7 +5,7 @@
          <div v-if="aCurrent == 0" class="avueForm-content">
             <avue-form :option="merchantBaseOption" v-model="merchantBaseForm"></avue-form>
          </div>
-         <div v-if="aCurrent == 1" class="avueForm-content">
+         <div v-if="aCurrent == 1" class="avueForm-content" :key="tranceferDetail.randomKey">
             <avue-form :option="merchantOption" v-model="merchantForm">
                <template slot-scope="scope" slot="coverurl">
                   <imageUpload :disabled="scope.disabled" :list="merchantForm.coverurl" @on-change="onImgChange"
@@ -17,7 +17,7 @@
                </template>
             </avue-form>
          </div>
-         <div v-if="aCurrent == 2" class="avueForm-content">
+         <div v-if="aCurrent == 2" class="avueForm-content" :key="tranceferDetail.randomKey">
             <avue-form :option="merchantAddOption" @submit="handleRowEditSave" v-model="merchantEditForm">
                <template slot-scope="scope" slot="coverurl">
                   <imageUpload :disabled="scope.disabled" :list="merchantEditForm.coverurl" @on-change="onImgChange"
@@ -78,14 +78,13 @@ export default {
          showAdd: false,
          mapShow: false,
          imgUrl: "",
-         imgUrl2:"",
+         imgUrl2: "",
          activeName: "base",
          tranceferDetail: {
             pageType: "",
             randomKey: randomLenNum(4, true),
          },
          coordinate: "",
-         srcList: [],
          merchantForm: {},
          merchantBaseForm: {},
          merchantEditForm: {},
@@ -109,7 +108,7 @@ export default {
       },
    },
    watch: {
-      'tranceferData': {
+      tranceferData: {
          handler() {
             this.aCurrent = 0
             this.onLoadFormData();
@@ -128,9 +127,6 @@ export default {
          address.dicData = option.city;
          const address2 = this.findObject(this.merchantEditOption.column, "address");
          address2.dicData = option.city;
-      },
-      tMapHandle(params) {
-         console.log(params)
       },
       onImgChange(data) {
          this.imgUrl = data
@@ -162,7 +158,6 @@ export default {
                   } else if (this.aCurrent == 2) {
                      this.merchantEditForm = data.shareMerchantDetails;
                   }
-                  this.srcList.push(data.shareMerchantDetails.coverurl)
                   this.showAdd = false
                } else {
                   this.showAdd = true
@@ -214,7 +209,7 @@ export default {
          item.coverurl = this.imgUrl
          item.license = this.imgUrl2
          item.coordinate = this.merchantAddForm.coordinate
-         saveMerchantDetails(item).then((res) => {
+         saveMerchantDetails(item.miid,item.coverurl,item.evaluate,item.address,item.location,item.coordinate,item.license).then((res) => {
             this.$message({
                type: "success",
                message: "保存成功!",

@@ -94,12 +94,13 @@ export const updateMerchantDetails = (mdid,coverurl,address,location,coordinate,
 };
 
 // 新增商户详情
-export const saveMerchantDetails = (params) => {
+export const saveMerchantDetails = (miid,coverurl,evaluate,address,location,coordinate,license) => {
   return request({
     url: "/share/merchant/saveMerchantDetails",
     method: "post",
     params: {
-      ...params
+      // ...params,
+      miid,coverurl,evaluate,address,location,coordinate,license
     },
   });
 };

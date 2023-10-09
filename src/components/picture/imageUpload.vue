@@ -68,10 +68,6 @@ export default {
     list: {
       type: Array,
     },
-    limit: {
-      type: Number,
-      default: 1,
-    },
   },
   data() {
     return {
@@ -102,29 +98,33 @@ export default {
   },
   computed: {},
   watch: {
-    // list
-    list: function () {
-      this.initData();
+    list: {
+      handler() {
+        this.initData();
+      },
+      deep: true,
     },
   },
   created() {},
   mounted() {
     this.headers[website.tokenHeader] = getToken();
-    // 查找到添加框对应的dom节点 设置显示隐藏 .el-upload--picture-card
-    this.$refs.showAdd.$children[1].$el.style.display = this.display;
     this.initData();
+    this.$refs.showAdd.$children[1].$el.style.display = this.display;
   },
+
   methods: {
     initData() {
-      this.fileList = [];
-      if (this.list) {
-        let list = this.list.split(",");
-        list.forEach((item, index) => {
-          this.fileList.push({
-            url: item,
+      this.$nextTick(() => {
+        this.fileList = [];
+        if (this.list) {
+          let list = this.list.split(",");
+          list.forEach((item, index) => {
+            this.fileList.push({
+              url: item,
+            });
           });
-        });
-      }
+        }
+      });
     },
     handleRemove(file, fileList) {
       this.delData(file.uid);
@@ -160,7 +160,7 @@ export default {
       this.dialogVisible = true;
     },
     onExceed(res) {
-      this.$message.success("最多只能上传" + this.limit + "张图片");
+      this.$message.error("最多只能上传" + this.option.limit + "张图片");
     },
     //上传成功
     onSuccess(res) {
@@ -168,7 +168,7 @@ export default {
       this.appImg(data.purl);
     },
     onError(res) {
-      this.$message.success(res);
+      this.$message.error(res);
     },
     appImg(data) {
       this.imgData.push(data);
@@ -178,9 +178,6 @@ export default {
       });
       const length = this.imgData.length;
       const lastValue = this.imgData[length - 1];
-      // let dataValue = this.imgData.join(',')
-      // console.log("Mr. L 🚀 ~ dataValue:", dataValue)
-
       this.$emit("on-change", lastValue);
     },
   },
@@ -189,17 +186,17 @@ export default {
 
 <style lang="scss" scoped>
 // .file-upload-boxLine .el-upload {
-  .el-upload-list--picture-card .el-upload-list__item {
-    overflow: hidden;
-    background-color: #fff;
-    border: 1px solid #c0ccda;
-    border-radius: 6px;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 148px;
-    height: 148px;
-    margin: 8px !important;
-    display: inline-block;
-  }
+.el-upload-list--picture-card .el-upload-list__item {
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid #c0ccda;
+  border-radius: 6px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 148px;
+  height: 148px;
+  margin: 8px !important;
+  display: inline-block;
+}
 // }
 </style>
